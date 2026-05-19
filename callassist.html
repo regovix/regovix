@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CallAssist — White-Label AI Call Assist · Regovix</title>
+<meta name="description" content="CallAssist is a white-label AI-powered call assist platform. Live transcription, real-time recommendations — fully customised for your industry, products, and team.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#0d0f14;--surface:#13161e;--surface2:#1a1e29;--surface3:#212636;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--text:#ffffff;--text2:#ffffff;--text3:#ffffff;--gold:#c9a84c;--gold-dim:rgba(201,168,76,0.12);--teal:#2dd4b8;--teal-dim:rgba(45,212,184,0.1);--red:#f87171;--red-dim:rgba(248,113,113,0.1);--blue:#60a5fa;--blue-dim:rgba(96,165,250,0.1);--amber:#fbbf24;--amber-dim:rgba(251,191,36,0.1);--display:'Fraunces',serif;--body:'DM Sans',sans-serif}
+  body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh;font-size:13px;line-height:1.5}
+  .topbar{padding:12px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface)}
+  .back-link{font-size:12px;color:var(--text3);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}.back-link:hover{color:var(--teal)}
+  .topbar-brand{font-family:var(--display);font-size:14px;font-weight:300;color:var(--text2)}.topbar-brand em{color:var(--gold);font-style:italic}
+  .hero{padding:36px 32px 24px;border-bottom:1px solid var(--border);background:linear-gradient(160deg,#0d1520 0%,#0d0f14 60%)}
+  .hero-eyebrow{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .eyebrow-line{flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);max-width:60px}
+  .hero-title{font-family:var(--display);font-size:26px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:8px}.hero-title em{font-style:italic;color:var(--gold)}
+  .hero-sub{font-size:13px;color:var(--text2);line-height:1.65;max-width:620px;margin-bottom:16px}
+  .hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .hero-pill{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border2);color:var(--text3)}.hero-pill strong{color:var(--teal);font-weight:500}
+  .usage-bar{background:var(--surface2);border-bottom:1px solid var(--border);padding:8px 32px;display:flex;align-items:center;gap:12px}
+  .usage-label{font-size:11px;color:var(--text3)}
+  .usage-dots{display:flex;gap:5px}
+  .usage-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);transition:all .3s}.usage-dot.used{background:var(--surface3);border:1px solid var(--border2)}
+  .usage-note{font-size:11px;color:var(--text3);margin-left:auto}
+  .chips-bar{padding:10px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--surface)}
+  .chips-label{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-right:4px;white-space:nowrap}
+  .ind-chip{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid var(--border2);color:var(--text2);cursor:pointer;transition:all 0.15s;background:transparent;white-space:nowrap}.ind-chip:hover{border-color:var(--gold);color:var(--gold)}.ind-chip.active{border-color:var(--gold);color:var(--bg);background:var(--gold)}
+  .demo{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:430px;border-bottom:1px solid var(--border)}
+  .demo-panel{display:flex;flex-direction:column;border-right:1px solid var(--border)}.demo-panel:last-child{border-right:none}
+  .demo-header{padding:10px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface)}
+  .demo-title{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3)}
+  .demo-body{flex:1;padding:16px 20px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--surface3) transparent}
+  .scenario-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+  .scenario-pill{font-size:11px;padding:4px 10px;border-radius:4px;border:1px solid var(--border2);color:var(--text2);cursor:pointer;transition:all 0.12s;background:var(--surface2)}.scenario-pill:hover{border-color:var(--teal);color:var(--teal)}
+  .transcript-input{width:100%;min-height:160px;font-family:var(--body);font-size:13px;line-height:1.8;color:var(--text);background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px;resize:none;outline:none;transition:border-color 0.15s}.transcript-input:focus{border-color:var(--teal)}.transcript-input::placeholder{color:var(--text3)}.transcript-input:disabled{opacity:0.4;cursor:not-allowed}
+  .input-meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+  .word-ct{font-size:11px;color:var(--text3)}
+  .analyse-btn{font-family:var(--body);font-size:12px;font-weight:500;padding:7px 18px;border-radius:4px;border:none;background:var(--gold);color:#0d0f14;cursor:pointer;transition:opacity 0.12s}.analyse-btn:hover{opacity:0.88}.analyse-btn:disabled{opacity:0.35;cursor:not-allowed}
+  .rec-card{border-left:2px solid;border-radius:4px;padding:10px 12px;margin-bottom:8px;animation:fadeUp 0.2s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  .rec-card.urgent{border-color:var(--red);background:var(--red-dim)}.rec-card.warning{border-color:var(--amber);background:var(--amber-dim)}.rec-card.info{border-color:var(--blue);background:var(--blue-dim)}.rec-card.question{border-color:#a78bfa;background:rgba(167,139,250,0.1)}.rec-card.escalate{border-color:var(--red);background:var(--red-dim)}.rec-card.resolved{border-color:var(--teal);background:var(--teal-dim)}
+  .rec-type{font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px}
+  .rec-card.urgent .rec-type,.rec-card.escalate .rec-type{color:var(--red)}.rec-card.warning .rec-type{color:var(--amber)}.rec-card.info .rec-type{color:var(--blue)}.rec-card.question .rec-type{color:#a78bfa}.rec-card.resolved .rec-type{color:var(--teal)}
+  .rec-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px;line-height:1.3}.rec-body{font-size:11px;color:var(--text2);line-height:1.55}
+  .thinking{display:flex;align-items:center;gap:8px;padding:14px 4px;color:var(--text3);font-size:12px}
+  .dots span{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--text3);margin:0 2px;animation:bounce 1.1s infinite}.dots span:nth-child(2){animation-delay:0.15s}.dots span:nth-child(3){animation-delay:0.3s}
+  @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+  .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:180px;gap:10px;color:var(--text3);text-align:center;padding:20px}
+  .empty-icon{font-size:22px;opacity:0.4}.empty-state p{font-size:12px;line-height:1.6;max-width:200px}
+  .checklist{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:10px 12px;margin-bottom:8px}
+  .checklist-title{font-size:10px;font-weight:500;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:7px}
+  .check-item{display:flex;align-items:flex-start;gap:7px;padding:3px 0;border-bottom:1px solid var(--border);cursor:pointer}.check-item:last-child{border-bottom:none}
+  .check-box{width:13px;height:13px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--teal);background:var(--surface)}.check-item.done .check-box{background:var(--teal-dim);border-color:var(--teal)}.check-item.done .check-text{color:var(--text3);text-decoration:line-through}
+  .check-text{font-size:11px;color:var(--text2);line-height:1.5}
+  /* Gate */
+  .gate{display:none;position:fixed;inset:0;background:rgba(13,15,20,0.93);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(8px)}.gate.show{display:flex}
+  .gate-card{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:36px 40px;max-width:460px;width:92%;text-align:center}
+  .gate-icon{font-size:38px;margin-bottom:16px}
+  .gate-title{font-family:var(--display);font-size:22px;font-weight:300;color:var(--text);margin-bottom:8px;line-height:1.3}.gate-title em{font-style:italic;color:var(--gold)}
+  .gate-sub{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:22px}
+  .gate-pricing{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:22px;text-align:left}
+  .gate-pricing-title{font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+  .gate-pricing-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)}.gate-pricing-row:last-child{border-bottom:none}
+  .gate-pricing-label{color:var(--text2)}.gate-pricing-val{color:var(--teal);font-weight:500}
+  .gate-btns{display:flex;flex-direction:column;gap:8px}
+  .gate-btn-primary{font-family:var(--body);font-size:13px;font-weight:500;padding:13px 20px;border-radius:6px;border:none;background:var(--gold);color:#0d0f14;cursor:pointer;text-decoration:none;display:block;transition:opacity .15s}.gate-btn-primary:hover{opacity:.88}
+  .gate-btn-outline{font-family:var(--body);font-size:12px;padding:10px 20px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;text-decoration:none;display:block;transition:all .15s}.gate-btn-outline:hover{border-color:var(--teal);color:var(--teal)}
+  .gate-note{font-size:11px;color:var(--text3);margin-top:12px}
+  .how-strip{background:var(--surface);border-top:1px solid var(--border);padding:24px 32px}
+  .how-title{font-size:11px;font-weight:500;color:var(--text3);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:14px}
+  .how-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+  .how-item{display:flex;gap:10px;align-items:flex-start}
+  .how-num{width:22px;height:22px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--gold);flex-shrink:0;margin-top:1px}
+  .how-text{font-size:12px;color:var(--text2);line-height:1.5}.how-text strong{color:var(--text);display:block;margin-bottom:2px;font-size:12px}
+  .cta-footer{background:linear-gradient(160deg,#0d1520 0%,#0d0f14 60%);border-top:1px solid var(--border);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .cta-title{font-family:var(--display);font-size:18px;font-weight:300;color:var(--text);margin-bottom:4px}.cta-title em{font-style:italic;color:var(--gold)}
+  .cta-sub{font-size:12px;color:var(--text2)}
+  .cta-btns{display:flex;gap:8px;flex-wrap:wrap}
+  .cta-btn{font-family:var(--body);font-size:12px;font-weight:500;padding:9px 20px;border-radius:4px;cursor:pointer;transition:all 0.12s;text-decoration:none;display:inline-block;white-space:nowrap}
+  .cta-btn-primary{background:var(--gold);color:#0d0f14;border:none}.cta-btn-primary:hover{opacity:.88}
+  .cta-btn-outline{background:transparent;color:var(--text2);border:1px solid var(--border2)}.cta-btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+  .status-chip{font-size:10px;padding:2px 8px;border-radius:3px;border:1px solid;letter-spacing:0.03em}
+  .status-chip.idle{border-color:var(--border2);color:var(--text3)}.status-chip.live{border-color:var(--teal);color:var(--teal);background:var(--teal-dim)}.status-chip.error{border-color:var(--red);color:var(--red);background:var(--red-dim)}
+  ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:10px}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title">You've seen what <em>CallAssist</em> can do.</div>
+    <div class="gate-sub">This demo is limited to 5 analyses so you can experience the product — not use it as a free tool. To get CallAssist deployed and branded for your business, get in touch.</div>
+    <div class="gate-pricing">
+      <div class="gate-pricing-title">White-label deployment pricing</div>
+      <div class="gate-pricing-row"><span class="gate-pricing-label">Setup fee (one-off)</span><span class="gate-pricing-val">From $1,500 AUD</span></div>
+      <div class="gate-pricing-row"><span class="gate-pricing-label">Starter · 3 users · system prompt KB</span><span class="gate-pricing-val">$299 / month</span></div>
+      <div class="gate-pricing-row"><span class="gate-pricing-label">Professional · unlimited users · vector KB</span><span class="gate-pricing-val">$599 / month</span></div>
+      <div class="gate-pricing-row"><span class="gate-pricing-label">Managed · multi-branch · priority support</span><span class="gate-pricing-val">Custom pricing</span></div>
+    </div>
+    <div class="gate-btns">
+      <a href="#callassist-enquiry" class="gate-btn-primary">Enquire about white-label deployment →</a>
+      <a href="/" class="gate-btn-outline">← Back to Regovix</a>
+    </div>
+    <div class="gate-note">Typically deployed within 2–5 business days · Setup call included · No IT department required</div>
+  </div>
+</div>
+
+<div class="topbar">
+  <a href="/" class="back-link">← Back to Regovix</a>
+  <div class="topbar-brand"><em>CallAssist</em> — White-Label AI Call Assist</div>
+  <div style="font-size:11px;color:var(--text3)">by Regovix</div>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow"><div class="eyebrow-line"></div>Regovix AI Products · White-Label Platform<div class="eyebrow-line"></div></div>
+  <div class="hero-title">CallAssist — <em>live AI guidance</em> for every operator call</div>
+  <div class="hero-sub">Your customer service team answers complex calls without always knowing the answer. CallAssist listens, thinks, and surfaces the right guidance in real time — customised for your products, your procedures, and your escalation rules. Delivered as your own branded tool.</div>
+  <div class="hero-pills">
+    <span class="hero-pill"><strong>Live transcription</strong> — both sides of the call</span>
+    <span class="hero-pill"><strong>AI reasoning</strong> — industry-specific knowledge</span>
+    <span class="hero-pill"><strong>Your branding</strong> — white-label delivery</span>
+    <span class="hero-pill"><strong>No IT required</strong> — opens in Chrome</span>
+  </div>
+</div>
+
+<div class="usage-bar">
+  <span class="usage-label">Demo analyses remaining</span>
+  <div class="usage-dots" id="usageDots"></div>
+  <span class="usage-note" id="usageNote">Try a sample scenario · 5 free analyses included</span>
+</div>
+
+<div class="chips-bar">
+  <span class="chips-label">Industry</span>
+  <button class="ind-chip active" onclick="setIndustry(this,'construction')">Construction tech</button>
+  <button class="ind-chip" onclick="setIndustry(this,'waste')">Hazardous waste</button>
+  <button class="ind-chip" onclick="setIndustry(this,'hire')">Equipment hire</button>
+  <button class="ind-chip" onclick="setIndustry(this,'mining')">Mining services</button>
+  <button class="ind-chip" onclick="setIndustry(this,'hseq')">HSEQ / compliance</button>
+</div>
+
+
+<!-- ── Demo Video Section ────────────────────────────────────── -->
+<div style="background:#0d0f14;padding:48px 24px 0;text-align:center;">
+  <div style="max-width:960px;margin:0 auto;">
+
+    <!-- Section label -->
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;">
+      <div style="width:40px;height:1px;background:rgba(11,191,160,.4)"></div>
+      <span style="font-size:.72rem;font-weight:700;color:#0BBFA0;letter-spacing:.1em;text-transform:uppercase;">Live Demonstration</span>
+      <div style="width:40px;height:1px;background:rgba(11,191,160,.4)"></div>
+    </div>
+
+    <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:300;color:#fff;margin-bottom:10px;letter-spacing:-0.02em;">
+      See CallAssist handle a real HSEQ call
+    </h2>
+    <p style="font-size:.9rem;color:rgba(255,255,255,.6);margin-bottom:28px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.7;">
+      A caller asks about sodium hydroxide disposal under NSW dangerous goods regulations. 
+      Watch how CallAssist generates instant, structured guidance in real time.
+    </p>
+
+    <!-- Video player — YouTube embed (no file hosting needed) -->
+    <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(11,191,160,.2);box-shadow:0 24px 80px rgba(0,0,0,.5);max-width:880px;margin:0 auto 48px;">
+      <!-- 16:9 responsive wrapper -->
+      <div style="position:relative;padding:56.25% 0 0 0;background:#0d0f14;">
+        <iframe
+          id="callassist-video"
+          src="https://www.youtube.com/embed/p9qPZ0flusU?rel=0&modestbranding=1&color=white"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:14px;"
+          title="CallAssist by Regovix — AI Call Assistant Live Demo">
+        </iframe>
+      </div>
+      <div style="padding:10px 16px;background:rgba(11,191,160,.06);border-top:1px solid rgba(11,191,160,.15);display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:.75rem;color:rgba(11,191,160,.8);font-weight:600;">▶ CallAssist Live Demo — 2 min 17 sec</span>
+        <span style="font-size:.72rem;color:rgba(255,255,255,.4);">Powered by Claude AI · Regovix</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="demo">
+  <div class="demo-panel">
+    <div class="demo-header">
+      <span class="demo-title">Call transcript</span>
+      <span class="status-chip idle" id="statusChip">Ready</span>
+    </div>
+    <div class="demo-body">
+      <div class="scenario-row" id="scenarioRow"></div>
+      <textarea class="transcript-input" id="transcriptInput" placeholder="Paste or type a call transcript — or click a sample scenario above..."></textarea>
+      <div class="input-meta">
+        <span class="word-ct" id="wordCt">0 words</span>
+        <button class="analyse-btn" id="analyseBtn" onclick="analyseDemo()">Analyse call →</button>
+      </div>
+    </div>
+  </div>
+  <div class="demo-panel">
+    <div class="demo-header">
+      <span class="demo-title">AI recommendations</span>
+      <span class="status-chip idle" id="recStatus">Waiting</span>
+    </div>
+    <div class="demo-body">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">🧠</div>
+        <p>Paste a transcript on the left and click Analyse.</p>
+      </div>
+      <div id="checklistWrap" style="display:none" class="checklist">
+        <div class="checklist-title">Info to collect before ending call</div>
+        <div id="checklistItems"></div>
+      </div>
+      <div id="recCards"></div>
+    </div>
+  </div>
+</div>
+
+<div class="how-strip">
+  <div class="how-title">How white-label deployment works</div>
+  <div class="how-grid">
+    <div class="how-item"><div class="how-num">1</div><div class="how-text"><strong>You enquire</strong>We discuss your industry, products, call types, and escalation rules in a 30-min call.</div></div>
+    <div class="how-item"><div class="how-num">2</div><div class="how-text"><strong>We configure</strong>Your branding, product knowledge, trigger words, and contacts — built in 2–5 days.</div></div>
+    <div class="how-item"><div class="how-num">3</div><div class="how-text"><strong>You receive one file</strong>A single branded HTML file. Open in Chrome. No installation, no IT dept, no server.</div></div>
+    <div class="how-item"><div class="how-num">4</div><div class="how-text"><strong>We maintain it</strong>Monthly updates as your products and procedures evolve. Included in subscription.</div></div>
+  </div>
+</div>
+
+<div class="cta-footer">
+  <div>
+    <div class="cta-title">Ready to deploy <em>CallAssist</em> for your team?</div>
+    <div class="cta-sub">Setup from $1,500 · Subscription from $299/mo · Deployed in 2–5 days</div>
+  </div>
+  <div class="cta-btns">
+    <a href="#callassist-enquiry" class="cta-btn cta-btn-primary">Enquire about deployment →</a>
+    <a href="/" class="cta-btn cta-btn-outline">← Back to Regovix</a>
+  </div>
+</div>
+
+<script>
+const API_KEY='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';
+const MAX=5;
+const INDUSTRIES={construction:{label:'Construction tech',scenarios:[{label:'Earthworks display blank',text:"Hi there, calling about our Trimble Earthworks on our dozer. Display came on this morning then went completely blank. Machine was fine yesterday, we're on a tight deadline on site."},{label:'GCS900 sensor error',text:"G'day, GCS900 on our excavator showing sensor error on the CB460. Error code E47. Firmware was updated last week by someone on site, not sure if that's related."},{label:'GNSS RTK dropout',text:"Hello, our R780 keeps dropping RTK fix. Base station is running, we can see it in software but only getting float not fixed. Started after we moved the base this morning."}],prompt:`You are an AI assistant for a Trimble construction technology dealer. Help CS operators triage technical support calls about Trimble machine control, GNSS, and software. Products: Trimble Earthworks, GCS900, Siteworks, WorksManager, R580/R780, TSC5/TSC7, TBC. Escalate when machine is down on site or hardware fault suspected. Return ONLY valid JSON: {"checklist":[...],"cards":[{"type":"...","title":"...","body":"..."}]}`},waste:{label:'Hazardous waste',scenarios:[{label:'Contaminated solvent',text:"Hi, need a collection. About 200L spent acetone — think there might be heavy metal contamination from our dip coating process. Not sure if that changes anything."},{label:'Mixed paint waste',text:"Hi, we're a car workshop with old paint tins, thinners, and aerosol cans. Some full, some half. Not sure what to do — can you collect?"},{label:'Drum rupture',text:"We've had a drum rupture — hydraulic oil, maybe 200L on the ground. We've got some bunding but it's close to a stormwater drain. What do we do?"}],prompt:`You are an AI assistant for a licensed hazardous waste company in NSW, Australia. Help CS operators classify waste, identify regulatory requirements, and determine safe disposal pathways. Apply ADG Code, NSW EPA scheduled waste codes, WHS Act. Escalate when: scheduled waste suspected, classification uncertain, or emergency. Return ONLY valid JSON: {"checklist":[...],"cards":[{"type":"...","title":"...","body":"..."}]}`},hire:{label:'Equipment hire',scenarios:[{label:'Scissor lift breakdown',text:"Hey, the scissor lift we hired yesterday stopped working. Platform won't go up, fault light is on. Workers are waiting on site — this is urgent."},{label:'EWP hire enquiry',text:"Hi, looking to hire an elevated work platform for 3 weeks. Need about 12 metres, uneven construction site, outdoor use. What do you have?"},{label:'Damage dispute',text:"I got a damage charge on my invoice but we didn't damage it. The scratch was already there when we picked up. I want to dispute this."}],prompt:`You are an AI assistant for an equipment hire company. Handle hire enquiries, breakdowns, returns, and disputes. Triage breakdowns for urgency. Return ONLY valid JSON: {"checklist":[...],"cards":[{"type":"...","title":"...","body":"..."}]}`},mining:{label:'Mining services',scenarios:[{label:'Underground drill fault',text:"G'day, drill rig throwing a hydraulic pressure fault. Pressure drops below spec after 20 minutes. We're underground, production is stopped."},{label:'Parts enquiry',text:"Hi, need a seal kit for a Sandvik DD321 boom — feed cylinder. How long and what's the price?"},{label:'MSDS compliance query',text:"New client asking about our MSDS records for all chemicals on their site. What format and how current do they need to be?"}],prompt:`You are an AI assistant for a mining equipment and services company. Triage equipment faults, handle parts enquiries and compliance questions. Escalate when underground production is stopped. Return ONLY valid JSON: {"checklist":[...],"cards":[{"type":"...","title":"...","body":"..."}]}`},hseq:{label:'HSEQ / compliance',scenarios:[{label:'Near miss reporting',text:"Hi, we had a near miss yesterday — worker slipped near chemical storage. Nothing serious but we need to report it. What forms under the WHS Act?"},{label:'DG storage licence',text:"We store about 500L of flammable liquids in our warehouse. Someone mentioned we need a dangerous goods licence. Is that true and how in NSW?"},{label:'SafeWork audit prep',text:"We've got a SafeWork NSW inspector in 2 weeks. First time. What will they look at and what documents should we have ready?"}],prompt:`You are an AI assistant for an HSEQ consulting firm in NSW, Australia. Answer WHS Act 2011 (NSW), ADG Code, EPA, SafeWork NSW compliance questions. Flag when professional consultation is required. Return ONLY valid JSON: {"checklist":[...],"cards":[{"type":"...","title":"...","body":"..."}]}`}};
+let currentIndustry='construction',isAnalysing=false;
+function getUsed(){return parseInt(sessionStorage.getItem('ca_used')||'0')}
+function addUsed(){const n=getUsed()+1;sessionStorage.setItem('ca_used',n);return n}
+function renderDots(){
+  const used=getUsed(),rem=Math.max(0,MAX-used);
+  const dots=document.getElementById('usageDots'),note=document.getElementById('usageNote');
+  dots.innerHTML='';
+  for(let i=0;i<MAX;i++){const d=document.createElement('div');d.className='usage-dot'+(i<used?' used':'');dots.appendChild(d)}
+  if(rem===0){note.textContent='Demo limit reached — enquire to deploy for your team';note.style.color='var(--gold)';document.getElementById('analyseBtn').disabled=true;document.getElementById('transcriptInput').disabled=true;showGate()}
+  else{note.textContent=`${rem} of ${MAX} demo analyses remaining`}
+}
+function showGate(){document.getElementById('gate').classList.add('show')}
+function setIndustry(el,ind){document.querySelectorAll('.ind-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');currentIndustry=ind;renderScenarios();clearRecs();document.getElementById('transcriptInput').value='';updateWordCount()}
+function renderScenarios(){const row=document.getElementById('scenarioRow');row.innerHTML=(INDUSTRIES[currentIndustry]?.scenarios||[]).map(s=>`<button class="scenario-pill" onclick="loadScenario(${JSON.stringify(s.text)})">${s.label}</button>`).join('')}
+function loadScenario(text){if(getUsed()>=MAX){showGate();return}document.getElementById('transcriptInput').value=text;updateWordCount()}
+document.getElementById('transcriptInput').addEventListener('input',updateWordCount);
+function updateWordCount(){const n=document.getElementById('transcriptInput').value.trim().split(/\s+/).filter(Boolean).length;document.getElementById('wordCt').textContent=`${n} word${n!==1?'s':''}`}
+async function analyseDemo(){
+  if(getUsed()>=MAX){showGate();return}
+  const transcript=document.getElementById('transcriptInput').value.trim();
+  if(!transcript||isAnalysing)return;
+  isAnalysing=true;
+  const count=addUsed();renderDots();
+  const btn=document.getElementById('analyseBtn');
+  btn.disabled=true;btn.textContent='Analysing...';
+  document.getElementById('statusChip').textContent='Analysing';document.getElementById('statusChip').className='status-chip live';
+  document.getElementById('recStatus').textContent='Analysing...';document.getElementById('recStatus').className='status-chip live';
+  document.getElementById('emptyState').style.display='none';
+  document.getElementById('recCards').innerHTML=`<div class="thinking"><div class="dots"><span></span><span></span><span></span></div>Reading transcript...</div>`;
+  const ind=INDUSTRIES[currentIndustry];
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1200,system:ind.prompt,messages:[{role:'user',content:`Industry: ${ind.label}\n\nTranscript:\n---\n${transcript}\n---\nReturn ONLY valid JSON with checklist and cards arrays.`}]})});
+    if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${resp.status}`)}
+    const data=await resp.json();
+    const raw=(data.content?.[0]?.text||'{}').replace(/```json|```/g,'').trim();
+    let parsed;try{parsed=JSON.parse(raw)}catch{parsed={checklist:[],cards:[{type:'warning',title:'Parse error',body:raw.slice(0,200)}]}}
+    renderChecklist(parsed.checklist||[]);renderCards(parsed.cards||[]);
+    document.getElementById('recStatus').textContent=`Updated · ${MAX-count} left`;document.getElementById('recStatus').className='status-chip live';
+    document.getElementById('statusChip').textContent='Done';document.getElementById('statusChip').className='status-chip idle';
+    if(count>=MAX)setTimeout(showGate,2500);
+  }catch(err){
+    document.getElementById('recCards').innerHTML=`<div class="rec-card urgent"><div class="rec-type">error</div><div class="rec-body">${esc(err.message)}</div></div>`;
+    document.getElementById('statusChip').className='status-chip error';document.getElementById('statusChip').textContent='Error';
+  }
+  btn.disabled=getUsed()>=MAX;btn.textContent=getUsed()>=MAX?'Demo limit reached':'Analyse call →';
+  isAnalysing=false;
+}
+function renderChecklist(items){
+  const wrap=document.getElementById('checklistWrap'),container=document.getElementById('checklistItems');
+  if(!items.length){wrap.style.display='none';return}
+  wrap.style.display='block';
+  container.innerHTML=items.map(item=>`<div class="check-item" onclick="this.classList.toggle('done');this.querySelector('.check-box').textContent=this.classList.contains('done')?'✓':''"><div class="check-box"></div><div class="check-text">${esc(item)}</div></div>`).join('')
+}
+function renderCards(cards){
+  const rc=document.getElementById('recCards');rc.innerHTML='';
+  const order={urgent:0,escalate:1,question:2,warning:3,resolved:4,info:5};
+  cards.sort((a,b)=>(order[a.type]??6)-(order[b.type]??6));
+  cards.forEach(c=>{const d=document.createElement('div');d.className=`rec-card ${c.type||'info'}`;d.innerHTML=`<div class="rec-type">${c.type}</div><div class="rec-title">${esc(c.title||'')}</div><div class="rec-body">${esc(c.body||'')}</div>`;rc.appendChild(d)})
+}
+function clearRecs(){document.getElementById('recCards').innerHTML='';document.getElementById('checklistWrap').style.display='none';document.getElementById('emptyState').style.display='flex';document.getElementById('recStatus').textContent='Waiting';document.getElementById('recStatus').className='status-chip idle'}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+renderScenarios();renderDots();
+if(getUsed()>=MAX){document.getElementById('analyseBtn').disabled=true;document.getElementById('transcriptInput').disabled=true;showGate()}
+</script>
+
+
+<!-- ── CallAssist Pricing & Enquiry Section ─────────────────── -->
+<section id="callassist-enquiry" style="background:#13161e;padding:80px 0;border-top:1px solid rgba(255,255,255,.08)">
+  <div style="max-width:960px;margin:0 auto;padding:0 24px">
+
+    <div style="text-align:center;margin-bottom:56px">
+      <span style="font-size:.75rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:#0BBFA0;display:block;margin-bottom:12px">Pricing & Deployment</span>
+      <h2 style="font-family:'Fraunces',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;color:#fff;margin-bottom:16px;letter-spacing:-0.02em">White-label CallAssist for your business</h2>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.85);max-width:560px;margin:0 auto;line-height:1.75">Fully customised AI call assist — your branding, your products, your team. Deployed and configured within 5 business days.</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:24px">
+        <span id="ca-lbl-mo" style="font-size:.9rem;font-weight:500;color:#fff">Monthly</span>
+        <div onclick="toggleCABilling()" style="width:48px;height:26px;background:#0BBFA0;border-radius:13px;cursor:pointer;position:relative;transition:background .2s">
+          <div id="ca-toggle-dot" style="width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .2s"></div>
+        </div>
+        <span id="ca-lbl-yr" style="font-size:.9rem;color:rgba(255,255,255,.75)">Annual <span style="background:rgba(11,191,160,.15);color:#0BBFA0;font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:20px;margin-left:4px">Save 2 months</span></span>
+      </div>
+    </div>
+
+    <!-- Pricing cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:48px">
+
+      <!-- Starter -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px">
+        <div style="font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0BBFA0;margin-bottom:12px">Starter</div>
+        <div style="font-family:'Fraunces',serif;font-size:2.2rem;font-weight:300;color:#fff;line-height:1;margin-bottom:4px"><span id="ca-p1-amt">$299</span><span style="font-size:1rem;color:rgba(255,255,255,.75)">/month</span></div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.65);margin-bottom:6px">+ one-time setup fee applies</div>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.75);margin-bottom:20px;line-height:1.6">Perfect for small HSEQ or customer service teams getting started with AI-assisted calls.</p>
+        <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:16px;margin-bottom:20px">
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Live transcription + AI recommendations</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Your logo and branding</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>1 industry configuration</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Setup and onboarding included</div>
+        </div>
+        <a id="ca-p1-setup" href="https://buy.stripe.com/28EcN74GX5nC19F6V3gbm1h" target="_blank" style="display:block;text-align:center;padding:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;text-decoration:none;margin-bottom:8px;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.12)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">Pay Setup Fee →</a>
+        <a id="ca-p1-btn" href="https://buy.stripe.com/bJe7sNa1haHWaKfbbjgbm1k" target="_blank" style="display:block;text-align:center;padding:12px;background:#0BBFA0;color:#0d0f14;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:700;text-decoration:none;transition:background .2s" onmouseover="this.style.background='#089980'" onmouseout="this.style.background='#0BBFA0'">Subscribe — Starter →</a>
+      </div>
+
+      <!-- Professional — Most Popular -->
+      <div style="background:rgba(11,191,160,.06);border:2px solid #0BBFA0;border-radius:16px;padding:28px;position:relative">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#0BBFA0;color:#0d0f14;font-size:.68rem;font-weight:700;padding:4px 14px;border-radius:20px;white-space:nowrap;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em">Most Popular</div>
+        <div style="font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0BBFA0;margin-bottom:12px">Professional</div>
+        <div style="font-family:'Fraunces',serif;font-size:2.2rem;font-weight:300;color:#fff;line-height:1;margin-bottom:4px"><span id="ca-p2-amt">$599</span><span style="font-size:1rem;color:rgba(255,255,255,.75)">/month</span></div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.65);margin-bottom:6px">+ one-time setup fee applies</div>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.75);margin-bottom:20px;line-height:1.6">Ideal for growing operations teams needing multiple configurations and priority support.</p>
+        <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:16px;margin-bottom:20px">
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Everything in Starter</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>3 industry configurations</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Full white-label branding</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Priority support</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Monthly usage reports</div>
+        </div>
+        <a id="ca-p2-setup" href="https://buy.stripe.com/dRm28t3CT8zO4lRenvgbm1i" target="_blank" style="display:block;text-align:center;padding:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;text-decoration:none;margin-bottom:8px;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.12)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">Pay Setup Fee →</a>
+        <a id="ca-p2-btn" href="https://buy.stripe.com/9B6cN76P5g2gaKf7Z7gbm1l" target="_blank" style="display:block;text-align:center;padding:12px;background:#0BBFA0;color:#0d0f14;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:700;text-decoration:none;transition:background .2s" onmouseover="this.style.background='#089980'" onmouseout="this.style.background='#0BBFA0'">Subscribe — Professional →</a>
+      </div>
+
+      <!-- Managed -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px">
+        <div style="font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#0BBFA0;margin-bottom:12px">Managed</div>
+        <div style="font-family:'Fraunces',serif;font-size:2.2rem;font-weight:300;color:#fff;line-height:1;margin-bottom:4px"><span id="ca-p3-amt">Custom</span><span style="font-size:1rem;color:rgba(255,255,255,.75)"> pricing</span></div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.65);margin-bottom:6px">+ one-time setup fee applies</div>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.75);margin-bottom:20px;line-height:1.6">Fully managed deployment for large operations, multi-site businesses, or resellers.</p>
+        <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:16px;margin-bottom:20px">
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Everything in Professional</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Unlimited configurations</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>Dedicated account manager</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:8px;display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>API integration available</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:8px"><span style="color:#0BBFA0">✓</span>SLA and uptime guarantee</div>
+        </div>
+        <a id="ca-p3-setup" href="https://buy.stripe.com/8x2eVfgpFaHWf0venvgbm1j" target="_blank" style="display:block;text-align:center;padding:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;text-decoration:none;margin-bottom:8px;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.12)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">Pay Setup Fee →</a>
+        <a id="ca-p3-btn" href="https://buy.stripe.com/6oUdRbddtdU83hN5QZgbm1m" target="_blank" style="display:block;text-align:center;padding:12px;background:transparent;color:#0BBFA0;border:1.5px solid #0BBFA0;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .2s" onmouseover="this.style.background='rgba(11,191,160,.1)'" onmouseout="this.style.background='transparent'">Enquire — Managed →</a>
+      </div>
+
+    </div>
+
+    <!-- Enquiry form -->
+    <div id="callassist-form" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:36px;max-width:680px;margin:0 auto">
+      <h3 style="font-family:'Fraunces',serif;font-size:1.4rem;font-weight:300;color:#fff;margin-bottom:8px;text-align:center">Enquire about white-label deployment</h3>
+      <p style="font-size:.85rem;color:rgba(255,255,255,.75);text-align:center;margin-bottom:28px">Tell us about your business and we will get back to you within 1 business day.</p>
+      <form id="callAssistForm" action="https://formspree.io/f/xeenevle" method="POST">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+          <div>
+            <label style="font-size:.75rem;font-weight:500;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px">Your name *</label>
+            <input type="text" name="name" required placeholder="e.g. John Smith" style="width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:#fff;outline:none">
+          </div>
+          <div>
+            <label style="font-size:.75rem;font-weight:500;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px">Your email *</label>
+            <input type="email" name="email" required placeholder="you@company.com.au" style="width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:#fff;outline:none">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+          <div>
+            <label style="font-size:.75rem;font-weight:500;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px">Company</label>
+            <input type="text" name="company" placeholder="Your company name" style="width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:#fff;outline:none">
+          </div>
+          <div>
+            <label style="font-size:.75rem;font-weight:500;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px">Plan interested in</label>
+            <select name="plan" style="width:100%;background:rgba(13,15,20,.95);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:#fff;outline:none">
+              <option value="">Select a plan...</option>
+              <option value="Starter">Starter — Monthly subscription</option>
+              <option value="Professional">Professional — Monthly subscription</option>
+              <option value="Managed">Managed — Custom pricing</option>
+              <option value="Not sure">Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label style="font-size:.75rem;font-weight:500;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px">Industry and use case *</label>
+          <textarea name="message" required rows="4" placeholder="Tell us about your industry, how many operators would use CallAssist, and what types of calls you handle..." style="width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:#fff;outline:none;resize:vertical;line-height:1.6"></textarea>
+        </div>
+        <input type="hidden" name="_subject" value="CallAssist White-Label Enquiry">
+        <button type="submit" id="caSubmitBtn" style="width:100%;padding:14px;background:#0BBFA0;color:#0d0f14;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:background .2s">Send Enquiry →</button>
+      </form>
+      <div id="caSuccess" style="display:none;background:rgba(11,191,160,.1);border:1px solid rgba(11,191,160,.3);border-radius:12px;padding:20px;text-align:center;margin-top:16px">
+        <p style="color:#0BBFA0;font-weight:500">Enquiry sent — thank you! Madhu will be in touch within 1 business day.</p>
+      </div>
+      <p style="text-align:center;margin-top:20px;font-size:.8rem;color:rgba(255,255,255,.65)">Or email directly: <a href="mailto:maddypat@regovix.com.au" style="color:#0BBFA0">maddypat@regovix.com.au</a></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Billing toggle + form JS -->
+<script>
+var caAnnual = false;
+var caPrices = { mo: { p1: '$299', p2: '$599', p3: 'Custom' }, yr: { p1: '$249', p2: '$499', p3: 'Custom' } };
+var caLinks  = {
+  mo: { p1: 'https://buy.stripe.com/bJe7sNa1haHWaKfbbjgbm1k', p2: 'https://buy.stripe.com/9B6cN76P5g2gaKf7Z7gbm1l', p3: 'https://buy.stripe.com/6oUdRbddtdU83hN5QZgbm1m' },
+  yr: { p1: 'https://buy.stripe.com/7sYeVf7T9g2gcSnenvgbm1n', p2: 'https://buy.stripe.com/dRm8wRc9pdU8g4zenvgbm1o', p3: 'https://buy.stripe.com/9B6fZj4GXcQ46tZ1AJgbm1p' }
+};
+var caSetup = {
+  p1: 'https://buy.stripe.com/28EcN74GX5nC19F6V3gbm1h', p2: 'https://buy.stripe.com/dRm28t3CT8zO4lRenvgbm1i', p3: 'https://buy.stripe.com/8x2eVfgpFaHWf0venvgbm1j'
+};
+function toggleCABilling() {
+  caAnnual = !caAnnual;
+  var dot = document.getElementById('ca-toggle-dot');
+  var mo  = document.getElementById('ca-lbl-mo');
+  var yr  = document.getElementById('ca-lbl-yr');
+  dot.style.transform = caAnnual ? 'translateX(22px)' : 'translateX(0)';
+  mo.style.color = caAnnual ? 'rgba(255,255,255,.75)' : '#fff';
+  mo.style.fontWeight = caAnnual ? '400' : '500';
+  yr.style.color = caAnnual ? '#fff' : 'rgba(255,255,255,.75)';
+  var k = caAnnual ? 'yr' : 'mo';
+  document.getElementById('ca-p1-amt').textContent = caPrices[k].p1;
+  document.getElementById('ca-p2-amt').textContent = caPrices[k].p2;
+  document.getElementById('ca-p3-amt').textContent = caPrices[k].p3;
+  document.getElementById('ca-p1-btn').href = caLinks[k].p1;
+  document.getElementById('ca-p2-btn').href = caLinks[k].p2;
+  document.getElementById('ca-p3-btn').href = caLinks[k].p3;
+}}
+(function() {
+  var form = document.getElementById('callAssistForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {{
+    e.preventDefault();
+    var btn = document.getElementById('caSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+    .then(function(r) {
+      if (r.ok) { form.style.display = 'none'; document.getElementById('caSuccess').style.display = 'block'; }
+      else { btn.disabled = false; btn.textContent = 'Send Enquiry →'; alert('Something went wrong. Please email maddypat@regovix.com.au'); }
+    }).catch(function() { btn.disabled = false; btn.textContent = 'Send Enquiry →'; alert('Please email maddypat@regovix.com.au directly.'); });
+  });
+}})();
+</script>
+
+<!-- ── Footer ────────────────────────────────────────────────── -->
+<footer style="background:#080F16;border-top:1px solid rgba(255,255,255,.05);padding:36px 24px">
+  <div style="max-width:900px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:32px">
+    <div>
+      <a href="/" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:12px">
+        <div style="width:30px;height:30px;background:#0BBFA0;border-radius:8px;display:flex;align-items:center;justify-content:center">
+          <svg width="17" height="17" viewBox="0 0 30 30" fill="none"><path d="M15 4L25 9.2V15C25 21 20 26 15 27.5C10 26 5 21 5 15V9.2L15 4Z" stroke="#0D1B2A" stroke-width="1.5" fill="none"/><path d="M9.5 15L13.5 19L20.5 11" stroke="#0D1B2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:700;color:#fff">Regovix <span style="color:rgba(255,255,255,.75);font-weight:400">/ CallAssist</span></span>
+      </a>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.65);max-width:240px;line-height:1.7">White-label AI call assist for Australian HSEQ and operations teams.</p>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.55);margin-top:10px">ABN: 19 735 810 326</p>
+    </div>
+    <div style="display:flex;gap:48px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.9);margin-bottom:14px">CallAssist</div>
+        <a href="#callassist-enquiry" style="display:block;font-size:.85rem;color:rgba(255,255,255,.75);margin-bottom:10px;text-decoration:none">Pricing</a>
+        <a href="#callassist-form" style="display:block;font-size:.85rem;color:rgba(255,255,255,.75);margin-bottom:10px;text-decoration:none">Enquire</a>
+        <a href="#callassist-form" style="display:block;font-size:.85rem;color:rgba(255,255,255,.75);margin-bottom:10px;text-decoration:none">White-label deployment</a>
+      </div>
+      <div>
+        <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.9);margin-bottom:14px">Regovix</div>
+        <a href="/" style="display:block;font-size:.85rem;color:rgba(255,255,255,.75);margin-bottom:10px;text-decoration:none">Home</a>
+        <a href="/pricing.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.75);margin-bottom:10px;text-decoration:none">HSEQ Apps</a>
+        <a href="/privacy.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.75);margin-bottom:10px;text-decoration:none">Privacy Policy</a>
+        <a href="/terms.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.75);margin-bottom:10px;text-decoration:none">Terms of Service</a>
+      </div>
+      <div>
+        <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.9);margin-bottom:14px">Contact</div>
+        <a href="mailto:maddypat@regovix.com.au" style="display:block;font-size:.85rem;color:#0BBFA0;margin-bottom:10px;text-decoration:none;font-weight:500">maddypat@regovix.com.au</a>
+        <a href="/#contact" style="display:block;font-size:.85rem;color:rgba(255,255,255,.75);margin-bottom:10px;text-decoration:none">Book a Demo</a>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:900px;margin:24px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <p style="font-size:.78rem;color:rgba(255,255,255,.55)">© 2026 Regovix | ABN 19 735 810 326 | CallAssist is a Regovix product.</p>
+    <div style="display:flex;gap:16px">
+      <a href="/privacy.html" style="font-size:.78rem;color:rgba(255,255,255,.9);text-decoration:none">Privacy</a>
+      <a href="/terms.html" style="font-size:.78rem;color:rgba(255,255,255,.9);text-decoration:none">Terms</a>
+      <a href="mailto:maddypat@regovix.com.au" style="font-size:.78rem;color:rgba(255,255,255,.9);text-decoration:none">maddypat@regovix.com.au</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Form JS -->
+<script>
+(function(){
+  var form = document.getElementById('callAssistForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('caSubmitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(r) {
+      if (r.ok) {
+        form.style.display = 'none';
+        document.getElementById('caSuccess').style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Send Enquiry →';
+        alert('Something went wrong. Please email maddypat@regovix.com.au directly.');
+      }
+    }).catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Send Enquiry →';
+      alert('Something went wrong. Please email maddypat@regovix.com.au directly.');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

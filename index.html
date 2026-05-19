@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<!-- ── All Bundle Payment Links ────────────────────────────────
+     Safety Essentials — $199/mo: https://buy.stripe.com/cNi9AVb5lbM05pVenvgbm0e
+     Safety Essentials — $1,990/yr: https://buy.stripe.com/cNidRb0qH3fu6tZ7Z7gbm08
+     Risk & Compliance — $249/mo: https://buy.stripe.com/6oU5kF2yP9DSaKf93bgbm0d
+     Risk & Compliance — $2,490/yr: https://buy.stripe.com/00wdRbflB7vK8C7frzgbm07
+     Chemical & DG — $179/mo: https://buy.stripe.com/3cI14pc9p3fu05Ba7fgbm0c
+     Chemical & DG — $1,790/yr: https://buy.stripe.com/8x2bJ3ehxcQ4dWrenvgbm06
+     Consultant Plan — $449/mo: https://buy.stripe.com/bJebJ37T903i6tZ93bgbm0a
+     Consultant Plan — $4,490/yr: https://buy.stripe.com/8x23cxflB3fu7y3cfngbm04
+──────────────────────────────────────────────────────────── -->
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="google-site-verification" content="2A45SgOQryCe84VWJ6efO4K2JuY3lh4mJfbjaNzO0XA" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regovix — Australian HSEQ Compliance Platform | 12 Apps from $29/month</title>
+<meta name="description" content="Regovix — 12 purpose-built HSEQ compliance apps for Australian businesses plus CallAssist white-label AI. Built by a practising HSEQ Advisor. From $29/month.">
+<link rel="icon" type="image/jpeg" href="regovix_icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" type="image/jpeg" href="regovix_icon.jpg">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Tokens ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0D1B2A;
+  --ink2:#1E3348;
+  --ink3:#1a2f45;
+  --teal:#0BBFA0;
+  --teal2:#089980;
+  --teal3:#E0FAF6;
+  --teal4:#B2EDE5;
+  --slate:#F4F7FA;
+  --slate2:#E8EEF4;
+  --muted:#c8d8e8;
+  --muted2:#e2ecf4;
+  --white:#FFFFFF;
+  --amber:#F59E0B;
+  --border:#D8E4EE;
+  --r-sm:8px;
+  --r-md:12px;
+  --r-lg:16px;
+  --r-xl:24px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none}
+
+/* ── Typography ─────────────────────────────────────────────── */
+.syne{font-family:'Syne',sans-serif}
+h1,h2,h3,.syne-text{font-family:'Syne',sans-serif}
+h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:800;line-height:1.08;letter-spacing:-0.03em}
+h2{font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;line-height:1.12;letter-spacing:-0.02em}
+h3{font-size:clamp(1.1rem,2vw,1.35rem);font-weight:700;line-height:1.3}
+p{font-size:1rem;line-height:1.75;color:var(--muted)}
+
+/* ── Layout ─────────────────────────────────────────────────── */
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.section{padding:96px 0}
+.section-sm{padding:64px 0}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:var(--r-md);font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:0.01em;transition:all .2s ease;white-space:nowrap}
+.btn-primary{background:var(--teal);color:var(--ink);border:2px solid var(--teal)}
+.btn-primary:hover{background:var(--teal2);border-color:var(--teal2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(11,191,160,.25)}
+.btn-secondary{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.35)}
+.btn-secondary:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.6)}
+.btn-outline{background:transparent;color:var(--ink);border:2px solid var(--border)}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal)}
+.btn-lg{padding:18px 36px;font-size:1rem}
+.btn svg{width:18px;height:18px;flex-shrink:0}
+
+/* ── Nav ─────────────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .3s ease}
+nav.scrolled{background:rgba(13,27,42,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo-icon{width:38px;height:38px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-text{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--white);letter-spacing:-0.02em}
+.nav-logo-text span{color:var(--teal)}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:.9rem;font-weight:500;color:rgba(255,255,255,.65);transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-ctas{display:flex;align-items:center;gap:12px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+
+/* ── Hero ─────────────────────────────────────────────────────── */
+.hero{background:var(--ink);min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:72px}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(11,191,160,.12) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(27,111,255,.07) 0%,transparent 70%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:80px 0}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(11,191,160,.12);border:1px solid rgba(11,191,160,.25);border-radius:20px;padding:6px 14px;margin-bottom:28px}
+.hero-eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
+.hero-eyebrow span{font-size:.8rem;font-weight:500;color:var(--teal);letter-spacing:.04em;text-transform:uppercase}
+.hero h1{color:var(--white);margin-bottom:24px}
+.hero h1 em{color:var(--teal);font-style:normal}
+.hero-sub{font-size:1.1rem;color:var(--muted2);line-height:1.8;margin-bottom:40px;max-width:520px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.hero-trust{display:flex;gap:28px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.45)}
+.trust-item svg{color:var(--teal);flex-shrink:0}
+.hero-visual{position:relative}
+.dashboard-mock{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-xl);overflow:hidden;backdrop-filter:blur(8px)}
+.dash-header{background:rgba(255,255,255,.04);padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px}
+.dash-dot{width:10px;height:10px;border-radius:50%}
+.dash-title{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;color:rgba(255,255,255,.4);margin-left:8px;letter-spacing:.04em;text-transform:uppercase}
+.dash-body{padding:20px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.stat-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-md);padding:14px}
+.stat-val{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--white)}
+.stat-lbl{font-size:.72rem;color:rgba(255,255,255,.4);margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
+.stat-badge{display:inline-block;font-size:.68rem;padding:2px 7px;border-radius:20px;margin-top:6px;font-weight:500}
+.badge-green{background:rgba(11,191,160,.15);color:var(--teal)}
+.badge-amber{background:rgba(245,158,11,.15);color:var(--amber)}
+.badge-red{background:rgba(239,68,68,.15);color:#F87171}
+.app-list{display:flex;flex-direction:column;gap:8px}
+.app-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:var(--r-sm)}
+.app-row-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;color:var(--ink);flex-shrink:0}
+.app-row-name{font-size:.82rem;font-weight:500;color:rgba(255,255,255,.75);flex:1}
+.app-row-status{font-size:.7rem;padding:2px 8px;border-radius:20px;font-weight:500}
+.status-live{background:rgba(11,191,160,.15);color:var(--teal)}
+
+/* ── Logos bar ───────────────────────────────────────────────── */
+.logos-bar{background:var(--slate);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 0}
+.logos-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.logos-label{font-size:.78rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.industry-pills{display:flex;gap:10px;flex-wrap:wrap}
+.industry-pill{display:flex;align-items:center;gap:6px;padding:8px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-md);font-size:.82rem;font-weight:500;color:var(--ink)}
+.industry-pill svg{color:var(--teal);flex-shrink:0}
+
+/* ── Problem section ─────────────────────────────────────────── */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.problem-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;transition:all .2s;position:relative;overflow:hidden}
+.problem-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.problem-card:hover::before{transform:scaleX(1)}
+.problem-card:hover{border-color:var(--teal4);box-shadow:0 8px 32px rgba(11,191,160,.08);transform:translateY(-2px)}
+.problem-icon{width:48px;height:48px;background:var(--teal3);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.problem-icon svg{color:var(--teal2)}
+.problem-card h3{color:var(--ink);margin-bottom:12px}
+.problem-card p{font-size:.9rem;color:#1a2f45;line-height:1.7}
+
+/* ── Apps section ─────────────────────────────────────────────── */
+.apps-section{background:var(--ink)}
+.apps-section h2{color:var(--white)}
+.apps-section .section-sub{color:#2d4060}
+.apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;padding-top:16px}
+.app-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-lg);padding:24px;transition:all .25s;position:relative;overflow:hidden}
+.app-card:hover{background:rgba(255,255,255,.07);border-color:rgba(11,191,160,.3);transform:translateY(-2px)}
+.app-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.app-icon{width:42px;height:42px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;color:var(--white);flex-shrink:0}
+.live-badge{font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:20px;background:rgba(11,191,160,.15);color:var(--teal);border:1px solid rgba(11,191,160,.2);text-transform:uppercase;letter-spacing:.04em}
+.app-card h3{color:var(--white);font-size:1rem;margin-bottom:8px}
+.app-card p{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.6}
+.apps-cta{text-align:center;margin-top:40px}
+
+/* ── How it works ────────────────────────────────────────────── */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;position:relative}
+.steps-grid::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(to right,var(--teal),var(--teal2));z-index:0}
+.step-item{text-align:center;padding:0 16px;position:relative;z-index:1}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--ink);box-shadow:0 0 0 6px var(--white),0 0 0 8px var(--teal4)}
+.step-item h3{font-size:1rem;color:var(--ink);margin-bottom:10px}
+.step-item p{font-size:.85rem;color:var(--muted);line-height:1.65}
+
+/* ── Founder section ─────────────────────────────────────────── */
+.founder-section{background:var(--ink);overflow:hidden;position:relative}
+.founder-section::before{content:'';position:absolute;top:-150px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(11,191,160,.08) 0%,transparent 70%);pointer-events:none}
+.founder-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.founder-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(11,191,160,.1);border:1px solid rgba(11,191,160,.2);border-radius:20px;padding:6px 14px;margin-bottom:24px}
+.founder-badge span{font-size:.78rem;font-weight:500;color:var(--teal);letter-spacing:.04em;text-transform:uppercase}
+.founder-section h2{color:var(--white);margin-bottom:24px}
+.founder-section p{color:var(--muted2);margin-bottom:20px;line-height:1.8}
+.founder-quote{border-left:3px solid var(--teal);padding:20px 24px;background:rgba(11,191,160,.06);border-radius:0 var(--r-md) var(--r-md) 0;margin:32px 0}
+.founder-quote p{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--white);font-style:italic;line-height:1.6;margin:0}
+.credentials{display:flex;flex-direction:column;gap:12px}
+.credential-item{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-md)}
+.credential-icon{width:36px;height:36px;background:rgba(11,191,160,.12);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.credential-icon svg{color:var(--teal)}
+.credential-text{font-size:.88rem;font-weight:500;color:rgba(255,255,255,.75)}
+
+/* ── Pricing ─────────────────────────────────────────────────── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.price-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-xl);padding:36px;position:relative;transition:all .2s}
+.price-card.featured{border:2px solid var(--teal);box-shadow:0 8px 48px rgba(11,191,160,.15)}
+.price-card:hover{box-shadow:0 8px 32px rgba(13,27,42,.08);transform:translateY(-2px)}
+.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--teal);color:var(--ink);font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;padding:5px 16px;border-radius:20px;white-space:nowrap;letter-spacing:.04em;text-transform:uppercase}
+.price-plan{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:12px}
+.price-amount{display:flex;align-items:baseline;gap:4px;margin-bottom:6px}
+.price-amount .currency{font-size:1.1rem;font-weight:500;color:var(--ink);align-self:flex-start;margin-top:12px}
+.price-amount .amount{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:var(--ink);line-height:1}
+.price-amount .period{font-size:.9rem;color:var(--muted)}
+.price-desc{font-size:.88rem;color:var(--ink2);margin-bottom:28px;line-height:1.6}
+.price-divider{height:1px;background:var(--border);margin-bottom:24px}
+.price-features{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.price-feature{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--ink)}
+.price-feature svg{color:var(--teal);flex-shrink:0;margin-top:2px}
+.price-card .btn{width:100%;justify-content:center}
+.price-note{color:var(--ink2);text-align:center;margin-top:32px;font-size:.85rem;color:var(--muted)}
+
+/* ── Regulatory ──────────────────────────────────────────────── */
+.reg-section{background:var(--slate)}
+.reg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px}
+.reg-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;display:flex;gap:16px;transition:all .2s}
+.reg-card:hover{border-color:var(--teal4);box-shadow:0 4px 16px rgba(11,191,160,.08)}
+.reg-number{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;color:var(--teal);background:var(--teal3);border:1px solid var(--teal4);border-radius:var(--r-sm);padding:6px 10px;white-space:nowrap;align-self:flex-start;letter-spacing:.02em}
+.reg-content h3{font-size:.95rem;color:var(--ink);margin-bottom:6px}
+.reg-content p{font-size:.82rem;color:var(--muted);line-height:1.6}
+.reg-apps{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.reg-app-tag{font-size:.72rem;font-weight:500;padding:2px 8px;border-radius:6px;background:var(--teal3);color:var(--teal2)}
+
+/* ── FAQ ─────────────────────────────────────────────────────── */
+.faq-list{max-width:760px;margin:48px auto 0;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.faq-question{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;cursor:pointer;font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--ink);transition:background .2s;gap:16px;user-select:none}
+.faq-question:hover{background:var(--slate)}
+.faq-question.open{background:var(--teal3);color:var(--teal2)}
+.faq-icon{width:24px;height:24px;border-radius:50%;background:var(--slate);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.faq-question.open .faq-icon{background:var(--teal);transform:rotate(45deg)}
+.faq-answer{display:none;padding:0 24px 22px;font-size:.9rem;color:#1a2f45;line-height:1.75}
+.faq-answer.open{display:block}
+
+/* ── Final CTA ───────────────────────────────────────────────── */
+.cta-section{background:var(--ink);text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(11,191,160,.12) 0%,transparent 65%);pointer-events:none}
+.cta-section h2{color:var(--white);max-width:700px;margin:0 auto 20px}
+.cta-section p{color:var(--muted2);max-width:560px;margin:0 auto 40px;font-size:1.05rem;line-height:1.8}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.cta-trust{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+.cta-trust-item{font-size:.82rem;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:6px}
+.cta-trust-item svg{color:var(--teal)}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+footer{background:#080F16;border-top:1px solid rgba(255,255,255,.05)}
+.footer-main{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding:64px 0 48px}
+.footer-brand .nav-logo-text{font-size:1.4rem}
+.footer-brand p{font-size:.85rem;color:rgba(255,255,255,.3);margin-top:14px;line-height:1.7;max-width:260px}
+.footer-abn{font-size:.78rem;color:rgba(255,255,255,.2);margin-top:12px}
+.footer-col h4{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.25);margin-bottom:18px}
+.footer-col a{display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s}
+.footer-col a:hover{color:var(--teal)}
+.footer-bar{border-top:1px solid rgba(255,255,255,.05);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap}
+.footer-bar p{font-size:.8rem;color:rgba(255,255,255,.2)}
+.footer-bar-links{display:flex;gap:20px}
+.footer-bar-links a{font-size:.8rem;color:rgba(255,255,255,.25);transition:color .2s}
+.footer-bar-links a:hover{color:rgba(255,255,255,.5)}
+
+/* ── Section labels ──────────────────────────────────────────── */
+.section-label{font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:16px;display:block}
+.section-sub{font-size:1.05rem;color:var(--muted);max-width:620px;margin:16px 0 0;line-height:1.8}
+.section-sub.center{margin:16px auto 0}
+.text-center{text-align:center}
+
+/* ── Refund policy ───────────────────────────────────────────── */
+.refund-wrap{max-width:900px;margin:48px auto 0;background:var(--slate);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden}
+.refund-header{display:flex;align-items:center;gap:10px;background:var(--ink);padding:18px 28px;font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;color:var(--white);letter-spacing:.04em;text-transform:uppercase}
+.refund-header svg{color:var(--teal);flex-shrink:0}
+.refund-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:8px}
+.refund-item{display:flex;align-items:flex-start;gap:12px;padding:20px;border-radius:var(--r-md);transition:background .2s}
+.refund-item:hover{background:var(--white)}
+.refund-icon{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.refund-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:5px}
+.refund-desc{font-size:.83rem;color:var(--ink2);line-height:1.65}
+.refund-footer{display:flex;align-items:center;gap:8px;padding:16px 28px;background:var(--teal3);border-top:1px solid var(--teal4);font-size:.83rem;color:var(--ink2)}
+.refund-footer svg{color:var(--teal2);flex-shrink:0}
+.refund-footer a{color:var(--teal2);font-weight:500;text-decoration:underline}
+.refund-footer a:hover{color:var(--teal)}
+@media(max-width:700px){.refund-grid{grid-template-columns:1fr}}
+
+/* ── Mobile menu ─────────────────────────────────────────────── */
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;bottom:0;background:rgba(13,27,42,.98);backdrop-filter:blur(16px);z-index:999;flex-direction:column;padding:32px 24px;gap:8px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:rgba(255,255,255,.65);padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.mobile-menu a:hover{color:var(--white)}
+.mobile-menu .btn{margin-top:12px;justify-content:center}
+
+/* ── Animations ──────────────────────────────────────────────── */
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero-visual{display:none}
+  .problem-grid{grid-template-columns:1fr 1fr}
+  .apps-grid{grid-template-columns:1fr 1fr}
+  .steps-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .steps-grid::before{display:none}
+  .founder-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .reg-grid{grid-template-columns:1fr}
+  .footer-main{grid-template-columns:1fr 1fr;gap:32px}
+  .nav-links,.nav-ctas{display:none}
+  .hamburger{display:flex}
+}
+@media(max-width:600px){
+  .section{padding:64px 0}
+  .problem-grid{grid-template-columns:1fr}
+  .apps-grid{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .logos-inner{flex-direction:column;align-items:flex-start}
+  .footer-main{grid-template-columns:1fr}
+  h1{font-size:2rem}
+  h2{font-size:1.6rem}
+  .hero-btns{flex-direction:column}
+  .cta-btns{flex-direction:column;align-items:center}
+}
+
+/* ── CONTACT FORM VISIBILITY FIX ──────────────────────────────
+   All form elements on the dark navy CTA section background    */
+/* Headings and text inside contact section */
+#contact h2,
+#contact h3,
+#contact p,
+#contact .section-label,
+#contact .cta-trust-item,
+#contact .form-sub,
+#contact .contact-form-wrap h3 {
+  color: #ffffff !important;
+}
+#contact p {
+  color: rgba(255,255,255,.7) !important;
+}
+#contact .form-sub {
+  color: rgba(255,255,255,.65) !important;
+}
+#contact .cta-trust-item {
+  color: rgba(255,255,255,.5) !important;
+}
+#contact .section-label {
+  color: #0BBFA0 !important;
+}
+#contact .direct-email-box p {
+  color: rgba(255,255,255,.5) !important;
+}
+#contact .form-or span {
+  color: rgba(255,255,255,.4) !important;
+}
+#contact .form-group label {
+  color: rgba(255,255,255,.85) !important;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+#contact .form-group input,
+#contact .form-group select,
+#contact .form-group textarea {
+  background: rgba(255,255,255,.1) !important;
+  border: 1.5px solid rgba(255,255,255,.25) !important;
+  color: #ffffff !important;
+  font-size: .93rem;
+}
+#contact .form-group input::placeholder,
+#contact .form-group textarea::placeholder {
+  color: rgba(255,255,255,.35) !important;
+}
+#contact .form-group select {
+  color: #ffffff !important;
+}
+#contact .form-group select option {
+  background: #0D1B2A;
+  color: #ffffff;
+}
+#contact .contact-form-wrap h3 {
+  color: #ffffff !important;
+  font-size: 1.4rem;
+}
+#contact .form-sub {
+  color: rgba(255,255,255,.65) !important;
+}
+#contact .form-submit {
+  margin-top: 8px;
+}
+
+/* ── Regovix AI Chat Widget ─────────────────────────────────── */
+.chat-widget{position:fixed;bottom:28px;right:28px;z-index:9999;font-family:'DM Sans',sans-serif}
+.chat-bubble{width:58px;height:58px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(11,191,160,.4);transition:all .2s;border:none}
+.chat-bubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(11,191,160,.5)}
+.chat-bubble svg{color:#0D1B2A;transition:all .2s}
+.chat-notification{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#F59E0B;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;border:2px solid #fff}
+.chat-window{position:absolute;bottom:72px;right:0;width:360px;background:#fff;border-radius:20px;box-shadow:0 8px 48px rgba(13,27,42,.18);display:none;flex-direction:column;overflow:hidden;max-height:520px}
+.chat-window.open{display:flex}
+.chat-header{background:var(--ink);padding:16px 20px;display:flex;align-items:center;gap:12px}
+.chat-avatar{width:36px;height:36px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-header-info{flex:1}
+.chat-header-name{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:#fff}
+.chat-header-status{font-size:.72rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:4px;margin-top:2px}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#0BBFA0}
+.chat-close{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.5);padding:4px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:color .2s}
+.chat-close:hover{color:#fff}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;min-height:200px;max-height:320px}
+.chat-msg{display:flex;gap:8px;align-items:flex-end}
+.chat-msg.user{flex-direction:row-reverse}
+.chat-msg-avatar{width:28px;height:28px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.65rem;font-weight:700;color:var(--ink);font-family:'Syne',sans-serif}
+.chat-msg-avatar.user-av{background:var(--ink2)}
+.chat-msg-bubble{max-width:260px;padding:10px 14px;border-radius:16px;font-size:.85rem;line-height:1.55}
+.chat-msg.bot .chat-msg-bubble{background:var(--slate);color:var(--ink);border-bottom-left-radius:4px}
+.chat-msg.user .chat-msg-bubble{background:var(--teal);color:var(--ink);border-bottom-right-radius:4px}
+.chat-typing{display:flex;gap:4px;align-items:center;padding:10px 14px}
+.chat-typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:typing-bounce .8s infinite}
+.chat-typing span:nth-child(2){animation-delay:.15s}
+.chat-typing span:nth-child(3){animation-delay:.3s}
+@keyframes typing-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.chat-quick-btns{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px}
+.chat-quick-btn{background:var(--teal3);border:1px solid var(--teal4);border-radius:20px;padding:5px 12px;font-size:.75rem;font-weight:500;color:var(--teal2);cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.chat-quick-btn:hover{background:var(--teal);color:var(--ink)}
+.chat-input-row{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);background:#fff}
+.chat-input{flex:1;border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-size:.85rem;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .2s}
+.chat-input:focus{border-color:var(--teal)}
+.chat-send{width:36px;height:36px;border-radius:10px;background:var(--teal);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.chat-send:hover{background:var(--teal2)}
+.chat-send svg{color:var(--ink)}
+@media(max-width:420px){.chat-window{width:calc(100vw - 32px);right:-4px}}
+
+
+/* ── Force success message hidden until form submitted ──────── */
+#formSuccess { display: none !important; }
+#formSuccess.visible { display: block !important; }
+
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Regovix",
+  "description": "Australian HSEQ compliance platform with 12 purpose-built apps for risk assessments, SWMS, permits, incidents, chemicals, fatigue, dangerous goods and document control.",
+  "url": "https://regovix.com.au",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "29",
+    "priceCurrency": "AUD"
+  },
+  "creator": {
+    "@type": "Person",
+    "name": "Madhu Pattarambil"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "maddypat@regovix.com.au",
+    "contactType": "customer support"
+  }
+}
+
+
+// ── Hide success message on page load ────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  var s = document.getElementById('formSuccess');
+  if (s) { s.style.display = 'none'; s.style.visibility = 'hidden'; }
+});
+
+// ── Contact form submission ──────────────────────────────────
+(function(){
+  var form = document.getElementById('contactForm');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {'Accept': 'application/json'}
+    }).then(function(r){
+      if(r.ok){
+        form.style.display = 'none';
+        var fs=document.getElementById('formSuccess');fs.style.display='block';fs.style.visibility='visible';;
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+        alert('Something went wrong. Please copy our email address and contact us directly.');
+      }
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+      alert('Something went wrong. Please copy our email address and contact us directly.');
+    });
+  });
+})();
+
+// ── Copy email to clipboard ──────────────────────────────────
+function copyEmail(btn){
+  var email = 'maddypat@regovix.com.au';
+  var txt = btn.querySelector('.email-text');
+  function showCopied(){
+    btn.classList.add('copied');
+    txt.textContent = 'Copied to clipboard! Paste into your email app.';
+    setTimeout(function(){
+      btn.classList.remove('copied');
+      txt.textContent = email;
+    }, 3000);
+  }
+  if(navigator && navigator.clipboard){
+    navigator.clipboard.writeText(email).then(showCopied).catch(function(){
+      fallbackCopy(email, showCopied);
+    });
+  } else {
+    fallbackCopy(email, showCopied);
+  }
+}
+function fallbackCopy(text, cb){
+  var el = document.createElement('textarea');
+  el.value = text;
+  el.style.position = 'fixed';
+  el.style.opacity = '0';
+  document.body.appendChild(el);
+  el.focus();
+  el.select();
+  try { document.execCommand('copy'); cb(); } catch(e){}
+  document.body.removeChild(el);
+}
+
+
+// ── Regovix AI Chat ──────────────────────────────────────────
+  // ── Regovix Chat Config ────────────────────────────────────
+  // Replace YOUR_API_KEY_HERE with your Anthropic API key
+  // Get your key at: console.anthropic.com
+  window._rk = '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';
+  window._rsys = "You are the Regovix website assistant — friendly, knowledgeable, and Australian in tone. Keep replies under 120 words. Regovix is an Australian HSEQ compliance platform built by Madhu Pattarambil (practising HSEQ Advisor, Sydney NSW, ABN 19 735 810 326). 12 live apps: RiskMatrix $29/mo, RiskReady $69/mo, InductGuard $49/mo, ToolboxGen $39/mo, IncidentLoop $49/mo, FleetCheck $59/mo, ChemTrack $59/mo, AuditMate $69/mo, WellnessCheck $79/mo, ComplianceVault $59/mo, DGVault $89/mo, RegWatchAI (Add-On $49/mo, Standalone $99/mo, Consultant $149/mo — real-time Australian regulatory monitoring: SafeWork NSW, Safe Work Australia, ADG Code, EPA NSW, NHVR/HVNL, AS/NZS Standards, powered by Claude AI, free demo at regowatchai.netlify.app - no login or API key needed to try the demo). CallAssist: white-label AI call assist, Starter $299/mo, Professional $599/mo, Managed custom. Bundles: Safety Essentials $199/mo, Risk & Compliance $249/mo, Chemical & DG $179/mo, Growth Bundle $299/mo (any 5), Consultant Plan $449/mo, Full Bundle $749/mo. Free 21-day trial, no credit card. Contact: maddypat@regovix.com.au or contact form.";
+  // ─────────────────────────────────────────────────────────────
+</script>
+<script>
+var chatOpen = false;
+var chatHistory = [];
+
+// System prompt is handled securely in the serverless function
+// var SYSTEM_PROMPT = "You are the Regovix website assistant. Regovix is an Australian HSEQ compliance SaaS platform built by Madhu Pattarambil, a practising HSEQ Advisor. Regovix has 11 live apps: RiskMatrix ($29/mo - visual risk matrix generator), RiskReady ($69/mo - risk assessment and SWMS builder), InductGuard ($49/mo - contractor induction management), ToolboxGen ($39/mo - AI toolbox talk generator), IncidentLoop ($49/mo - incident and near miss reporting), FleetCheck ($59/mo - vehicle pre-start inspections), ChemTrack ($59/mo - chemical register and SDS management), AuditMate ($69/mo - site inspections and NCR tracking), WellnessCheck ($79/mo - fatigue and fitness for duty), ComplianceVault ($59/mo - document control), DGVault ($89/mo - dangerous goods stock management). Bundles: Safety Essentials $199/mo, Risk & Compliance $249/mo, Chemical & DG $179/mo, Growth Bundle $299/mo (any 5 apps), Consultant Plan $449/mo (all 11 + white-label), Full Bundle $749/mo (all 11 apps). Free 21-day trial on every app - no credit card required - just fill in the contact form. Contact: maddypat@regovix.com.au. All apps are built for Australian WHS Act 2011, ADG Code, HVNL, and Australian regulatory requirements. Be friendly, helpful, concise, and Australian in tone. Always encourage users to request a free trial via the contact form. If asked about specific technical details you are unsure about, direct them to email maddypat@regovix.com.au.";
+// */
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  var win = document.getElementById('chatWindow');
+  var iconOpen = document.getElementById('chatIconOpen');
+  var iconClose = document.getElementById('chatIconClose');
+  var notif = document.getElementById('chatNotif');
+  win.classList.toggle('open', chatOpen);
+  iconOpen.style.display = chatOpen ? 'none' : 'block';
+  iconClose.style.display = chatOpen ? 'block' : 'none';
+  if (chatOpen) {
+    notif.style.display = 'none';
+    document.getElementById('chatInput').focus();
+  }
+}
+
+function quickSend(text) {
+  document.getElementById('chatInput').value = text;
+  document.getElementById('quickBtns').style.display = 'none';
+  sendChat();
+}
+
+function addMsg(role, text) {
+  var msgs = document.getElementById('chatMessages');
+  var div = document.createElement('div');
+  div.className = 'chat-msg ' + (role === 'user' ? 'user' : 'bot');
+  var av = document.createElement('div');
+  av.className = 'chat-msg-avatar ' + (role === 'user' ? 'user-av' : '');
+  av.textContent = role === 'user' ? 'You' : 'R';
+  var bubble = document.createElement('div');
+  bubble.className = 'chat-msg-bubble';
+  bubble.textContent = text;
+  div.appendChild(av);
+  div.appendChild(bubble);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  var msgs = document.getElementById('chatMessages');
+  var div = document.createElement('div');
+  div.className = 'chat-msg bot';
+  div.id = 'typingIndicator';
+  var av = document.createElement('div');
+  av.className = 'chat-msg-avatar';
+  av.textContent = 'R';
+  var bubble = document.createElement('div');
+  bubble.className = 'chat-msg-bubble chat-typing';
+  bubble.innerHTML = '<span></span><span></span><span></span>';
+  div.appendChild(av);
+  div.appendChild(bubble);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  var t = document.getElementById('typingIndicator');
+  if (t) t.remove();
+}
+
+function sendChat() {
+  var input = document.getElementById('chatInput');
+  var text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addMsg('user', text);
+  chatHistory.push({ role: 'user', content: text });
+  showTyping();
+
+  // Try API first, fall back to smart rules automatically
+  fetch('/.netlify/functions/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messages: chatHistory }),
+    signal: AbortSignal.timeout(8000)
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('status ' + r.status);
+    return r.json();
+  })
+  .then(function(data) {
+    removeTyping();
+    var reply = (data && data.reply) ? data.reply : smartReply(text);
+    addMsg('bot', reply);
+    chatHistory.push({ role: 'assistant', content: reply });
+    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+  })
+  .catch(function() {
+    removeTyping();
+    // Seamless fallback to rule-based — visitor never knows
+    var reply = smartReply(text);
+    addMsg('bot', reply);
+    chatHistory.push({ role: 'assistant', content: reply });
+    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+  });
+}
+
+
+function smartReply(q) {
+  q = q.toLowerCase();
+  // CallAssist questions
+  if (q.match(/callassist|call assist|white.?label|whitelabel|ai call|live transcri|operator assist/)) {
+    return "CallAssist is our white-label AI call assist platform — live transcription + real-time AI guidance for your CS operators. Customised for your products and procedures. Setup from $1,500 · Monthly from $299/mo · Annual from $2,990/yr (2 months free). Try the live demo at regovix.com.au/callassist.html or email maddypat@regovix.com.au!";
+  }
+  // Pricing questions
+  if (q.match(/price|cost|how much|pricing|fee|subscription|pay/)) {
+    return "HSEQ apps from $29/mo. CallAssist white-label from $1,500 setup + $299/mo (or $2,990/yr). Full Bundle (all 11 HSEQ apps) $749/mo. Every HSEQ app has a free 21-day trial. CallAssist has a live demo at regovix.com.au/callassist.html. Email maddypat@regovix.com.au for a quote!";
+  }
+  // Trial/demo questions
+  if (q.match(/trial|free|try|test|demo|start/)) {
+    return "Every Regovix HSEQ app has a free 21-day trial — no credit card. CallAssist has a live demo at regovix.com.au/callassist.html with 5 free AI analyses. Madhu sets up accounts within 1 business day. Fill in the contact form or email maddypat@regovix.com.au!";
+  }
+  // RiskMatrix/SWMS questions
+  if (q.match(/riskmatrix|risk matrix|risk assessment|swms/)) {
+    return "RiskMatrix ($29/mo) generates visual risk matrices with AI-suggested controls. RiskReady ($69/mo) builds full SWMS with digital worker sign-off. Both WHS Act 2011 compliant. Free 21-day trial on both — fill in the contact form!";
+  }
+  // DG/chemicals questions
+  if (q.match(/dangerous goods|dg |chemical|hazmat|adg|dgvault|chemtrack/)) {
+    return "DGVault ($89/mo) manages dangerous goods stock with ADG Code segregation checking. ChemTrack ($59/mo) handles your chemical register and SDS. Chemical & DG Bundle combines both + IncidentLoop for $179/mo. Free 21-day trial!";
+  }
+  // Construction questions
+  if (q.match(/construction|build|site|hrcw|permit|confined/)) {
+    return "For construction: RiskReady ($69/mo) covers all 19 HRCW SWMS categories, InductGuard ($49/mo) manages contractor inductions. Risk & Compliance Bundle ($249/mo) covers both plus more. Free trial on all — email maddypat@regovix.com.au!";
+  }
+  // Transport/fleet questions
+  if (q.match(/transport|fleet|vehicle|driver|fatigue|truck|hvnl/)) {
+    return "FleetCheck ($59/mo) handles vehicle pre-start inspections with defect escalation. WellnessCheck ($79/mo) manages driver fatigue under HVNL. Safety Essentials Bundle ($199/mo) includes both. Free 21-day trial!";
+  }
+  // Incident questions
+  if (q.match(/incident|accident|near miss|injury|report/)) {
+    return "IncidentLoop ($49/mo) handles incident and near miss reporting in under 60 seconds — corrective actions tracked to close-out, auto-generated PDF reports for WHS Act obligations. Free 21-day trial — fill in the contact form!";
+  }
+  // Bundle questions
+  if (q.match(/bundle|package|all apps|discount|save/)) {
+    return "Bundles: Safety Essentials $199/mo · Risk & Compliance $249/mo · Chemical & DG $179/mo · Growth Bundle $299/mo (any 5) · Consultant Plan $449/mo (all 11 + white-label) · Full Bundle $749/mo (all 11 — save $312/mo). Annual plans save 2 months. CallAssist from $299/mo extra.";
+  }
+  // Contact questions
+  if (q.match(/contact|email|call|speak|talk|madhu/)) {
+    return "Reach Madhu directly at maddypat@regovix.com.au or fill in the contact form above. Madhu personally responds within 1 business day. Based in Sydney, NSW, Australia.";
+  }
+  // Which app / recommend
+  if (q.match(/which app|where.*start|recommend|suggest|best app/)) {
+    return "Most customers start with RiskMatrix ($29/mo) — fastest to set up. For CS operators handling complex calls, try CallAssist (live demo at regovix.com.au/callassist.html). What industry are you in? I can give a more specific recommendation!";
+  }
+  // Consultant questions
+  if (q.match(/consultant|consulting|multiple client/)) {
+    return "The Consultant Plan ($449/mo) suits HSEQ consultants — all 11 apps, white-label PDF output, up to 15 client companies. Also check out CallAssist — deploy it for your clients as a white-label AI call assist tool from $299/mo. Email maddypat@regovix.com.au for details!";
+  }
+  // Australian law questions
+  if (q.match(/australian|whs|safework|legislation|compliance|law/)) {
+    return "Every Regovix app is built for Australian law — WHS Act 2011, WHS Regulation 2017, ADG Code 9th Edition, HVNL. Built by a practising Australian HSEQ Advisor. Not adapted from overseas software.";
+  }
+  // RegWatchAI
+  if (q.match(/regwatch|reg.watch|regulatory.watch|regulatory.monitor|regulatory.change|regulatory.alert|regulatory.intelligence|monitor.*regulation|regulation.*monitor/)) {
+    return "RegWatchAI is Regovix\'s 12th app — real-time Australian regulatory monitoring powered by Claude AI. It tracks SafeWork NSW, Safe Work Australia, ADG Code, EPA NSW, NHVR/HVNL, and AS/NZS Standards and alerts you the moment something changes. Plans: Add-On $49/mo (for existing Regovix customers), Standalone $99/mo, Consultant $149/mo (up to 15 client dashboards and white-label reports). Try the free demo at regowatchai.netlify.app — no login needed! For the full live AI version fill in the contact form to request a free 21-day trial.";
+  }
+  // Greetings
+  if (q.match(/^(hi|hello|hey|g.day|gday|howdy|good\s*(morning|afternoon|evening))[\s!?.]*$/)) {
+    return "G'day! I'm the Regovix assistant. I can help with our 11 HSEQ compliance apps, CallAssist white-label AI call assist, pricing, and free trials. What can I help you with today?";
+  }
+  // Default
+  return "Great question! Email Madhu at maddypat@regovix.com.au or fill in the contact form above — Madhu responds within 1 business day with a personalised recommendation. Or try the CallAssist demo at regovix.com.au/callassist.html!";
+}
+</script>
+</head>
+<body>
+
+<!-- ── Navigation ───────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg width="22" height="22" viewBox="0 0 30 30" fill="none">
+            <path d="M15 4L25 9.2V15C25 21 20 26 15 27.5C10 26 5 21 5 15V9.2L15 4Z" stroke="#0D1B2A" stroke-width="1.5" fill="none"/>
+            <path d="M9.5 15L13.5 19L20.5 11" stroke="#0D1B2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="nav-logo-text">Reg<span>ovix</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="#apps">Apps</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <a href="/callassist.html" style="color:#0BBFA0;font-weight:600">✦ CallAssist</a>
+      </div>
+      <div class="nav-ctas">
+        <a href="/#contact" class="btn btn-secondary" style="padding:10px 20px;font-size:.85rem">Book a Demo</a>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="padding:10px 20px;font-size:.85rem">Get Free Trial</a>
+      </div>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#apps" onclick="toggleMenu()">Apps</a>
+  <a href="#how-it-works" onclick="toggleMenu()">How it works</a>
+  <a href="/pricing.html" onclick="toggleMenu()">Pricing</a>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="/callassist.html" onclick="toggleMenu()" style="color:#0BBFA0;font-weight:600">✦ CallAssist Demo</a>
+  <a href="/#contact" class="btn btn-secondary btn-lg" onclick="toggleMenu()">Book a Demo</a>
+  <a href="/#contact" target="_blank" class="btn btn-primary btn-lg" onclick="toggleMenu()">Get Free Trial</a>
+</div>
+
+<!-- ── Hero ─────────────────────────────────────────────────── -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-dot"></div>
+          <span>Now Live — 12 HSEQ Apps · Free 21-Day Trial</span>
+        </div>
+        <h1>Australian HSEQ compliance — <em>built for the real world.</em></h1>
+        <p class="hero-sub">Twelve purpose-built compliance apps covering risk assessments, SWMS, permits, incidents, chemicals, fatigue, dangerous goods, document control, and real-time regulatory monitoring. Built by a practising Australian HSEQ Advisor. Every app live. From $29/month.</p>
+        <div class="hero-btns">
+          <a href="/#contact" target="_blank" class="btn btn-primary btn-lg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Request Free Trial — No Credit Card
+          </a>
+          <a href="/#contact" class="btn btn-secondary btn-lg">Book a Demo</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            12 HSEQ Apps live today
+          </div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            Built for Australian WHS law
+          </div>
+          <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            Free 21-day trial — no credit card
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="dashboard-mock">
+          <div class="dash-header">
+            <div class="dash-dot" style="background:#FF5F57"></div>
+            <div class="dash-dot" style="background:#FEBC2E"></div>
+            <div class="dash-dot" style="background:#28C840"></div>
+            <span class="dash-title">Regovix Dashboard</span>
+          </div>
+          <div class="dash-body">
+            <div class="stat-row">
+              <div class="stat-card">
+                <div class="stat-val">94%</div>
+                <div class="stat-lbl">Compliance rate</div>
+                <div class="stat-badge badge-green">↑ On track</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-val">3</div>
+                <div class="stat-lbl">Open NCRs</div>
+                <div class="stat-badge badge-amber">Review due</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-val">12</div>
+                <div class="stat-lbl">Apps active</div>
+                <div class="stat-badge badge-green">All live</div>
+              </div>
+            </div>
+            <div class="app-list">
+              <div class="app-row"><div class="app-row-icon" style="background:#0BBFA0">RM</div><div class="app-row-name">RiskMatrix</div><span class="app-row-status status-live">Live</span></div>
+              <div class="app-row"><div class="app-row-icon" style="background:#1B6FFF">RR</div><div class="app-row-name">RiskReady</div><span class="app-row-status status-live">Live</span></div>
+              <div class="app-row"><div class="app-row-icon" style="background:#089980">IG</div><div class="app-row-name">InductGuard</div><span class="app-row-status status-live">Live</span></div>
+              <div class="app-row"><div class="app-row-icon" style="background:#F59E0B">IL</div><div class="app-row-name">IncidentLoop</div><span class="app-row-status status-live">Live</span></div>
+              <div class="app-row"><div class="app-row-icon" style="background:#0BBFA0">DV</div><div class="app-row-name">DGVault</div><span class="app-row-status status-live">Live</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Industry logos bar ─────────────────────────────────── -->
+<div class="logos-bar">
+  <div class="container">
+    <div class="logos-inner">
+      <span class="logos-label">Built for</span>
+      <div class="industry-pills">
+        <div class="industry-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 3v18M16 3v18"/></svg>Construction</div>
+        <div class="industry-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3m-9 12h13a2 2 0 0 0 2-2v-4"/></svg>Transport & Logistics</div>
+        <div class="industry-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Manufacturing</div>
+        <div class="industry-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>Hazardous Waste</div>
+        <div class="industry-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Mining</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Problem ────────────────────────────────────────────── -->
+<section class="section" id="problem">
+  <div class="container">
+    <div class="fade-in">
+      <span class="section-label">The problem</span>
+      <h2>Most Australian businesses are one audit away from a serious problem.</h2>
+      <p class="section-sub">Paper forms that never get filed. Spreadsheets nobody trusts. Procedures last updated three years ago. Incidents that never get closed out. Sound familiar?</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card fade-in">
+        <div class="problem-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3>Paper forms that fail audits</h3>
+        <p>Incident reports in folders. Risk assessments in Word. SWMS documents nobody can find. None of it holds up when a SafeWork inspector visits — and they will visit.</p>
+      </div>
+      <div class="problem-card fade-in">
+        <div class="problem-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Hours lost to documentation</h3>
+        <p>The average SWMS takes 3 hours in Word. A risk matrix takes 45 minutes in Excel. A toolbox talk register requires a separate spreadsheet. Regovix does all of it in minutes — automatically.</p>
+      </div>
+      <div class="problem-card fade-in">
+        <div class="problem-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3>Compliance failures are expensive</h3>
+        <p>WHS fines up to $50,000 for individuals and $500,000 for companies. DG disposal overruns. Incident liability. The cost of non-compliance is always higher than the cost of fixing it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Apps ───────────────────────────────────────────────── -->
+<section class="section apps-section" id="apps">
+  <div class="container">
+    <div class="fade-in text-center">
+      <span class="section-label">The platform</span>
+      <h2>12 HSEQ apps. Every compliance obligation. One platform.</h2>
+      <p class="section-sub center">Each app addresses a specific, legally required HSEQ obligation under Australian WHS law. Use one. Use all twelve. Bundle and save.</p>
+    </div>
+    <div class="apps-grid">
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#0BBFA0">RM</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">RiskMatrix</a></h3>
+        <p>Visual risk matrix generator with automatic scoring, AI-suggested controls, and residual risk calculation after mitigation.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/6oU28t2yP7vK19F3IRgbm1g" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $29/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#1B6FFF">RR</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">RiskReady</a></h3>
+        <p>Full risk assessment and SWMS builder with AI work steps, hierarchy of controls, automatic risk scoring, and digital worker sign-off.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/9B63cxehx6rGg4zenvgbm1a" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $69/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#089980">IG</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">InductGuard</a></h3>
+        <p>Contractor induction management — self-service portal, digital sign-off, licence expiry tracking, and compliance dashboard.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/8x27sN3CTaHW3hN4MVgbm14" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $49/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#0BBFA0">TG</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">ToolboxGen</a></h3>
+        <p>AI generates a ready-to-deliver 300-word toolbox talk in seconds. Workers sign off digitally. Register builds automatically.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/dRm8wR2yP5nC7y35QZgbm0Y" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $39/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#F59E0B">IL</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">IncidentLoop</a></h3>
+        <p>Incident and near miss reporting in under 60 seconds. Corrective actions tracked to close-out. Auto-generated PDF reports.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/aFa5kFehxdU82dJa7fgbm0U" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $49/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#1B6FFF">FC</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">FleetCheck</a></h3>
+        <p>Vehicle and plant pre-start inspection on any phone. Defects auto-escalate to fleet managers. Service reminders automated.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/eVqcN70qH9DS3hN3IRgbm0O" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $59/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#089980">CT</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">ChemTrack</a></h3>
+        <p>Chemical register and SDS management. Upload an SDS and AI extracts hazards, PPE, and storage requirements instantly.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/6oU6oJ1uL4jybOj4MVgbm0I" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $59/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#0D1B2A" style="border:1px solid rgba(255,255,255,.2)">AM</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">AuditMate</a></h3>
+        <p>Mobile site inspections with auto-generated professional PDF reports. NCR register tracks every finding to close-out.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/14A7sNflB5nCbOj7Z7gbm0C" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $69/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#1B6FFF">WC</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">WellnessCheck</a></h3>
+        <p>Pre-shift fatigue and fitness for duty check-in. AI scores FFD risk. Red flags escalate to supervisors immediately.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/aFafZjehx4jy7y37Z7gbm0w" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $79/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#0BBFA0">CV</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">ComplianceVault</a></h3>
+        <p>HSEQ document control with version history, expiry alerts at 90/60/30 days, and audit-ready register export.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/4gMdRbgpFcQ45pV7Z7gbm0q" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $59/mo</a>
+      </div>
+      <div class="app-card fade-in">
+        <div class="app-card-top"><div class="app-icon" style="background:#089980">DV</div><span class="live-badge">Live</span></div>
+        <h3><a href="/#contact" target="_blank" style="color:inherit;text-decoration:none">DGVault</a></h3>
+        <p>Dangerous goods stock management with ADG Code segregation checking on every receipt and disposal cost tracking.</p>
+        <a href="/#contact" target="_blank" class="btn btn-primary" style="margin-top:14px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Request Free Trial →</a>
+        <a href="https://buy.stripe.com/fZu28tc9pg2g9Gbdjrgbm0k" target="_blank" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--muted);text-decoration:underline">Skip trial — buy now from $89/mo</a>
+      </div>
+      <!-- RegWatchAI card -->
+      <div class="app-card fade-in" style="border:1px solid rgba(11,191,160,.3);position:relative">
+        <div class="app-card-top">
+          <div class="app-icon" style="background:linear-gradient(135deg,#0BBFA0,#0D9E85)">RW</div>
+          <span class="app-status live">Live</span>
+          <span style="background:rgba(11,191,160,.15);color:#0BBFA0;border:1px solid rgba(11,191,160,.3);font-size:.65rem;padding:2px 8px;border-radius:20px;font-weight:600;margin-left:4px">AI · Monitoring</span>
+        </div>
+        <h3 class="app-name"><a href="https://regowatchai.netlify.app/" target="_blank" style="color:inherit;text-decoration:none">RegWatchAI</a></h3>
+        <p class="app-desc">Real-time Australian regulatory monitoring powered by Claude AI. Tracks SafeWork NSW, Safe Work Australia, ADG Code, EPA NSW, NHVR/HVNL, and AS/NZS Standards — alerts you the moment something changes.</p>
+        <div class="app-meta">Add-On $49/mo · Standalone $99/mo · Consultant $149/mo</div>
+        <a href="https://regowatchai.netlify.app/" target="_blank" class="btn btn-primary" style="margin-top:12px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">Try Free Demo &#8250;</a>
+        <a href="/#contact" style="margin-top:6px;font-size:.78rem;text-align:center;display:block;color:#0BBFA0;text-decoration:none;font-weight:500">Request Free Trial &#8250;</a>
+      </div>
+
+      <!-- CallAssist separator -->
+      <div style="grid-column:1/-1;margin:24px 0 8px;padding:16px 22px;background:rgba(27,111,255,.08);border:1px solid rgba(27,111,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <div>
+          <span style="font-size:.68rem;font-weight:700;color:#1B6FFF;letter-spacing:.08em;text-transform:uppercase;">General Purpose AI Platform</span>
+          <div style="font-size:.88rem;color:rgba(255,255,255,.6);margin-top:2px;">CallAssist is not an HSEQ-specific app — it is a white-label AI call assist platform for any industry. Priced and deployed separately.</div>
+        </div>
+        <a href="/callassist" style="font-size:.8rem;color:#1B6FFF;text-decoration:none;font-weight:600;white-space:nowrap;">Full details &#8250;</a>
+      </div>
+
+      <div class="app-card fade-in" style="border:1px solid rgba(11,191,160,.3);position:relative">
+        <div class="app-card-top"><div class="app-icon" style="background:linear-gradient(135deg,#1B6FFF,#0BBFA0)">CA</div><span class="live-badge">Live</span><span style="font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:20px;background:var(--teal);color:var(--ink);text-transform:uppercase;letter-spacing:.04em;margin-left:4px">AI · White-Label</span></div>
+        <h3><a href="/callassist.html" style="color:inherit;text-decoration:none">CallAssist</a></h3>
+        <p>White-label AI call assist platform for your customer service team. Live transcription, instant AI guidance, and escalation flags — fully branded and customised for your industry, products, and procedures.</p>
+        <div style="margin-top:12px;padding:10px 12px;background:rgba(11,191,160,.07);border:1px solid rgba(11,191,160,.15);border-radius:8px;font-size:.75rem;color:rgba(255,255,255,.55);line-height:1.6">
+          <span style="color:var(--teal);font-weight:600">Setup from $1,500</span> &nbsp;·&nbsp; Subscription from $299/mo<br>
+          Delivered as your own branded tool · Chrome · No IT required
+        </div>
+        <a href="/callassist.html#callassist-enquiry" class="btn btn-primary" style="margin-top:12px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex">View Pricing &amp; Plans →</a>
+        <a href="/callassist.html#callassist-form" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:var(--teal);text-decoration:underline;font-weight:500">View Pricing &amp; Enquire →</a>
+      </div>
+    </div>
+    <div class="apps-cta fade-in">
+      <a href="/#contact" target="_blank" class="btn btn-primary btn-lg">Get Free Trial — Try RiskMatrix Free Today</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ───────────────────────────────────────── -->
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="fade-in text-center">
+      <span class="section-label">How it works</span>
+      <h2>From sign-up to compliant in under a week.</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-item fade-in">
+        <div class="step-num">1</div>
+        <h3>Choose your app</h3>
+        <p>Start with the compliance challenge that hurts most right now. RiskMatrix at $29/month is the fastest to try — free trial, no credit card.</p>
+      </div>
+      <div class="step-item fade-in">
+        <div class="step-num">2</div>
+        <h3>We set it up</h3>
+        <p>We personally configure your first app — risk matrix, sites, users, and workflows — at no charge. Operational within a week.</p>
+      </div>
+      <div class="step-item fade-in">
+        <div class="step-num">3</div>
+        <h3>Your team uses it daily</h3>
+        <p>Workers, supervisors, and managers each have their own role. Everything works on phone or desktop. No training required.</p>
+      </div>
+      <div class="step-item fade-in">
+        <div class="step-num">4</div>
+        <h3>Audit-ready, always</h3>
+        <p>Every action logged, every document versioned, every record exportable in two clicks when a regulator visits your site.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Founder ────────────────────────────────────────────── -->
+<section class="section founder-section" id="about">
+  <div class="container">
+    <div class="founder-grid">
+      <div class="fade-in">
+        <div class="founder-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Built by a practitioner</span>
+        </div>
+        <h2>Built by someone who has done your job.</h2>
+        <p>Regovix was not built by a software company that read about HSEQ compliance. It was built by a practising Australian HSEQ Advisor with hands-on experience in hazardous waste management, dangerous goods compliance under the ADG Code, contractor management, site inspections, incident investigation, and SWMS production.</p>
+        <p>Every Regovix app reflects what compliance actually looks like in the real world — the paper chemical registers, the Word-based risk assessments, the SWMS documents in shared drives nobody trusts. This is that experience, automated.</p>
+        <div class="founder-quote">
+          <p>"Every feature in Regovix was built because I personally needed it doing my job. If it is in the platform, it is there because it matters." — Madhu Pattarambil, Founder</p>
+        </div>
+      </div>
+
+      
+      <!-- Founder video -->
+      <div class="fade-in" style="position:relative;">
+        <div style="
+          border-radius:16px;
+          overflow:hidden;
+          box-shadow:0 24px 64px rgba(0,0,0,.35);
+          border:1px solid rgba(11,191,160,.2);
+          position:relative;
+          padding:177.78% 0 0 0;
+          max-width:320px;
+          margin:0 auto;
+        ">
+          <iframe
+            src="https://player.vimeo.com/video/1192232589?badge=0&autopause=0&player_id=0&app_id=58479&color=0BBFA0&title=0&byline=0&portrait=0&autoplay=1&muted=1&loop=1"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share; muted"
+            referrerpolicy="strict-origin-when-cross-origin"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:16px;"
+            title="Regovix — Founder Introduction" muted autoplay playsinline>
+          </iframe>
+        </div>
+        <script src="https://player.vimeo.com/api/player.js"></script>
+        <p style="text-align:center;font-size:.78rem;color:rgba(255,255,255,.45);margin-top:10px;font-family:'DM Sans',sans-serif;">
+          Madhu Pattarambil · Founder, Regovix · HSEQ Advisor
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ────────────────────────────────────────────── -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="fade-in text-center">
+      <span class="section-label">Pricing</span>
+      <h2>Start with one app. Bundle all twelve. Save more.</h2>
+      <p class="section-sub center">Free 21-day trial on every app. No credit card required. Personal setup support included at no charge.</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:24px">
+        <span id="lbl-mo" style="font-size:.9rem;font-weight:500;color:var(--ink)">Monthly</span>
+        <div onclick="toggleBilling()" style="width:48px;height:26px;background:var(--teal);border-radius:13px;cursor:pointer;position:relative;transition:background .2s" id="billing-toggle">
+          <div id="toggle-dot" style="width:20px;height:20px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .2s"></div>
+        </div>
+        <span id="lbl-yr" style="font-size:.9rem;color:var(--muted)">Annual <span style="background:var(--teal3);color:var(--teal2);font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:20px;margin-left:4px">Save 2 months</span></span>
+      </div>
+    </div>
+
+    <div class="pricing-grid" style="margin-top:48px">
+      <div class="price-card fade-in">
+        <div class="price-plan">Individual Apps</div>
+        <div class="price-amount">
+          <span class="currency">A$</span>
+          <span class="amount" id="p1-amt">29</span>
+          <span class="period">/month</span>
+        </div>
+        <p class="price-desc">Start with RiskMatrix — the fastest app to try. Add more apps as you grow.</p>
+        <div class="price-divider"></div>
+        <div class="price-features">
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Choose any single app</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Free 21-day trial included</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Personal setup support</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Cancel anytime</div>
+        </div>
+        <a id="p1-btn" href="/#contact" target="_blank" class="btn btn-outline btn-lg" style="width:100%;justify-content:center">Try RiskMatrix Free →</a>
+      </div>
+
+      <div class="price-card featured fade-in">
+        <div class="popular-badge">Most Popular</div>
+        <div class="price-plan">Growth Bundle</div>
+        <div class="price-amount">
+          <span class="currency">A$</span>
+          <span class="amount" id="p2-amt">299</span>
+          <span class="period">/month</span>
+        </div>
+        <p class="price-desc">Pick any 5 Regovix apps. Save up to $100/month versus individual pricing.</p>
+        <div class="price-divider"></div>
+        <div class="price-features">
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>5 apps — your choice</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Unlimited users on all plans</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Priority support included</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Monthly compliance summary</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Free 21-day trial included</div>
+        </div>
+        <a id="p2-btn" href="https://buy.stripe.com/aFa28tflBeYc8C7bbjgbm0b" target="_blank" class="btn btn-primary btn-lg" style="width:100%;justify-content:center">Get Growth Bundle →</a>
+      </div>
+
+      <div class="price-card fade-in">
+        <div class="price-plan">Full Bundle</div>
+        <div class="price-amount">
+          <span class="currency">A$</span>
+          <span class="amount" id="p3-amt">749</span>
+          <span class="period">/month</span>
+        </div>
+        <p class="price-desc">All 12 HSEQ apps. Unlimited users. All sites.</p>
+        <div class="price-divider"></div>
+        <div class="price-features">
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>All 12 HSEQ apps included</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Unlimited users and sites</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>White-label options available</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Dedicated onboarding support</div>
+          <div class="price-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>HSEQ Consultant Managed Plan</div>
+        </div>
+        <a id="p3-btn" href="https://buy.stripe.com/28E14pb5lcQ44lRgvDgbm09" target="_blank" class="btn btn-outline btn-lg" style="width:100%;justify-content:center">Get Full Bundle →</a>
+      </div>
+    </div>
+
+    <p class="price-note">All prices in AUD exc. GST. Annual plans: pay 10 months, get 12. GST added at checkout for Australian businesses.</p>
+
+    <!-- Refund Policy -->
+    <div class="refund-wrap fade-in">
+      <div class="refund-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Regovix Refund Policy</span>
+      </div>
+      <div class="refund-grid">
+        <div class="refund-item">
+          <div class="refund-icon" style="background:#E0FAF6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#089980" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><div class="refund-title">Free trials</div><div class="refund-desc">Every Regovix app includes a free 21-day trial with no credit card required. You will never be charged during your trial period.</div></div>
+        </div>
+        <div class="refund-item">
+          <div class="refund-icon" style="background:#E0FAF6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#089980" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><div class="refund-title">Monthly plans</div><div class="refund-desc">Cancel anytime — cancellation stops future charges immediately. No refunds for the current billing month already paid.</div></div>
+        </div>
+        <div class="refund-item">
+          <div class="refund-icon" style="background:#E0FAF6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#089980" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><div class="refund-title">Annual plans</div><div class="refund-desc">Pro-rata refund for unused months if you cancel within the first 90 days. After 90 days, annual plans are non-refundable except where required by Australian Consumer Law.</div></div>
+        </div>
+        <div class="refund-item">
+          <div class="refund-icon" style="background:#E0FAF6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#089980" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div><div class="refund-title">Australian Consumer Law</div><div class="refund-desc">Our services come with guarantees that cannot be excluded under the Australian Consumer Law. If the service fails to meet a consumer guarantee, you may be entitled to a remedy.</div></div>
+        </div>
+      </div>
+      <div class="refund-footer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        To request a refund email <a href="mailto:maddypat@regovix.com.au">maddypat@regovix.com.au</a> — we process approved refunds within 14 business days.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Regulatory ─────────────────────────────────────────── -->
+<section class="section-sm reg-section" id="regulatory">
+  <div class="container">
+    <div class="fade-in text-center">
+      <span class="section-label">Regulatory obligations</span>
+      <h2>Every app addresses a real legal obligation.</h2>
+      <p class="section-sub center">Regovix was designed around Australian regulatory requirements — not adapted from US or UK software.</p>
+    </div>
+    <div class="reg-grid">
+      <div class="reg-card fade-in">
+        <div class="reg-number">WHS Act 2011 — s17</div>
+        <div class="reg-content">
+          <h3>Primary duty to manage risks</h3>
+          <p>Requires elimination or minimisation of risks so far as is reasonably practicable. Documented risk assessments are the evidence of compliance.</p>
+          <div class="reg-apps"><span class="reg-app-tag">RiskMatrix</span><span class="reg-app-tag">RiskReady</span></div>
+        </div>
+      </div>
+      <div class="reg-card fade-in">
+        <div class="reg-number">WHS Reg — Schedule 1</div>
+        <div class="reg-content">
+          <h3>High Risk Construction Work SWMS</h3>
+          <p>19 categories of HRCW requiring a Safe Work Method Statement before work commences. Legally required on every construction site.</p>
+          <div class="reg-apps"><span class="reg-app-tag">RiskReady</span><span class="reg-app-tag">InductGuard</span></div>
+        </div>
+      </div>
+      <div class="reg-card fade-in">
+        <div class="reg-number">WHS Reg 346–347</div>
+        <div class="reg-content">
+          <h3>Hazardous chemical register & SDS</h3>
+          <p>Requires a register of hazardous chemicals and SDS accessible to all workers. SDS must not be more than 5 years old.</p>
+          <div class="reg-apps"><span class="reg-app-tag">ChemTrack</span><span class="reg-app-tag">DGVault</span></div>
+        </div>
+      </div>
+      <div class="reg-card fade-in">
+        <div class="reg-number">HVNL — Fatigue</div>
+        <div class="reg-content">
+          <h3>Heavy Vehicle fatigue management</h3>
+          <p>Mandatory fatigue management obligations for heavy vehicle operators. Documented FFD records required for compliance.</p>
+          <div class="reg-apps"><span class="reg-app-tag">WellnessCheck</span><span class="reg-app-tag">FleetCheck</span></div>
+        </div>
+      </div>
+      <div class="reg-card fade-in">
+        <div class="reg-number">ADG Code 9th Ed</div>
+        <div class="reg-content">
+          <h3>DG storage segregation</h3>
+          <p>Table 5.5.2 defines incompatible DG class combinations for storage and transport. DGVault's segregation matrix is built on this table.</p>
+          <div class="reg-apps"><span class="reg-app-tag">DGVault</span><span class="reg-app-tag">ChemTrack</span></div>
+        </div>
+      </div>
+      <div class="reg-card fade-in">
+        <div class="reg-number">WHS Act — Incidents</div>
+        <div class="reg-content">
+          <h3>Incident notification & investigation</h3>
+          <p>Requires immediate notification of notifiable incidents and documented investigation with corrective actions to close-out.</p>
+          <div class="reg-apps"><span class="reg-app-tag">IncidentLoop</span><span class="reg-app-tag">AuditMate</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────────────────── -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="fade-in text-center">
+      <span class="section-label">FAQ</span>
+      <h2>Common questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Do I need all 12 apps or can I start with one?
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">Start with one app — whichever solves your most urgent compliance problem right now. RiskMatrix at $29/month is the fastest to try. Add more apps as you need them, or bundle all 12 at $749/month and save versus individual pricing.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Is Regovix built for Australian WHS law or adapted from overseas software?
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">Built specifically for Australian WHS law. Every app references the WHS Act 2011, WHS Regulation 2017, ADG Code 9th Edition, HVNL, and relevant AS/NZS standards — not adapted from US or UK products.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How long does it take to get set up?
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">Most customers are using their first app within one week. We personally configure your account, set up your sites and users, and onboard your team at no charge. You focus on the work — we handle the setup.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Can HSEQ consultants manage multiple clients from one account?
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">Yes. The Consultant plan lets you manage up to 15 client companies from a single dashboard with white-label PDF output under your own branding. It is the most cost-effective way for consultants to deliver compliance services at scale.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What happens to my data if I cancel?
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">Your data remains accessible for 30 days after cancellation. You can export all records, documents, and reports as PDF or CSV at any time before or after cancellation. Your data is yours — always.</div>
+      </div>
+      <div class="faq-item fade-in">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Is there a free trial?
+          <div class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">Yes — every app has a free 21-day trial with no credit card required. Start today and see exactly how Regovix works in your environment before committing.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact / CTA ──────────────────────────────────────── -->
+<section class="section cta-section" id="contact" data-email="maddypat@regovix.com.au">
+  <div class="container" style="position:relative;z-index:1">
+    <div class="fade-in">
+      <span class="section-label" style="color:var(--teal);display:block;text-align:center">Contact</span>
+      <h2>Get in touch — we respond within 1 business day.</h2>
+      <p>Whether you want to start a free trial, book a demo, or just ask a question about how Regovix can help your business — email us directly. We personally respond to every enquiry.</p>
+      <div class="cta-btns">
+        <a href="/#contact" target="_blank" class="btn btn-primary btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Get Free Trial — No Credit Card
+        </a>
+        <a href="/#contact" class="btn btn-secondary btn-lg">Book a Demo</a>
+      </div>
+      <div class="cta-trust">
+        <div class="cta-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>12 HSEQ apps live</div>
+        <div class="cta-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Free 21-day trial</div>
+        <div class="cta-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Personal setup support included</div>
+        <div class="cta-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Built for Australian WHS law</div>
+      </div>
+
+      <!-- Contact form -->
+      <div class="contact-form-wrap fade-in">
+        <h3>Request your free 21-day trial</h3>
+        <p class="form-sub">Fill in the form below — we respond to every enquiry within 1 business day.</p>
+
+        <!-- Formspree form — replace xeenevle with your Formspree form ID -->
+        <form id="contactForm" action="https://formspree.io/f/xeenevle" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Your name *</label>
+              <input type="text" id="fname" name="name" placeholder="e.g. John Smith" required>
+            </div>
+            <div class="form-group">
+              <label for="femail">Your email *</label>
+              <input type="email" id="femail" name="email" placeholder="john@company.com.au" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fcompany">Company</label>
+              <input type="text" id="fcompany" name="company" placeholder="Your company name">
+            </div>
+            <div class="form-group">
+              <label for="fapp">App you are interested in</label>
+              <select id="fapp" name="app_interest">
+                <option value="">Select an app...</option>
+                <option value="RiskMatrix">RiskMatrix — Risk Matrix Generator</option>
+                <option value="RiskReady">RiskReady — Risk Assessment & SWMS</option>
+                <option value="InductGuard">InductGuard — Contractor Induction</option>
+                <option value="ToolboxGen">ToolboxGen — Toolbox Talk Generator</option>
+                <option value="IncidentLoop">IncidentLoop — Incident Reporting</option>
+                <option value="FleetCheck">FleetCheck — Fleet Pre-Start</option>
+                <option value="ChemTrack">ChemTrack — Chemical Register</option>
+                <option value="AuditMate">AuditMate — Site Inspections</option>
+                <option value="WellnessCheck">WellnessCheck — Fatigue & FFD</option>
+                <option value="ComplianceVault">ComplianceVault — Document Control</option>
+                <option value="DGVault">DGVault — Dangerous Goods</option>
+                <option value="RegWatchAI">RegWatchAI — Regulatory Monitoring</option>
+                <option value="Bundle">Bundle — Multiple Apps</option>
+                <option value="Other">Other / Not sure yet</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fmsg">Your message *</label>
+            <textarea id="fmsg" name="message" placeholder="Tell us about your compliance needs, which apps you are interested in, or any questions you have..." required></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="New Free Trial Request from regovix.com.au">
+          <input type="hidden" name="_replyto" value="{{ email }}">
+          <button type="submit" class="form-submit" id="submitBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send Message
+          </button>
+        </form>
+
+        <div class="form-success" id="formSuccess" style="display:none !important">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0BBFA0" stroke-width="2" style="margin:0 auto 12px;display:block"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <p>Trial request received — thank you! Madhu will set up your access and send login details within 1 business day.</p>
+        </div>
+
+        <div class="form-or"><span>or contact us directly</span></div>
+
+        <div class="direct-email-box">
+          <p>Prefer to email directly? Copy our address and paste it into your email app.</p>
+          <button class="copy-email-btn" onclick="copyEmail(this)" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="email-text">maddypat@regovix.com.au</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer style="background:#080F16;border-top:1px solid rgba(255,255,255,.05)">
+  <div style="max-width:1160px;margin:0 auto;padding:0 24px">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding:64px 0 48px">
+
+      <!-- Brand -->
+      <div>
+        <a href="/" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:16px">
+          <div style="width:34px;height:34px;background:#0BBFA0;border-radius:9px;display:flex;align-items:center;justify-content:center">
+            <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+              <path d="M15 4L25 9.2V15C25 21 20 26 15 27.5C10 26 5 21 5 15V9.2L15 4Z" stroke="#0D1B2A" stroke-width="1.5" fill="none"/>
+              <path d="M9.5 15L13.5 19L20.5 11" stroke="#0D1B2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span style="font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-0.02em">Reg<span style="color:#0BBFA0">ovix</span></span>
+        </a>
+        <p style="font-size:.85rem;color:rgba(255,255,255,.35);line-height:1.75;max-width:260px">Regulatory compliance. Built for the real world. Twelve purpose-built HSEQ compliance apps for Australian businesses.</p>
+        <div style="margin-top:18px;font-size:.85rem;line-height:2.2;color:rgba(255,255,255,.45)">
+          <div><strong style="color:rgba(255,255,255,.7)">Madhu Pattarambil</strong> &mdash; Founder</div>
+          <div><a href="mailto:maddypat@regovix.com.au" style="color:#0BBFA0;text-decoration:none">maddypat@regovix.com.au</a></div>
+          <div style="color:rgba(255,255,255,.3)">ABN: 19 735 810 326</div>
+          <div style="color:rgba(255,255,255,.3)">Sydney, NSW, Australia</div>
+        </div>
+      </div>
+
+      <!-- Platform -->
+      <div>
+        <h4 style="font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.25);margin-bottom:18px">Platform</h4>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">RiskMatrix</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">RiskReady</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">InductGuard</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">ToolboxGen</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">IncidentLoop</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">FleetCheck</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">ChemTrack</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">AuditMate</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">WellnessCheck</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">ComplianceVault</a>
+        <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">DGVault</a>
+        <a href="https://regowatchai.netlify.app/" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">RegWatchAI</a>
+        <a href="/callassist.html" style="display:block;font-size:.85rem;color:#0BBFA0;margin-bottom:10px;text-decoration:none;font-weight:600" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">✦ CallAssist</a>
+      </div>
+
+      <!-- Company -->
+      <div>
+        <h4 style="font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.25);margin-bottom:18px">Company</h4>
+        <a href="/#about" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">About Regovix</a>
+        <a href="/pricing.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Pricing</a>
+        <a href="/pricing.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">All 76 Plans</a>
+        <a href="#faq" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">FAQ</a>
+        <a href="https://regowatchai.netlify.app/" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">RegWatchAI</a>
+        <a href="/callassist.html" style="display:block;font-size:.85rem;color:#0BBFA0;margin-bottom:10px;text-decoration:none;font-weight:600" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">✦ CallAssist Demo</a>
+      </div>
+
+      <!-- Contact & Legal -->
+      <div>
+        <h4 style="font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.25);margin-bottom:18px">Contact</h4>
+        <a href="mailto:maddypat@regovix.com.au" style="display:block;font-size:.85rem;color:#0BBFA0;margin-bottom:10px;text-decoration:none;font-weight:500">maddypat@regovix.com.au</a>
+        <a href="mailto:maddypat@regovix.com.au?subject=Book a Regovix Demo" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Book a Demo</a>
+        <a href="mailto:maddypat@regovix.com.au?subject=Regovix Support" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Support</a>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06)">
+          <h4 style="font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.25);margin-bottom:14px">Legal</h4>
+          <a href="/privacy.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Privacy Policy</a>
+          <a href="/terms.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Terms of Service</a>
+          <a href="/terms.html#s12" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Refund Policy</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer bar -->
+    <div style="border-top:1px solid rgba(255,255,255,.05);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <p style="font-size:.8rem;color:rgba(255,255,255,.2)">© 2026 Regovix | ABN 19 735 810 326 | Built in Australia for Australian businesses.</p>
+      <div style="display:flex;gap:20px">
+        <a href="/privacy.html" style="font-size:.8rem;color:rgba(255,255,255,.25);text-decoration:none" onmouseover="this.style.color='rgba(255,255,255,.5)'" onmouseout="this.style.color='rgba(255,255,255,.25)'">Privacy</a>
+        <a href="/terms.html" style="font-size:.8rem;color:rgba(255,255,255,.25);text-decoration:none" onmouseover="this.style.color='rgba(255,255,255,.5)'" onmouseout="this.style.color='rgba(255,255,255,.25)'">Terms</a>
+        <a href="mailto:maddypat@regovix.com.au" style="font-size:.8rem;color:rgba(255,255,255,.25);text-decoration:none" onmouseover="this.style.color='rgba(255,255,255,.5)'" onmouseout="this.style.color='rgba(255,255,255,.25)'">maddypat@regovix.com.au</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+// ── Nav scroll ─────────────────────────────────────────────
+window.addEventListener('scroll',function(){
+  var nav=document.getElementById('navbar');
+  if(nav) nav.classList.toggle('scrolled',window.scrollY>20);
+});
+
+// ── Mobile menu ────────────────────────────────────────────
+function toggleMenu(){
+  var m=document.getElementById('mobileMenu');
+  var h=document.getElementById('hamburger');
+  if(!m||!h) return;
+  m.classList.toggle('open');
+  var spans=h.querySelectorAll('span');
+  if(m.classList.contains('open')){
+    spans[0].style.transform='rotate(45deg) translate(5px,5px)';
+    spans[1].style.opacity='0';
+    spans[2].style.transform='rotate(-45deg) translate(5px,-5px)';
+  } else {
+    spans.forEach(function(s){s.style.transform='';s.style.opacity='';});
+  }
+}
+
+// ── FAQ accordion ──────────────────────────────────────────
+function toggleFaq(el){
+  var answer=el.nextElementSibling;
+  var isOpen=el.classList.contains('open');
+  document.querySelectorAll('.faq-question.open').forEach(function(q){
+    q.classList.remove('open');
+    q.nextElementSibling.classList.remove('open');
+  });
+  if(!isOpen){el.classList.add('open');answer.classList.add('open');}
+}
+
+// ── Billing toggle ─────────────────────────────────────────
+var isAnnual=false;
+var billingPrices={mo:{p1:29,p2:299,p3:749},yr:{p1:24,p2:249,p3:624}};
+var billingLinks={
+  mo:{p1:'/#contact',p2:'https://buy.stripe.com/aFa28tflBeYc8C7bbjgbm0b',p3:'https://buy.stripe.com/28E14pb5lcQ44lRgvDgbm09'},
+  yr:{p1:'/#contact',p2:'https://buy.stripe.com/00wfZj7T92bqg4zgvDgbm05',p3:'https://buy.stripe.com/14A3cx2yP7vKbOj6V3gbm03'}
+};
+function toggleBilling(){
+  isAnnual=!isAnnual;
+  var dot=document.getElementById('toggle-dot');
+  var lblMo=document.getElementById('lbl-mo');
+  var lblYr=document.getElementById('lbl-yr');
+  if(dot) dot.style.transform=isAnnual?'translateX(22px)':'translateX(0)';
+  if(lblMo){lblMo.style.color=isAnnual?'var(--muted)':'var(--white)';lblMo.style.fontWeight=isAnnual?'400':'500';}
+  if(lblYr){lblYr.style.color=isAnnual?'var(--white)':'var(--muted)';}
+  var key=isAnnual?'yr':'mo';
+  var p1a=document.getElementById('p1-amt'),p2a=document.getElementById('p2-amt'),p3a=document.getElementById('p3-amt');
+  if(p1a) p1a.textContent=billingPrices[key].p1;
+  if(p2a) p2a.textContent=billingPrices[key].p2;
+  if(p3a) p3a.textContent=billingPrices[key].p3;
+  var p1b=document.getElementById('p1-btn'),p2b=document.getElementById('p2-btn'),p3b=document.getElementById('p3-btn');
+  if(p1b) p1b.href=billingLinks[key].p1;
+  if(p2b) p2b.href=billingLinks[key].p2;
+  if(p3b) p3b.href=billingLinks[key].p3;
+}
+
+// ── Contact form ────────────────────────────────────────────
+(function(){
+  var form=document.getElementById('contactForm');
+  if(!form) return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var btn=document.getElementById('submitBtn');
+    btn.disabled=true;
+    btn.textContent='Sending...';
+    fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+    .then(function(r){
+      if(r.ok){form.style.display='none';var fs=document.getElementById('formSuccess');fs.style.display='block';fs.style.visibility='visible';;}
+      else{btn.disabled=false;btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';alert('Something went wrong. Please copy our email address below.');}
+    }).catch(function(){btn.disabled=false;btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message';alert('Something went wrong. Please copy our email address below.');});
+  });
+})();
+
+// ── Copy email to clipboard ──────────────────────────────────
+function copyEmail(btn){
+  var email='maddypat@regovix.com.au';
+  var txt=btn.querySelector('.email-text');
+  function showCopied(){
+    btn.classList.add('copied');
+    txt.textContent='Copied! Paste into your email app.';
+    setTimeout(function(){btn.classList.remove('copied');txt.textContent=email;},3000);
+  }
+  if(navigator&&navigator.clipboard){
+    navigator.clipboard.writeText(email).then(showCopied).catch(function(){fallbackCopy(email,showCopied);});
+  } else { fallbackCopy(email,showCopied); }
+}
+function fallbackCopy(text,cb){
+  var el=document.createElement('textarea');
+  el.value=text;el.style.position='fixed';el.style.opacity='0';
+  document.body.appendChild(el);el.focus();el.select();
+  try{document.execCommand('copy');cb();}catch(e){}
+  document.body.removeChild(el);
+}
+
+// ── Scroll animations ──────────────────────────────────────
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}
+  });
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-in').forEach(function(el){observer.observe(el);});
+</script>
+
+<!-- ── Regovix AI Chat Widget ─────────────────────────────── -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-avatar">
+        <svg width="18" height="18" viewBox="0 0 30 30" fill="none">
+          <path d="M15 4L25 9.2V15C25 21 20 26 15 27.5C10 26 5 21 5 15V9.2L15 4Z" stroke="#0D1B2A" stroke-width="1.5" fill="none"/>
+          <path d="M9.5 15L13.5 19L20.5 11" stroke="#0D1B2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Regovix Assistant</div>
+        <div class="chat-header-status"><div class="status-dot"></div>Online &mdash; typically replies instantly</div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <div class="chat-msg-avatar">R</div>
+        <div class="chat-msg-bubble">G&rsquo;day! I&rsquo;m the Regovix assistant. I can help you find the right compliance app for your business, explain how each app works, or answer questions about pricing and free trials. What can I help you with?</div>
+      </div>
+    </div>
+    <div class="chat-quick-btns" id="quickBtns">
+      <button class="chat-quick-btn" onclick="quickSend('Which app should I start with?')">Which app to start?</button>
+      <button class="chat-quick-btn" onclick="quickSend('How does the free trial work?')">Free trial?</button>
+      <button class="chat-quick-btn" onclick="quickSend('Tell me about RiskMatrix')">RiskMatrix</button>
+      <button class="chat-quick-btn" onclick="quickSend('What is the pricing?')">Pricing</button>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="chat-bubble" onclick="toggleChat()" id="chatBubble" aria-label="Open chat">
+    <div class="chat-notification" id="chatNotif">1</div>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="chatIconOpen"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="chatIconClose" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
+
+</body>
+</html>
