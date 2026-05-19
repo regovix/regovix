@@ -1,0 +1,10 @@
+{
+  "name": "regovix-twincore",
+  "version": "1.0.0",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "@pinecone-database/pinecone": "^3.0.0",
+    "mammoth": "^1.8.0",
+    "openai": "^4.65.0"
+  }
+}

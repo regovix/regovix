@@ -121,4 +121,30 @@ exports.handler = async (event) => {
     const rawText = await extractText(fileBase64, fileType);
 
     if (!rawText || rawText.length < 20) {
-      return { 
+      return { statusCode: 422, headers, body: JSON.stringify({ error: "Could not extract text from file" }) };
+    }
+
+    const chunks = chunkText(rawText, 512, 100);
+    const embeddings = await embedChunks(chunks);
+    const upsertedCount = await upsertToPinecone(chunks, embeddings, userId, fileName, docId);
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        success: true,
+        docId,
+        fileName,
+        chunksIndexed: upsertedCount,
+        message: `Successfully indexed ${upsertedCount} chunks from ${fileName}`,
+      }),
+    };
+  } catch (err) {
+    console.error("[ingest] Error:", err);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: err.message }),
+    };
+  }
+};
