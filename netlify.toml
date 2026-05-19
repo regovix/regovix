@@ -6,6 +6,10 @@
 
 [functions]
   node_bundler = "esbuild"
+  [functions."ingest-document"]
+    timeout = 30
+  [functions."twin-query"]
+    timeout = 15
 
 [build.environment]
   NODE_VERSION = "18"
@@ -45,6 +49,27 @@
   to     = "/terms.html"
   status = 200
 
+[[redirects]]
+  from   = "/callassist"
+  to     = "/callassist.html"
+  status = 200
+
+# ── TwinCore API routes ───────────────────────────────────────────
+[[redirects]]
+  from = "/api/twin-query"
+  to = "/.netlify/functions/twin-query"
+  status = 200
+
+[[redirects]]
+  from = "/api/ingest-document"
+  to = "/.netlify/functions/ingest-document"
+  status = 200
+
+[[redirects]]
+  from = "/api/delete-document"
+  to = "/.netlify/functions/delete-document"
+  status = 200
+
 # ── Security headers ──────────────────────────────────────────────
 [[headers]]
   for = "/*"
@@ -63,11 +88,6 @@
   for = "/*.jpg"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-
-[[redirects]]
-  from   = "/callassist"
-  to     = "/callassist.html"
-  status = 200
 
 [[headers]]
   for = "/*.mp4"
