@@ -53,6 +53,11 @@
   from   = "/callassist"
   to     = "/callassist.html"
   status = 200
+  
+[[redirects]]
+  from   = "/twincore"
+  to     = "/twincore.html"
+  status = 200
 
 # ── TwinCore API routes ───────────────────────────────────────────
 [[redirects]]
