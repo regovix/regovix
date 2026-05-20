@@ -13,7 +13,7 @@ async function extractText(fileBase64, fileType) {
   if (fileType === "pdf") {
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const msg = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: model: "claude-sonnet-4-5",
       max_tokens: 4000,
       messages: [{
         role: "user",

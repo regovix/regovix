@@ -95,7 +95,7 @@ exports.handler = async (event) => {
 
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const msg = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: model: "claude-sonnet-4-5",
       max_tokens: 1000,
       system: buildSystemPrompt(persona, contextString),
       messages: [{ role: "user", content: query }],
