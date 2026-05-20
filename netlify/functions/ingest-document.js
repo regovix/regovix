@@ -1,57 +1,14 @@
-// netlify/functions/ingest-document.js
-const Anthropic = require("@anthropic-ai/sdk");
 const { Pinecone } = require("@pinecone-database/pinecone");
 const { OpenAI } = require("openai");
-
-async function extractText(fileBase64, fileType) {
-  const buffer = Buffer.from(fileBase64, "base64");
-
-  if (fileType === "txt" || fileType === "md") {
-    return buffer.toString("utf-8");
-  }
-
-  if (fileType === "pdf") {
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-    const msg = await client.messages.create({
-      model: model: "claude-sonnet-4-5",
-      max_tokens: 4000,
-      messages: [{
-        role: "user",
-        content: [
-          {
-            type: "document",
-            source: { type: "base64", media_type: "application/pdf", data: fileBase64 },
-          },
-          {
-            type: "text",
-            text: "Extract all text from this document. Return only the raw text content, preserving paragraph breaks with double newlines. Do not add any commentary.",
-          },
-        ],
-      }],
-    });
-    return msg.content[0].text;
-  }
-
-  if (fileType === "docx") {
-    const mammoth = require("mammoth");
-    const result = await mammoth.extractRawText({ buffer });
-    return result.value;
-  }
-
-  throw new Error(`Unsupported file type: ${fileType}`);
-}
 
 function chunkText(text, chunkSize = 512, overlap = 100) {
   const words = text.split(/\s+/);
   const chunks = [];
   let start = 0;
-
   while (start < words.length) {
     const end = Math.min(start + chunkSize, words.length);
     const chunk = words.slice(start, end).join(" ");
-    if (chunk.trim().length > 20) {
-      chunks.push(chunk.trim());
-    }
+    if (chunk.trim().length > 20) chunks.push(chunk.trim());
     if (end >= words.length) break;
     start = end - overlap;
   }
@@ -76,20 +33,11 @@ async function upsertToPinecone(chunks, embeddings, userId, fileName, docId) {
   const pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
   const index = pc.index(process.env.PINECONE_INDEX || "twin-knowledge");
   const namespace = index.namespace(userId);
-
   const vectors = chunks.map((chunk, i) => ({
     id: `${docId}_chunk_${i}`,
     values: embeddings[i],
-    metadata: {
-      text: chunk,
-      source: fileName,
-      docId,
-      chunkIndex: i,
-      userId,
-      createdAt: new Date().toISOString(),
-    },
+    metadata: { text: chunk, source: fileName, docId, chunkIndex: i, userId },
   }));
-
   for (let i = 0; i < vectors.length; i += 100) {
     await namespace.upsert(vectors.slice(i, i + 100));
   }
@@ -102,13 +50,8 @@ exports.handler = async (event) => {
     "Access-Control-Allow-Origin": "*",
   };
 
-  if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 200, headers, body: "" };
-  }
-
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
-  }
+  if (event.httpMethod === "OPTIONS") return { statusCode: 200, headers, body: "" };
+  if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
 
   try {
     const { fileName, fileType, fileBase64, userId } = JSON.parse(event.body || "{}");
@@ -117,8 +60,37 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing required fields" }) };
     }
 
-    const docId = `doc_${userId}_${Date.now()}`;
-    const rawText = await extractText(fileBase64, fileType);
+    const allowed = ["pdf", "txt", "md", "docx"];
+    if (!allowed.includes(fileType)) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: "Unsupported file type: " + fileType }) };
+    }
+
+    const docId = "doc_" + userId + "_" + Date.now();
+    const buffer = Buffer.from(fileBase64, "base64");
+    let rawText = "";
+
+    if (fileType === "txt" || fileType === "md") {
+      rawText = buffer.toString("utf-8");
+    } else if (fileType === "pdf") {
+      const Anthropic = require("@anthropic-ai/sdk");
+      const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+      const msg = await client.messages.create({
+        model: "claude-sonnet-4-5",
+        max_tokens: 4000,
+        messages: [{
+          role: "user",
+          content: [
+            { type: "document", source: { type: "base64", media_type: "application/pdf", data: fileBase64 } },
+            { type: "text", text: "Extract all text from this document. Return only raw text content with paragraph breaks. No commentary." }
+          ]
+        }]
+      });
+      rawText = msg.content[0].text;
+    } else if (fileType === "docx") {
+      const mammoth = require("mammoth");
+      const result = await mammoth.extractRawText({ buffer });
+      rawText = result.value;
+    }
 
     if (!rawText || rawText.length < 20) {
       return { statusCode: 422, headers, body: JSON.stringify({ error: "Could not extract text from file" }) };
@@ -136,15 +108,11 @@ exports.handler = async (event) => {
         docId,
         fileName,
         chunksIndexed: upsertedCount,
-        message: `Successfully indexed ${upsertedCount} chunks from ${fileName}`,
+        message: "Successfully indexed " + upsertedCount + " chunks from " + fileName,
       }),
     };
   } catch (err) {
     console.error("[ingest] Error:", err);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: err.message }),
-    };
+    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
   }
 };
