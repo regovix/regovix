@@ -13,7 +13,7 @@ const PERSONA = {
   company: "Environmental Treatment Solutions",
   style: "professional, precise, and practical",
   fallback: "I'd need to look into that further before I can give you a definitive answer.",
-  userId: "ets-default-user",
+  userId: "ets-madhu-twin",
 };
 
 // ─── RAG Query ────────────────────────────────────────────────────────────────
