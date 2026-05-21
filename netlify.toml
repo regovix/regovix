@@ -7,7 +7,7 @@
 [functions]
   node_bundler = "esbuild"
   [functions."ingest-document"]
-    timeout = 30
+    timeout = 60
   [functions."twin-query"]
     timeout = 15
 
