@@ -7,8 +7,8 @@ const { OpenAI } = require("openai");
 
 const PERSONA = {
   name: "Madhu",
-  role: "HSEQ Advisor",
-  company: "Environmental Treatment Solutions",
+  role: "Chief Executive officer",
+  company: "Regovix",
   style: "professional, precise, and practical",
   fallback: "I'd need to look into that further before I can give you a definitive answer.",
   userId: "ets-madhu-twin",
@@ -102,7 +102,7 @@ exports.handler = async function(event) {
       var noSpeechTwiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Gather input="speech" action="/api/phone-transcribe" method="POST" speechTimeout="3" speechModel="phone_call" language="en-AU">
-    <Say voice="Polly.Joanna">Sorry, I didn't catch that. Could you please repeat your question?</Say>
+    <Say voice="Polly.Matthew">Sorry, I didn't catch that. Could you please repeat your question?</Say>
   </Gather>
   <Redirect>/api/phone-call</Redirect>
 </Response>`;
@@ -120,9 +120,9 @@ exports.handler = async function(event) {
     var twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Gather input="speech" action="/api/phone-transcribe" method="POST" speechTimeout="3" speechModel="phone_call" language="en-AU">
-    <Say voice="Polly.Joanna">${escapeXml(answer)} Is there anything else I can help you with?</Say>
+    <Say voice="Polly.Matthew">${escapeXml(answer)} Is there anything else I can help you with?</Say>
   </Gather>
-  <Say voice="Polly.Joanna">Thank you for calling. Goodbye.</Say>
+  <Say voice="Polly.Matthew">Thank you for calling. Goodbye.</Say>
   <Hangup/>
 </Response>`;
 
@@ -132,9 +132,9 @@ exports.handler = async function(event) {
     console.error("[phone-transcribe] Error:", err);
     var errorTwiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="Polly.Joanna">Sorry, I encountered a technical issue. Please try your question again.</Say>
+  <Say voice="Polly.Matthew">Sorry, I encountered a technical issue. Please try your question again.</Say>
   <Gather input="speech" action="/api/phone-transcribe" method="POST" speechTimeout="3" speechModel="phone_call" language="en-AU">
-    <Say voice="Polly.Joanna">What would you like to know?</Say>
+    <Say voice="Polly.Matthew">What would you like to know?</Say>
   </Gather>
 </Response>`;
     return { statusCode: 200, headers: headers, body: errorTwiml };
