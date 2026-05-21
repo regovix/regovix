@@ -36,7 +36,6 @@
     min-height: 100vh;
   }
 
-  /* ── Topbar ── */
   .topbar {
     background: var(--panel);
     border-bottom: 1px solid var(--border);
@@ -73,7 +72,6 @@
   }
   .pill-dot { width: 5px; height: 5px; background: var(--mint); border-radius: 50%; animation: pulse 1.5s infinite; }
 
-  /* ── Layout ── */
   .container { max-width: 880px; margin: 0 auto; padding: 36px 24px; }
 
   .page-title {
@@ -82,7 +80,6 @@
   }
   .page-sub { font-size: 14px; color: var(--muted); margin-bottom: 32px; line-height: 1.7; }
 
-  /* ── Tabs ── */
   .tabs { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
   .tab {
     padding: 10px 20px; background: none; border: none; cursor: pointer;
@@ -93,7 +90,6 @@
   .tab:hover { color: var(--text); }
   .tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
 
-  /* ── Cards ── */
   .card {
     background: var(--card); border: 1px solid var(--border);
     border-radius: 12px; padding: 24px; margin-bottom: 16px;
@@ -104,7 +100,6 @@
   }
   .card-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
 
-  /* ── Persona form ── */
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
   .form-group { display: flex; flex-direction: column; gap: 5px; }
   .form-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
@@ -115,7 +110,6 @@
   }
   .form-input:focus { outline: none; border-color: var(--cyan); }
 
-  /* ── Drop zone ── */
   .dropzone {
     border: 2px dashed var(--border); border-radius: 10px;
     padding: 40px 20px; text-align: center; cursor: pointer;
@@ -129,7 +123,6 @@
   .drop-sub { font-size: 12px; color: var(--muted); }
   #fileInput { display: none; }
 
-  /* ── File list ── */
   .file-item {
     display: flex; align-items: center; gap: 12px;
     padding: 12px 16px; background: var(--card);
@@ -149,7 +142,6 @@
   .progress-bar { height: 3px; background: var(--dim); border-radius: 2px; margin-top: 6px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--mint)); border-radius: 2px; transition: width 0.3s ease; }
 
-  /* ── Query interface ── */
   .query-wrap { display: flex; gap: 10px; margin-bottom: 16px; align-items: flex-end; }
   .query-input {
     flex: 1; background: var(--card); border: 1px solid var(--border);
@@ -160,7 +152,6 @@
   .query-input:focus { outline: none; border-color: var(--cyan); }
   .query-input::placeholder { color: var(--muted); }
 
-  /* ── Buttons ── */
   .btn {
     display: inline-flex; align-items: center; gap: 7px;
     padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
@@ -173,7 +164,6 @@
   .btn-ghost { background: transparent; border-color: var(--border); color: var(--muted); }
   .btn-ghost:hover { border-color: var(--dim); color: var(--text); }
 
-  /* ── Chat ── */
   .chat-log { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
   .bubble-wrap { display: flex; flex-direction: column; }
   .bubble-wrap.user { align-items: flex-end; }
@@ -196,13 +186,11 @@
     background: var(--amber-dim); border: 1px solid rgba(255,184,0,0.2); color: var(--amber);
   }
 
-  /* ── Stats ── */
   .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
   .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
   .stat-val { font-family: 'IBM Plex Mono', monospace; font-size: 24px; color: var(--cyan); }
   .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.8px; }
 
-  /* ── Animations ── */
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
   .fade-up { animation: fadeUp 0.3s ease both; }
@@ -220,6 +208,12 @@
   .alert-success { background: var(--mint-dim); border: 1px solid var(--mint-border); color: var(--mint); }
   .alert-error { background: var(--red-dim); border: 1px solid rgba(255,69,96,0.3); color: var(--red); }
 
+  .info-box {
+    background: var(--cyan-dim); border: 1px solid var(--cyan-border);
+    border-radius: 8px; padding: 12px 16px; font-size: 12px;
+    color: var(--cyan); margin-bottom: 16px; line-height: 1.7;
+  }
+
   .mono { font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
 </style>
 </head>
@@ -236,7 +230,6 @@
   <div class="page-title">Knowledge Engine</div>
   <div class="page-sub">Upload your documents, configure your persona, and test your digital twin's answers.</div>
 
-  <!-- Stats -->
   <div class="stats-row">
     <div class="stat-card">
       <div class="stat-val" id="statDocs">0</div>
@@ -252,27 +245,29 @@
     </div>
   </div>
 
-  <!-- Tabs -->
   <div class="tabs">
-    <button class="tab active" onclick="showTab('upload')">📂 Upload Documents</button>
-    <button class="tab" onclick="showTab('query')">💬 Query Twin</button>
-    <button class="tab" onclick="showTab('persona')">👤 Persona</button>
+    <button class="tab active" onclick="showTab('upload', this)">📂 Upload Documents</button>
+    <button class="tab" onclick="showTab('query', this)">💬 Query Twin</button>
+    <button class="tab" onclick="showTab('persona', this)">👤 Persona</button>
   </div>
 
   <!-- Upload Tab -->
   <div id="tab-upload" class="section active">
+    <div class="info-box">
+      ℹ Supported formats: <strong>DOCX · TXT · Markdown</strong> — max 10MB per file.
+      To upload a PDF, open it in Word and save as DOCX first.
+    </div>
     <div class="card">
       <div class="card-title">Upload Documents</div>
-      <div class="card-sub">PDF, DOCX, and TXT files are supported. Each file will be chunked and indexed into Pinecone.</div>
+      <div class="card-sub">DOCX, TXT, and Markdown files are supported. Each file will be chunked and indexed into Pinecone.</div>
       <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
         <div class="drop-icon">📂</div>
         <div class="drop-title">Drop files here or click to browse</div>
-        <div class="drop-sub">PDF · DOCX · TXT — max 10MB per file</div>
+        <div class="drop-sub">DOCX · TXT · MD — max 10MB per file</div>
       </div>
-      <input type="file" id="fileInput" multiple accept=".pdf,.docx,.txt,.md" onchange="handleFiles(this.files)" />
+      <input type="file" id="fileInput" multiple accept=".docx,.txt,.md" onchange="handleFiles(this.files)" />
       <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">+ Upload Files</button>
     </div>
-
     <div id="fileList"></div>
   </div>
 
@@ -281,20 +276,17 @@
     <div class="card">
       <div class="card-title">Ask Your Twin</div>
       <div class="card-sub">Type a question — your twin will retrieve relevant chunks and answer as your persona.</div>
-
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
         <button class="btn btn-ghost" style="font-size:11px;padding:5px 11px" onclick="setQuery('What are the PPE requirements for hazardous chemical handling?')">PPE requirements</button>
         <button class="btn btn-ghost" style="font-size:11px;padding:5px 11px" onclick="setQuery('What are the ADG Code requirements for aerosol transport?')">ADG aerosol transport</button>
         <button class="btn btn-ghost" style="font-size:11px;padding:5px 11px" onclick="setQuery('What is the emergency procedure for a chemical spill?')">Chemical spill procedure</button>
       </div>
-
       <div class="query-wrap">
         <textarea class="query-input" id="queryInput" placeholder="Ask your digital twin anything covered by your uploaded documents…"></textarea>
         <button class="btn btn-primary" id="askBtn" onclick="submitQuery()">Ask</button>
       </div>
       <div style="font-size:11px;color:var(--muted)">User ID: <span class="mono" id="userIdDisplay"></span></div>
     </div>
-
     <div class="chat-log" id="chatLog"></div>
   </div>
 
@@ -324,7 +316,6 @@
       <button class="btn btn-primary" onclick="savePersona()">Save Persona</button>
       <span id="personaSaved" style="font-size:12px;color:var(--mint);margin-left:12px;display:none">✓ Saved</span>
     </div>
-
     <div class="card" style="background:rgba(0,201,255,0.03);border-color:var(--cyan-border)">
       <div class="card-title" style="color:var(--cyan);font-size:13px">Generated System Prompt Preview</div>
       <pre id="promptPreview" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);line-height:1.9;margin-top:12px;white-space:pre-wrap;word-break:break-word"></pre>
@@ -333,7 +324,6 @@
 </div>
 
 <script>
-  // ── Config ──────────────────────────────────────────────────────
   const BASE_URL = window.location.origin;
   const USER_ID = "user_" + Math.random().toString(36).substr(2, 9);
   document.getElementById("userIdDisplay").textContent = USER_ID;
@@ -350,16 +340,14 @@
     fallback: "I'd need to look into that further before I can give you a definitive answer."
   };
 
-  // ── Tabs ─────────────────────────────────────────────────────────
-  function showTab(name) {
+  function showTab(name, el) {
     document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     document.getElementById("tab-" + name).classList.add("active");
-    event.target.classList.add("active");
+    el.classList.add("active");
     if (name === "persona") updatePromptPreview();
   }
 
-  // ── File upload ──────────────────────────────────────────────────
   const dropzone = document.getElementById("dropzone");
   dropzone.addEventListener("dragover", e => { e.preventDefault(); dropzone.classList.add("drag-over"); });
   dropzone.addEventListener("dragleave", () => dropzone.classList.remove("drag-over"));
@@ -374,7 +362,7 @@
 
   function getFileIcon(name) {
     const ext = name.split(".").pop().toLowerCase();
-    return { pdf: "📄", docx: "📝", txt: "📋", md: "📋" }[ext] || "📎";
+    return { docx: "📝", txt: "📋", md: "📋" }[ext] || "📎";
   }
 
   function formatSize(bytes) {
@@ -384,23 +372,20 @@
   }
 
   async function uploadFile(file) {
-    const allowed = ["pdf", "docx", "txt", "md"];
+    const allowed = ["docx", "txt", "md"];
     const ext = file.name.split(".").pop().toLowerCase();
     if (!allowed.includes(ext)) {
-      showAlert("Unsupported file type: " + file.name, "error");
+      showAlert("❌ " + file.name + " — unsupported format. Please use DOCX, TXT, or MD. To upload a PDF, open it in Word and save as DOCX first.", "error");
       return;
     }
 
     const docId = "doc_" + Date.now();
-    const docObj = { id: docId, name: file.name, size: formatSize(file.size), status: "uploading", chunks: 0, progress: 0 };
+    const docObj = { id: docId, name: file.name, size: formatSize(file.size), status: "uploading", chunks: 0 };
     docs.push(docObj);
     renderFileList();
 
     try {
-      // Convert to base64
       const base64 = await fileToBase64(file);
-
-      // Call ingest function
       const res = await fetch(BASE_URL + "/api/ingest-document", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -419,7 +404,7 @@
         docObj.chunks = data.chunksIndexed;
         totalChunks += data.chunksIndexed;
         updateStats();
-        showAlert(`✓ ${file.name} indexed — ${data.chunksIndexed} chunks`, "success");
+        showAlert("✓ " + file.name + " indexed — " + data.chunksIndexed + " chunks", "success");
       } else {
         docObj.status = "error";
         showAlert("Error indexing " + file.name + ": " + (data.error || "Unknown error"), "error");
@@ -428,7 +413,6 @@
       docObj.status = "error";
       showAlert("Upload failed: " + err.message, "error");
     }
-
     renderFileList();
   }
 
@@ -453,30 +437,25 @@
         <div class="file-info">
           <div class="file-name">${d.name}</div>
           <div class="file-meta">${d.size} · ${d.chunks > 0 ? d.chunks + " chunks" : "processing..."}</div>
-          ${d.status === "uploading" ? '<div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>' : ""}
         </div>
         <span class="file-status ${d.status === "ready" ? "status-ready" : d.status === "uploading" ? "status-uploading" : "status-error"}">
           ${d.status === "ready" ? "indexed" : d.status}
         </span>
       </div>
     `).join("");
-
     document.getElementById("statDocs").textContent = docs.filter(d => d.status === "ready").length;
   }
 
-  // ── Query ─────────────────────────────────────────────────────────
   function setQuery(text) {
     document.getElementById("queryInput").value = text;
-    showTab("query");
+    document.querySelectorAll(".tab")[1].click();
   }
 
   async function submitQuery() {
     const q = document.getElementById("queryInput").value.trim();
     if (!q) return;
-
     document.getElementById("queryInput").value = "";
     document.getElementById("askBtn").disabled = true;
-
     appendBubble("user", q);
     appendThinking();
 
@@ -486,10 +465,8 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: q, userId: USER_ID, persona }),
       });
-
       const data = await res.json();
       removeThinking();
-
       if (res.ok) {
         appendBubble("assistant", data.answer, data.sources || []);
         queryCount++;
@@ -501,18 +478,17 @@
       removeThinking();
       appendBubble("assistant", "Connection error: " + err.message, []);
     }
-
     document.getElementById("askBtn").disabled = false;
   }
 
-  function appendBubble(role, text, sources = []) {
+  function appendBubble(role, text, sources) {
     const log = document.getElementById("chatLog");
     const wrap = document.createElement("div");
     wrap.className = "bubble-wrap " + role;
     wrap.innerHTML = `
       <div class="bubble-label">${role === "user" ? "YOU" : persona.name.toUpperCase()}</div>
       <div class="bubble ${role}">${text.replace(/\n/g, "<br>")}</div>
-      ${sources.length > 0 ? `<div class="source-chips">${sources.map(s => `<span class="source-chip">📎 ${s}</span>`).join("")}</div>` : ""}
+      ${sources && sources.length > 0 ? `<div class="source-chips">${sources.map(s => `<span class="source-chip">📎 ${s}</span>`).join("")}</div>` : ""}
     `;
     log.appendChild(wrap);
     wrap.scrollIntoView({ behavior: "smooth" });
@@ -536,7 +512,6 @@
     if (t) t.remove();
   }
 
-  // ── Persona ───────────────────────────────────────────────────────
   function savePersona() {
     persona.name = document.getElementById("pName").value;
     persona.role = document.getElementById("pRole").value;
@@ -563,21 +538,20 @@ RULES:
 CONTEXT: {retrieved_chunks}`;
   }
 
-  // ── Alerts ────────────────────────────────────────────────────────
   function showAlert(msg, type) {
     const el = document.createElement("div");
-    el.className = `alert alert-${type} fade-up`;
+    el.className = "alert alert-" + type + " fade-up";
     el.textContent = msg;
-    document.querySelector(".container").insertBefore(el, document.querySelector(".tabs"));
-    setTimeout(() => el.remove(), 4000);
+    const container = document.querySelector(".container");
+    const tabs = document.querySelector(".tabs");
+    container.insertBefore(el, tabs);
+    setTimeout(() => el.remove(), 5000);
   }
 
-  // ── Stats ─────────────────────────────────────────────────────────
   function updateStats() {
     document.getElementById("statChunks").textContent = totalChunks;
   }
 
-  // ── Init ──────────────────────────────────────────────────────────
   updatePromptPreview();
   renderFileList();
 </script>
