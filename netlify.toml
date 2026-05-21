@@ -74,6 +74,15 @@
   from = "/api/delete-document"
   to = "/.netlify/functions/delete-document"
   status = 200
+[[redirects]]
+  from = "/api/phone-call"
+  to = "/.netlify/functions/phone-call"
+  status = 200
+
+[[redirects]]
+  from = "/api/phone-transcribe"
+  to = "/.netlify/functions/phone-transcribe"
+  status = 200
 
 # ── Security headers ──────────────────────────────────────────────
 [[headers]]
