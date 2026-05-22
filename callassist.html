@@ -262,34 +262,53 @@ function loadScenario(text){if(getUsed()>=MAX){showGate();return}document.getEle
 document.getElementById('transcriptInput').addEventListener('input',updateWordCount);
 function updateWordCount(){const n=document.getElementById('transcriptInput').value.trim().split(/\s+/).filter(Boolean).length;document.getElementById('wordCt').textContent=`${n} word${n!==1?'s':''}`}
 async function analyseDemo(){
-  if(getUsed()>=MAX){showGate();return}
+    if(getUsed()>=MAX){showGate();return}
   const transcript=document.getElementById('transcriptInput').value.trim();
   if(!transcript||isAnalysing)return;
   isAnalysing=true;
   const count=addUsed();renderDots();
   const btn=document.getElementById('analyseBtn');
   btn.disabled=true;btn.textContent='Analysing...';
-  document.getElementById('statusChip').textContent='Analysing';document.getElementById('statusChip').className='status-chip live';
-  document.getElementById('recStatus').textContent='Analysing...';document.getElementById('recStatus').className='status-chip live';
+  document.getElementById('statusChip').textContent='Analysing';
+  document.getElementById('statusChip').className='status-chip live';
+  document.getElementById('recStatus').textContent='Analysing...';
+  document.getElementById('recStatus').className='status-chip live';
   document.getElementById('emptyState').style.display='none';
   document.getElementById('recCards').innerHTML=`<div class="thinking"><div class="dots"><span></span><span></span><span></span></div>Reading transcript...</div>`;
   const ind=INDUSTRIES[currentIndustry];
   try{
-   const resp=await fetch('/api/callassist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5',max_tokens:1200,system:ind.prompt,messages:[{role:'user',content:`Industry: ${ind.label}\n\nTranscript:\n---\n${transcript}\n---\nReturn ONLY valid JSON with checklist and cards arrays.`}]})});const resp=await fetch('/api/callassist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-haiku-4-5',max_tokens:1200,system:ind.prompt,messages:[{role:'user',content:`Industry: ${ind.label}\n\nTranscript:\n---\n${transcript}\n---\nReturn ONLY valid JSON with checklist and cards arrays.`}]})}); const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-5',max_tokens:1200,system:ind.prompt,messages:[{role:'user',content:`Industry: ${ind.label}\n\nTranscript:\n---\n${transcript}\n---\nReturn ONLY valid JSON with checklist and cards arrays.`}]})});
+    const resp=await fetch('/api/callassist',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-haiku-4-5',
+        max_tokens:1200,
+        system:ind.prompt,
+        messages:[{role:'user',content:`Industry: ${ind.label}\n\nTranscript:\n---\n${transcript}\n---\nReturn ONLY valid JSON with checklist and cards arrays.`}]
+      })
+    });
     if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||`HTTP ${resp.status}`)}
     const data=await resp.json();
     const raw=(data.content?.[0]?.text||'{}').replace(/```json|```/g,'').trim();
-    let parsed;try{parsed=JSON.parse(raw)}catch{parsed={checklist:[],cards:[{type:'warning',title:'Parse error',body:raw.slice(0,200)}]}}
-    renderChecklist(parsed.checklist||[]);renderCards(parsed.cards||[]);
-    document.getElementById('recStatus').textContent=`Updated · ${MAX-count} left`;document.getElementById('recStatus').className='status-chip live';
-    document.getElementById('statusChip').textContent='Done';document.getElementById('statusChip').className='status-chip idle';
+    let parsed;
+    try{parsed=JSON.parse(raw)}
+    catch{parsed={checklist:[],cards:[{type:'warning',title:'Parse error',body:raw.slice(0,200)}]}}
+    renderChecklist(parsed.checklist||[]);
+    renderCards(parsed.cards||[]);
+    document.getElementById('recStatus').textContent=`Updated · ${MAX-count} left`;
+    document.getElementById('recStatus').className='status-chip live';
+    document.getElementById('statusChip').textContent='Done';
+    document.getElementById('statusChip').className='status-chip idle';
     if(count>=MAX)setTimeout(showGate,2500);
   }catch(err){
     document.getElementById('recCards').innerHTML=`<div class="rec-card urgent"><div class="rec-type">error</div><div class="rec-body">${esc(err.message)}</div></div>`;
-    document.getElementById('statusChip').className='status-chip error';document.getElementById('statusChip').textContent='Error';
+    document.getElementById('statusChip').className='status-chip error';
+    document.getElementById('statusChip').textContent='Error';
   }
-  btn.disabled=getUsed()>=MAX;btn.textContent=getUsed()>=MAX?'Demo limit reached':'Analyse call →';
+  btn.disabled=getUsed()>=MAX;
+  btn.textContent=getUsed()>=MAX?'Demo limit reached':'Analyse call →';
   isAnalysing=false;
+
 }
 function renderChecklist(items){
   const wrap=document.getElementById('checklistWrap'),container=document.getElementById('checklistItems');
