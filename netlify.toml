@@ -84,6 +84,11 @@
   to = "/.netlify/functions/phone-transcribe"
   status = 200
 
+[[redirects]]
+  from = "/api/callassist"
+  to = "/.netlify/functions/callassist-api"
+  status = 200
+
 # ── Security headers ──────────────────────────────────────────────
 [[headers]]
   for = "/*"
