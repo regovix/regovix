@@ -1,11 +1,6 @@
 // netlify/functions/avatar-session.js
-// Phase 4 — HeyGen Streaming Avatar
-// Creates and manages HeyGen streaming sessions for live video avatar
-
-const HEYGEN_API_KEY = process.env.HEYGEN_API_KEY;
-const AVATAR_ID = "bec00a33ca344019a2ffabac003ca572";
-const VOICE_ID = "LKI0cvTlTIQsIjKd0UtX";
-const HEYGEN_API_URL = "https://api.heygen.com";
+// Phase 4 — HeyGen LiveAvatar (updated for 2025/2026 API)
+// Gets a session token for the frontend SDK to use
 
 exports.handler = async function(event) {
   const headers = {
@@ -15,141 +10,77 @@ exports.handler = async function(event) {
     "Access-Control-Allow-Headers": "Content-Type",
   };
 
-  if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 200, headers, body: "" };
-  }
-
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: "Method not allowed" }) };
-  }
+  if (event.httpMethod === "OPTIONS") return { statusCode: 200, headers, body: "" };
+  if (event.httpMethod !== "POST") return { statusCode: 405, headers, body: JSON.stringify({ error: "Method not allowed" }) };
 
   try {
-    const { action, session_id, text } = JSON.parse(event.body || "{}");
+    const { action, session_id, text, candidate, sdp_answer } = JSON.parse(event.body || "{}");
 
-    // ── Action: Create new streaming session ──────────────────────
-    if (action === "create_session") {
-      const res = await fetch(`${HEYGEN_API_URL}/v1/streaming.new`, {
+    // ── Get session token (frontend SDK needs this) ────────────────
+    if (action === "get_token") {
+      const res = await fetch("https://api.heygen.com/v1/streaming.create_token", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Api-Key": HEYGEN_API_KEY,
+          "X-Api-Key": process.env.HEYGEN_API_KEY,
         },
-        body: JSON.stringify({
-          avatar_id: AVATAR_ID,
-          voice: { voice_id: VOICE_ID },
-          quality: "medium",
-        }),
       });
 
       const data = await res.json();
+      console.log("[avatar-session] get_token response:", JSON.stringify(data));
 
-      if (!res.ok) {
+      if (!res.ok || !data.data?.token) {
         throw new Error(data.message || `HeyGen error: ${res.status}`);
       }
 
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({
-          session_id: data.data.session_id,
-          sdp: data.data.sdp,
-          ice_servers: data.data.ice_servers,
-        }),
+        body: JSON.stringify({ token: data.data.token }),
       };
     }
 
-    // ── Action: Start session ─────────────────────────────────────
-    if (action === "start_session") {
-      if (!session_id) {
-        return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing session_id" }) };
-      }
-
-      const { sdp_answer } = JSON.parse(event.body);
-
-      const res = await fetch(`${HEYGEN_API_URL}/v1/streaming.start`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Api-Key": HEYGEN_API_KEY,
-        },
-        body: JSON.stringify({
-          session_id,
-          sdp: sdp_answer,
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || `HeyGen error: ${res.status}`);
-
-      return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
-    }
-
-    // ── Action: Send ICE candidate ────────────────────────────────
-    if (action === "ice_candidate") {
-      const { candidate } = JSON.parse(event.body);
-
-      const res = await fetch(`${HEYGEN_API_URL}/v1/streaming.ice`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Api-Key": HEYGEN_API_KEY,
-        },
-        body: JSON.stringify({ session_id, candidate }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || `HeyGen error: ${res.status}`);
-
-      return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
-    }
-
-    // ── Action: Speak text ────────────────────────────────────────
+    // ── Speak text via REST (after session established by SDK) ─────
     if (action === "speak") {
       if (!session_id || !text) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing session_id or text" }) };
       }
 
-      const res = await fetch(`${HEYGEN_API_URL}/v1/streaming.task`, {
+      const res = await fetch("https://api.heygen.com/v1/streaming.task", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Api-Key": HEYGEN_API_KEY,
+          "X-Api-Key": process.env.HEYGEN_API_KEY,
         },
-        body: JSON.stringify({
-          session_id,
-          text,
-          task_type: "talk",
-        }),
+        body: JSON.stringify({ session_id, text, task_type: "talk" }),
       });
 
       const data = await res.json();
+      console.log("[avatar-session] speak response:", JSON.stringify(data));
       if (!res.ok) throw new Error(data.message || `HeyGen error: ${res.status}`);
 
-      return { statusCode: 200, headers, body: JSON.stringify({ success: true, task_id: data.data?.task_id }) };
+      return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
     }
 
-    // ── Action: Stop session ──────────────────────────────────────
+    // ── Stop session ───────────────────────────────────────────────
     if (action === "stop_session") {
-      if (!session_id) {
-        return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing session_id" }) };
-      }
+      if (!session_id) return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing session_id" }) };
 
-      const res = await fetch(`${HEYGEN_API_URL}/v1/streaming.stop`, {
+      const res = await fetch("https://api.heygen.com/v1/streaming.stop", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Api-Key": HEYGEN_API_KEY,
+          "X-Api-Key": process.env.HEYGEN_API_KEY,
         },
         body: JSON.stringify({ session_id }),
       });
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || `HeyGen error: ${res.status}`);
-
       return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
     }
 
-    return { statusCode: 400, headers, body: JSON.stringify({ error: "Unknown action" }) };
+    return { statusCode: 400, headers, body: JSON.stringify({ error: "Unknown action: " + action }) };
 
   } catch (err) {
     console.error("[avatar-session] Error:", err);
