@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TwinCore Video — Digital Twin</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #070B12; --panel: #0D1321; --card: #111927;
+    --border: #1A2540; --cyan: #00C9FF; --cyan-dim: rgba(0,201,255,0.1);
+    --cyan-border: rgba(0,201,255,0.25); --mint: #00FFB2;
+    --mint-dim: rgba(0,255,178,0.1); --mint-border: rgba(0,255,178,0.22);
+    --amber: #FFB800; --red: #FF4560; --text: #DDE6F5; --muted: #5A6A8A;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+  .topbar {
+    background: var(--panel); border-bottom: 1px solid var(--border);
+    padding: 0 32px; height: 56px; display: flex; align-items: center; gap: 16px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .logo-dot { width: 7px; height: 7px; background: var(--cyan); border-radius: 50%; animation: pulse 2s infinite; }
+  .pill { display: flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; background: var(--mint-dim); border: 1px solid var(--mint-border); color: var(--mint); margin-left: auto; }
+  .pill-dot { width: 5px; height: 5px; background: var(--mint); border-radius: 50%; animation: pulse 1.5s infinite; }
+  .container { max-width: 960px; margin: 0 auto; padding: 36px 24px; }
+  .page-title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .page-sub { font-size: 14px; color: var(--muted); margin-bottom: 32px; line-height: 1.7; }
+  .video-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .avatar-panel {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; position: relative; aspect-ratio: 9/16; max-height: 500px;
+  }
+  .avatar-video { width: 100%; height: 100%; object-fit: cover; background: #000; }
+  .avatar-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(7,11,18,0.9));
+    padding: 20px 16px 16px;
+  }
+  .avatar-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
+  .avatar-role { font-size: 12px; color: var(--muted); }
+  .avatar-status {
+    position: absolute; top: 12px; right: 12px;
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(7,11,18,0.8); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 20px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted);
+  }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+  .status-dot.active { background: var(--mint); animation: pulse 1.5s infinite; }
+  .status-dot.speaking { background: var(--cyan); animation: pulse 0.8s infinite; }
+  .chat-panel { display: flex; flex-direction: column; gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .card-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .card-sub { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    cursor: pointer; border: 1px solid; transition: all 0.15s; font-family: 'DM Sans', sans-serif;
+    width: 100%; justify-content: center;
+  }
+  .btn-primary { background: var(--cyan); border-color: var(--cyan); color: #070B12; }
+  .btn-primary:hover { background: #22D8FF; }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-danger { background: rgba(255,69,96,0.1); border-color: rgba(255,69,96,0.3); color: var(--red); }
+  .btn-ghost { background: transparent; border-color: var(--border); color: var(--muted); }
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+  .query-input {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; color: var(--text); font-size: 14px;
+    font-family: 'DM Sans', sans-serif; resize: vertical; min-height: 80px; margin-bottom: 10px;
+  }
+  .query-input:focus { outline: none; border-color: var(--cyan); }
+  .query-input::placeholder { color: var(--muted); }
+  .chat-log { display: flex; flex-direction: column; gap: 12px; max-height: 200px; overflow-y: auto; }
+  .bubble-wrap { display: flex; flex-direction: column; }
+  .bubble-wrap.user { align-items: flex-end; }
+  .bubble-wrap.assistant { align-items: flex-start; }
+  .bubble-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--muted); margin-bottom: 4px; letter-spacing: 1px; }
+  .bubble { max-width: 85%; padding: 10px 14px; border-radius: 8px; font-size: 13px; line-height: 1.6; }
+  .bubble.user { background: var(--cyan-dim); border: 1px solid var(--cyan-border); color: var(--text); }
+  .bubble.assistant { background: var(--card); border: 1px solid var(--border); color: var(--text); }
+  .connecting-overlay {
+    position: absolute; inset: 0; background: rgba(7,11,18,0.95);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px;
+  }
+  .connecting-icon { font-size: 40px; }
+  .connecting-text { font-family: 'Syne', sans-serif; font-size: 16px; color: var(--text); }
+  .connecting-sub { font-size: 12px; color: var(--muted); text-align: center; max-width: 200px; line-height: 1.6; }
+  .spinner { width: 32px; height: 32px; border: 3px solid rgba(0,201,255,0.2); border-top-color: var(--cyan); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .quick-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .quick-btn { font-size: 11px; padding: 5px 10px; background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .quick-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+  .info-box { background: rgba(0,201,255,0.05); border: 1px solid var(--cyan-border); border-radius: 8px; padding: 12px 14px; font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .fade-up { animation: fadeUp 0.3s ease both; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo"><span class="logo-dot"></span>TwinCore Video</div>
+  <a href="/twincore.html" style="font-size:12px;color:var(--muted);text-decoration:none;margin-left:16px">← Knowledge Engine</a>
+  <div class="pill"><span class="pill-dot"></span>Phase 4</div>
+</div>
+
+<div class="container">
+  <div class="page-title">Video Digital Twin</div>
+  <div class="page-sub">Start a live video session with your digital twin. Ask questions and watch Madhu respond in real time with lip-synced video and voice.</div>
+
+  <div class="info-box">
+    ℹ Make sure you have documents uploaded in the <a href="/twincore.html" style="color:var(--cyan)">Knowledge Engine</a> first — the twin draws answers from your indexed documents.
+  </div>
+
+  <div class="video-layout">
+
+    <!-- Avatar Video Panel -->
+    <div class="avatar-panel" id="avatarPanel">
+      <video id="avatarVideo" class="avatar-video" autoplay playsinline></video>
+
+      <!-- Connecting overlay -->
+      <div class="connecting-overlay" id="connectingOverlay">
+        <div class="connecting-icon">👤</div>
+        <div class="connecting-text">Madhu</div>
+        <div class="connecting-sub">Click "Start Session" to connect your digital twin</div>
+      </div>
+
+      <!-- Status badge -->
+      <div class="avatar-status" id="avatarStatus">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Offline</span>
+      </div>
+
+      <!-- Name overlay -->
+      <div class="avatar-overlay">
+        <div class="avatar-name">Madhu</div>
+        <div class="avatar-role">CEO · Regovix</div>
+      </div>
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="chat-panel">
+
+      <!-- Session controls -->
+      <div class="card">
+        <div class="card-title">Session Controls</div>
+        <div class="card-sub">Start a live video session with your digital twin.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button class="btn btn-primary" id="startBtn" onclick="startSession()">▶ Start Video Session</button>
+          <button class="btn btn-danger" id="stopBtn" onclick="stopSession()" disabled>■ End Session</button>
+        </div>
+      </div>
+
+      <!-- Query -->
+      <div class="card">
+        <div class="card-title">Ask Your Twin</div>
+        <div class="card-sub">Type a question — Madhu will answer on video.</div>
+        <div class="quick-btns">
+          <button class="quick-btn" onclick="setQuery('What are the spill prevention procedures?')">Spill prevention</button>
+          <button class="quick-btn" onclick="setQuery('What PPE is required for chemical handling?')">PPE requirements</button>
+          <button class="quick-btn" onclick="setQuery('What is Regovix and what do you offer?')">About Regovix</button>
+        </div>
+        <textarea class="query-input" id="queryInput" placeholder="Ask your digital twin anything…"></textarea>
+        <button class="btn btn-primary" id="askBtn" onclick="askQuestion()" disabled>Ask Madhu</button>
+      </div>
+
+      <!-- Chat log -->
+      <div class="card" style="flex:1">
+        <div class="card-title">Conversation</div>
+        <div class="chat-log" id="chatLog">
+          <div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Start a session to begin talking with Madhu.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const BASE_URL = window.location.origin;
+  let sessionId = null;
+  let peerConnection = null;
+  let isSessionActive = false;
+
+  function setStatus(text, type) {
+    const dot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    statusText.textContent = text;
+    dot.className = 'status-dot' + (type ? ' ' + type : '');
+  }
+
+  function setQuery(text) {
+    document.getElementById('queryInput').value = text;
+  }
+
+  function appendBubble(role, text) {
+    const log = document.getElementById('chatLog');
+    if (log.querySelector('div[style]')) log.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.className = `bubble-wrap ${role} fade-up`;
+    wrap.innerHTML = `
+      <div class="bubble-label">${role === 'user' ? 'YOU' : 'MADHU'}</div>
+      <div class="bubble ${role}">${text}</div>
+    `;
+    log.appendChild(wrap);
+    wrap.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  async function startSession() {
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const overlay = document.getElementById('connectingOverlay');
+
+    startBtn.disabled = true;
+    startBtn.textContent = 'Connecting…';
+    overlay.innerHTML = `
+      <div class="spinner"></div>
+      <div class="connecting-text">Connecting…</div>
+      <div class="connecting-sub">Starting your digital twin session. This takes 10–15 seconds.</div>
+    `;
+
+    try {
+      // Step 1: Create HeyGen session
+      setStatus('Connecting…', '');
+      const res = await fetch(`${BASE_URL}/api/avatar-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'create_session' }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to create session');
+
+      sessionId = data.session_id;
+
+      // Step 2: Set up WebRTC peer connection
+      peerConnection = new RTCPeerConnection({ iceServers: data.ice_servers });
+
+      peerConnection.ontrack = (event) => {
+        const video = document.getElementById('avatarVideo');
+        if (event.track.kind === 'video') {
+          video.srcObject = event.streams[0];
+          overlay.style.display = 'none';
+          setStatus('Connected', 'active');
+        }
+      };
+
+      peerConnection.onicecandidate = async (event) => {
+        if (event.candidate) {
+          await fetch(`${BASE_URL}/api/avatar-session`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'ice_candidate',
+              session_id: sessionId,
+              candidate: event.candidate,
+            }),
+          });
+        }
+      };
+
+      // Step 3: Set remote SDP offer from HeyGen
+      await peerConnection.setRemoteDescription(new RTCSessionDescription(data.sdp));
+
+      // Step 4: Create answer
+      const answer = await peerConnection.createAnswer();
+      await peerConnection.setLocalDescription(answer);
+
+      // Step 5: Send answer to HeyGen
+      await fetch(`${BASE_URL}/api/avatar-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'start_session',
+          session_id: sessionId,
+          sdp_answer: answer,
+        }),
+      });
+
+      isSessionActive = true;
+      stopBtn.disabled = false;
+      startBtn.textContent = '▶ Start Video Session';
+
+      document.getElementById('askBtn').disabled = false;
+
+      // Greet the user
+      setTimeout(async () => {
+        await speakText("Hi there! I'm Madhu, CEO of Regovix. How can I help you today?");
+      }, 2000);
+
+    } catch (err) {
+      console.error('[startSession] Error:', err);
+      overlay.innerHTML = `
+        <div class="connecting-icon">⚠</div>
+        <div class="connecting-text" style="color:#FF4560">Connection Failed</div>
+        <div class="connecting-sub">${err.message}</div>
+      `;
+      setStatus('Error', '');
+      startBtn.disabled = false;
+      startBtn.textContent = '▶ Start Video Session';
+    }
+  }
+
+  async function speakText(text) {
+    if (!sessionId || !text) return;
+    setStatus('Speaking…', 'speaking');
+    try {
+      await fetch(`${BASE_URL}/api/avatar-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'speak', session_id: sessionId, text }),
+      });
+      setTimeout(() => setStatus('Connected', 'active'), text.length * 50);
+    } catch (err) {
+      console.error('[speakText] Error:', err);
+      setStatus('Connected', 'active');
+    }
+  }
+
+  async function askQuestion() {
+    const query = document.getElementById('queryInput').value.trim();
+    if (!query || !isSessionActive) return;
+
+    document.getElementById('queryInput').value = '';
+    document.getElementById('askBtn').disabled = true;
+    appendBubble('user', query);
+    setStatus('Thinking…', '');
+
+    try {
+      const res = await fetch(`${BASE_URL}/api/avatar-query`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Query failed');
+
+      appendBubble('assistant', data.answer);
+      await speakText(data.answer);
+
+    } catch (err) {
+      console.error('[askQuestion] Error:', err);
+      appendBubble('assistant', 'Sorry, I encountered an issue. Please try again.');
+      setStatus('Connected', 'active');
+    }
+
+    document.getElementById('askBtn').disabled = false;
+  }
+
+  async function stopSession() {
+    if (!sessionId) return;
+    try {
+      await fetch(`${BASE_URL}/api/avatar-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'stop_session', session_id: sessionId }),
+      });
+    } catch (err) {
+      console.error('[stopSession] Error:', err);
+    }
+
+    if (peerConnection) { peerConnection.close(); peerConnection = null; }
+    sessionId = null;
+    isSessionActive = false;
+
+    const video = document.getElementById('avatarVideo');
+    video.srcObject = null;
+
+    document.getElementById('connectingOverlay').innerHTML = `
+      <div class="connecting-icon">👤</div>
+      <div class="connecting-text">Madhu</div>
+      <div class="connecting-sub">Session ended. Click "Start Session" to reconnect.</div>
+    `;
+    document.getElementById('connectingOverlay').style.display = 'flex';
+
+    setStatus('Offline', '');
+    document.getElementById('startBtn').disabled = false;
+    document.getElementById('startBtn').textContent = '▶ Start Video Session';
+    document.getElementById('stopBtn').disabled = true;
+    document.getElementById('askBtn').disabled = true;
+  }
+
+  // Allow Enter key to submit
+  document.getElementById('queryInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.metaKey) askQuestion();
+  });
+</script>
+</body>
+</html>

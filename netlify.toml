@@ -89,6 +89,21 @@
   to = "/.netlify/functions/callassist-api"
   status = 200
 
+[[redirects]]
+  from = "/api/avatar-session"
+  to = "/.netlify/functions/avatar-session"
+  status = 200
+
+[[redirects]]
+  from = "/api/avatar-query"
+  to = "/.netlify/functions/avatar-query"
+  status = 200
+
+[[redirects]]
+  from = "/twincore-video"
+  to = "/twincore-video.html"
+  status = 200
+
 # ── Security headers ──────────────────────────────────────────────
 [[headers]]
   for = "/*"
