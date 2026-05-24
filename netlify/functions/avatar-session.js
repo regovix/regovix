@@ -1,7 +1,9 @@
 // netlify/functions/avatar-session.js
-// Phase 4 — LiveAvatar API (liveavatar.com)
+// Phase 4 — LiveAvatar v2 Embed API
 
 const LIVEAVATAR_API_URL = "https://api.liveavatar.com";
+const AVATAR_ID = "09f5de17-5746-11f1-8d28-066a7fa2e369";
+const CONTEXT_ID = "23eb8db4-b679-47bc-bf1c-850d1807288e";
 
 exports.handler = async function(event) {
   const headers = {
@@ -17,27 +19,31 @@ exports.handler = async function(event) {
   try {
     const { action } = JSON.parse(event.body || "{}");
 
-    // ── Get session token ─────────────────────────────────────────
-    if (action === "get_token") {
-      const res = await fetch(`${LIVEAVATAR_API_URL}/v1/sessions/token`, {
+    if (action === "get_embed") {
+      const res = await fetch(`${LIVEAVATAR_API_URL}/v2/embeddings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": process.env.LIVEAVATAR_API_KEY,
         },
+        body: JSON.stringify({
+          avatar_id: AVATAR_ID,
+          context_id: CONTEXT_ID,
+          is_sandbox: false,
+        }),
       });
 
       const data = await res.json();
-      console.log("[avatar-session] get_token response:", JSON.stringify(data));
+      console.log("[avatar-session] get_embed response:", JSON.stringify(data));
 
-      if (!res.ok || !data.data?.session_token) {
+      if (!res.ok || !data.data?.url) {
         throw new Error(data.message || `LiveAvatar error: ${res.status} ${JSON.stringify(data)}`);
       }
 
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ token: data.data.session_token }),
+        body: JSON.stringify({ url: data.data.url }),
       };
     }
 
