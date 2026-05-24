@@ -30,7 +30,7 @@ exports.handler = async function(event) {
         body: JSON.stringify({
   avatar_id: AVATAR_ID,
   context_id: CONTEXT_ID,
-  is_sandbox: true,
+  is_sandbox: false,
 }),
       });
 
