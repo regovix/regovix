@@ -71,7 +71,7 @@
 </div>
 <div class="container">
   <div class="page-title">Video Digital Twin</div>
-  <div class="page-sub">Start a live video session with your digital twin. Ask questions and watch Madhu respond with lip-synced video and cloned voice.</div>
+  <div class="page-sub">Start a live video session with your digital twin. Ask questions and watch the avatar respond with lip-synced video and voice powered by your knowledge base.</div>
   <div class="info-box">ℹ Upload documents in the <a href="/twincore.html" style="color:var(--cyan)">Knowledge Engine</a> first — the twin draws answers from your indexed documents. Sessions take 10–20 seconds to connect.</div>
   <div class="video-layout">
     <div class="avatar-panel">
@@ -79,7 +79,7 @@
       <audio id="avatarAudio" autoplay></audio>
       <div class="connecting-overlay" id="connectingOverlay">
         <div class="connecting-icon">👤</div>
-        <div class="connecting-title">Madhu</div>
+        <div class="connecting-title">TwinCore Avatar</div>
         <div class="connecting-sub">Click "Start Session" to connect your digital twin</div>
       </div>
       <div class="avatar-status">
@@ -102,14 +102,14 @@
       </div>
       <div class="card">
         <div class="card-title">Ask Your Twin</div>
-        <div class="card-sub">Type a question — Madhu will respond on video.</div>
+        <div class="card-sub">Type a question — the avatar will respond on video.</div>
         <div class="quick-btns">
           <button class="quick-btn" onclick="setQuery('What are the spill prevention procedures?')">Spill prevention</button>
           <button class="quick-btn" onclick="setQuery('What PPE is required for chemical handling?')">PPE requirements</button>
           <button class="quick-btn" onclick="setQuery('What is Regovix and what do you offer?')">About Regovix</button>
         </div>
         <textarea class="query-input" id="queryInput" placeholder="Ask your digital twin anything covered by your documents..."></textarea>
-        <button class="btn btn-primary" id="askBtn" onclick="askQuestion()" disabled>Ask Madhu</button>
+        <button class="btn btn-primary" id="askBtn" onclick="askQuestion()" disabled>Ask</button>
       </div>
       <div class="card">
         <div class="card-title">Conversation</div>
@@ -120,13 +120,11 @@
     </div>
   </div>
 </div>
-<script src="https://unpkg.com/@heygen/streaming-avatar@latest/dist/streaming-avatar.umd.cjs"></script>
+<script src="https://unpkg.com/@heygen/liveavatar-web-sdk@latest/dist/liveavatar-web-sdk.umd.js"></script>
 <script>
   var BASE_URL = window.location.origin;
-  var AVATAR_ID = "bec00a33ca344019a2ffabac003ca572";
-  var VOICE_ID = "LKI0cvTlTIQsIjKd0UtX";
-  var avatar = null;
-  var sessionData = null;
+  var AVATAR_ID = "64b526e4-741c-43b6-a918-4e40f3261c7a";
+  var liveAvatar = null;
   var isActive = false;
 
   function setStatus(text, type) {
@@ -157,7 +155,7 @@
     if (placeholder) placeholder.remove();
     var wrap = document.createElement('div');
     wrap.className = 'bubble-wrap ' + role + ' fade-up';
-    wrap.innerHTML = '<div class="bubble-label">' + (role === 'user' ? 'YOU' : 'MADHU') + '</div>' +
+    wrap.innerHTML = '<div class="bubble-label">' + (role === 'user' ? 'YOU' : 'AVATAR') + '</div>' +
       '<div class="bubble ' + role + '">' + text.replace(/\n/g, '<br>') + '</div>';
     log.appendChild(wrap);
     log.scrollTop = log.scrollHeight;
@@ -166,10 +164,11 @@
   async function startSession() {
     var startBtn = document.getElementById('startBtn');
     startBtn.disabled = true;
-    setOverlay('', 'Connecting...', 'Getting session token from HeyGen...', true);
+    setOverlay('', 'Connecting...', 'Getting session token...', true);
     setStatus('Connecting...', '');
 
     try {
+      // Step 1: Get token from secure backend
       var tokenRes = await fetch(BASE_URL + '/api/avatar-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -177,47 +176,43 @@
       });
       var tokenData = await tokenRes.json();
       if (!tokenRes.ok) throw new Error(tokenData.error || 'Failed to get token');
-
       var token = tokenData.token;
 
-      var StreamingAvatarClass = window.StreamingAvatar;
-      if (!StreamingAvatarClass && window.HeyGen) StreamingAvatarClass = window.HeyGen.StreamingAvatar;
-      if (!StreamingAvatarClass) throw new Error('HeyGen SDK not loaded. Please refresh and try again.');
-
-      avatar = new StreamingAvatarClass({ token: token });
-
-      avatar.on('STREAM_READY', function(event) {
-        var video = document.getElementById('avatarVideo');
-        video.srcObject = event.detail;
-        video.play().catch(console.error);
-        hideOverlay();
-        setStatus('Connected', 'active');
-        isActive = true;
-        document.getElementById('stopBtn').disabled = false;
-        document.getElementById('askBtn').disabled = false;
-        startBtn.textContent = 'Start Video Session';
-        setTimeout(function() {
-          speakText("Hi there! I'm Madhu, CEO of Regovix. How can I help you today?");
-        }, 1500);
-      });
-
-      avatar.on('STREAM_DISCONNECTED', function() {
-        setStatus('Disconnected', '');
-        isActive = false;
-      });
-
-      avatar.on('AVATAR_START_TALKING', function() { setStatus('Speaking...', 'speaking'); });
-      avatar.on('AVATAR_STOP_TALKING', function() { setStatus('Connected', 'active'); });
+      // Step 2: Initialise LiveAvatar SDK
+      var LiveAvatarSDK = window.LiveAvatar || window.LiveAvatarWebSDK;
+      if (!LiveAvatarSDK) throw new Error('LiveAvatar SDK not loaded. Please refresh and try again.');
 
       setOverlay('', 'Starting Avatar...', 'Loading your digital twin. This takes 10-20 seconds.', true);
 
-      sessionData = await avatar.createStartAvatar({
-        avatarName: AVATAR_ID,
-        quality: 'medium',
-        voice: { voiceId: VOICE_ID },
+      liveAvatar = new LiveAvatarSDK({
+        token: token,
+        avatarId: AVATAR_ID,
+        onVideoReady: function(stream) {
+          var video = document.getElementById('avatarVideo');
+          video.srcObject = stream;
+          video.play().catch(console.error);
+          hideOverlay();
+          setStatus('Connected', 'active');
+          isActive = true;
+          document.getElementById('stopBtn').disabled = false;
+          document.getElementById('askBtn').disabled = false;
+          startBtn.textContent = 'Start Video Session';
+          setTimeout(function() {
+            speakText("Hi there! I'm here to help. How can I assist you today?");
+          }, 1500);
+        },
+        onError: function(err) {
+          console.error('[LiveAvatar] Error:', err);
+          setOverlay('!', 'Connection Failed', err.message || 'Unknown error', false);
+          setStatus('Error', '');
+          startBtn.disabled = false;
+        },
+        onAvatarStartTalking: function() { setStatus('Speaking...', 'speaking'); },
+        onAvatarStopTalking: function() { setStatus('Connected', 'active'); },
+        onDisconnected: function() { setStatus('Disconnected', ''); isActive = false; },
       });
 
-      console.log('[TwinCore] Session started:', sessionData);
+      await liveAvatar.connect();
 
     } catch (err) {
       console.error('[startSession] Error:', err);
@@ -229,9 +224,9 @@
   }
 
   async function speakText(text) {
-    if (!avatar || !text) return;
+    if (!liveAvatar || !text) return;
     try {
-      await avatar.speak({ text: text, taskType: 'REPEAT' });
+      await liveAvatar.speak({ text: text });
     } catch (err) {
       console.error('[speakText] Error:', err);
     }
@@ -264,15 +259,14 @@
 
   async function stopSession() {
     try {
-      if (avatar) await avatar.stopAvatar();
+      if (liveAvatar) await liveAvatar.disconnect();
     } catch (err) {
       console.error('[stopSession] Error:', err);
     }
-    avatar = null;
-    sessionData = null;
+    liveAvatar = null;
     isActive = false;
     document.getElementById('avatarVideo').srcObject = null;
-    setOverlay('', 'Madhu', 'Session ended. Click Start Session to reconnect.', false);
+    setOverlay('', 'TwinCore Avatar', 'Session ended. Click Start Session to reconnect.', false);
     setStatus('Offline', '');
     document.getElementById('startBtn').disabled = false;
     document.getElementById('startBtn').textContent = 'Start Video Session';
