@@ -2,8 +2,9 @@
 // Phase 4 — LiveAvatar v2 Embed API
 
 const LIVEAVATAR_API_URL = "https://api.liveavatar.com";
-const AVATAR_ID = "09f5de17-5746-11f1-8d28-066a7fa2e369";
+const AVATAR_ID = "64b526e4-741c-43b6-a918-4e40f3261c7a";
 const CONTEXT_ID = "23eb8db4-b679-47bc-bf1c-850d1807288e";
+const LIVEAVATAR_KEY = process.env.LIVEAVATAR_API_KEY || "637c495d-3bef-46a8-abad-d7fa2f1f8eb2";
 
 exports.handler = async function(event) {
   const headers = {
@@ -24,13 +25,13 @@ exports.handler = async function(event) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": process.env.LIVEAVATAR_API_KEY,
+          "X-API-KEY": LIVEAVATAR_KEY,
         },
         body: JSON.stringify({
-          avatar_id: AVATAR_ID,
-          context_id: CONTEXT_ID,
-          is_sandbox: false,
-        }),
+  avatar_id: AVATAR_ID,
+  context_id: CONTEXT_ID,
+  is_sandbox: true,
+}),
       });
 
       const data = await res.json();
