@@ -7,16 +7,16 @@ const { OpenAI } = require("openai");
 
 const PERSONA = {
   name: "Madhu",
-  role: "Chief Executive officer",
+  role: "CEO",
   company: "Regovix",
-  style: "professional, precise, and practical",
+  style: "professional, helpful, and knowledgeable",
   fallback: "I'd need to look into that further before I can give you a definitive answer.",
   userId: "ets-madhu-twin",
 };
 
 async function embedQuery(query) {
-  const oai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  const res = await oai.embeddings.create({
+  var oai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  var res = await oai.embeddings.create({
     model: "text-embedding-3-small",
     input: query,
   });
@@ -24,10 +24,10 @@ async function embedQuery(query) {
 }
 
 async function retrieveChunks(queryVec, topK) {
-  const pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
-  const index = pc.index(process.env.PINECONE_INDEX || "twin-knowledge");
-  const namespace = index.namespace(PERSONA.userId);
-  const results = await namespace.query({
+  var pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
+  var index = pc.index(process.env.PINECONE_INDEX || "twin-knowledge");
+  var namespace = index.namespace(PERSONA.userId);
+  var results = await namespace.query({
     vector: queryVec,
     topK: topK,
     includeMetadata: true,
@@ -43,7 +43,7 @@ async function generateAnswer(query, chunks) {
     ? chunks.map(function(m, i) { return "[Source " + (i+1) + ": " + m.source + "]\n" + m.text; }).join("\n\n---\n\n")
     : "No relevant documents found.";
 
-  var systemPrompt = "You are " + PERSONA.name + ", a " + PERSONA.role + " at " + PERSONA.company + ".\n" +
+  var systemPrompt = "You are " + PERSONA.name + ", " + PERSONA.role + " at " + PERSONA.company + ".\n" +
     "Your communication style is: " + PERSONA.style + ".\n\n" +
     "RULES:\n" +
     "1. Answer in first person as " + PERSONA.name + ".\n" +
@@ -52,7 +52,8 @@ async function generateAnswer(query, chunks) {
     "4. Never fabricate facts.\n" +
     "5. Keep answers SHORT — maximum 3 sentences. You are on a phone call.\n" +
     "6. Do NOT mention you are an AI.\n" +
-    "7. Speak naturally as if having a conversation.\n\n" +
+    "7. Speak naturally as if having a conversation.\n" +
+    "8. Answer questions on ANY topic covered in the documents.\n\n" +
     "CONTEXT:\n" + contextString;
 
   var client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -92,6 +93,10 @@ exports.handler = async function(event) {
     "Access-Control-Allow-Origin": "*",
   };
 
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 200, headers, body: "" };
+  }
+
   try {
     var params = parseBody(event.body);
     var speechResult = params.SpeechResult || "";
@@ -102,31 +107,29 @@ exports.handler = async function(event) {
       var noSpeechTwiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Gather input="speech" action="/api/phone-transcribe" method="POST" speechTimeout="3" speechModel="phone_call" language="en-AU">
-    <Say voice="Polly.Matthew">Sorry, I didn't catch that. Could you please repeat your question?</Say>
+    <Say voice="Polly.Matthew">Sorry, I did not catch that. Could you please repeat your question?</Say>
   </Gather>
   <Redirect>/api/phone-call</Redirect>
 </Response>`;
-      return { statusCode: 200, headers: headers, body: noSpeechTwiml };
+      return { statusCode: 200, headers, body: noSpeechTwiml };
     }
 
-    // Run RAG pipeline
     var queryVec = await embedQuery(speechResult);
     var chunks = await retrieveChunks(queryVec, 5);
     var answer = await generateAnswer(speechResult, chunks);
 
     console.log("[phone-transcribe] Answer:", answer.substring(0, 80));
 
-    // Respond and listen for follow-up question
     var twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Gather input="speech" action="/api/phone-transcribe" method="POST" speechTimeout="3" speechModel="phone_call" language="en-AU">
     <Say voice="Polly.Matthew">${escapeXml(answer)} Is there anything else I can help you with?</Say>
   </Gather>
-  <Say voice="Polly.Matthew">Thank you for calling. Goodbye.</Say>
+  <Say voice="Polly.Matthew">Thank you for calling Regovix. Goodbye.</Say>
   <Hangup/>
 </Response>`;
 
-    return { statusCode: 200, headers: headers, body: twiml };
+    return { statusCode: 200, headers, body: twiml };
 
   } catch (err) {
     console.error("[phone-transcribe] Error:", err);
@@ -137,6 +140,6 @@ exports.handler = async function(event) {
     <Say voice="Polly.Matthew">What would you like to know?</Say>
   </Gather>
 </Response>`;
-    return { statusCode: 200, headers: headers, body: errorTwiml };
+    return { statusCode: 200, headers, body: errorTwiml };
   }
 };

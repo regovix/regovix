@@ -4,9 +4,9 @@
 
 const PERSONA = {
   name: "Madhu",
-  role: "Chief Executive Officer",
+  role: "CEO",
   company: "Regovix",
-  style: "professional, precise, and practical",
+  style: "professional, helpful, and knowledgeable",
   fallback: "I'd need to look into that further before I can give you a definitive answer.",
   userId: "ets-madhu-twin",
 };
@@ -26,6 +26,10 @@ exports.handler = async function(event) {
     "Access-Control-Allow-Origin": "*",
   };
 
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 200, headers, body: "" };
+  }
+
   try {
     var greeting = "Hi, you have reached " + PERSONA.name + ", " + PERSONA.role + " at " + PERSONA.company + ". How can I help you today?";
 
@@ -37,7 +41,7 @@ exports.handler = async function(event) {
   <Redirect>/api/phone-call</Redirect>
 </Response>`;
 
-    return { statusCode: 200, headers: headers, body: twiml };
+    return { statusCode: 200, headers, body: twiml };
 
   } catch (err) {
     console.error("[phone-call] Error:", err);
@@ -46,6 +50,6 @@ exports.handler = async function(event) {
   <Say voice="Polly.Matthew">Sorry, there was a technical issue. Please try again later.</Say>
   <Hangup/>
 </Response>`;
-    return { statusCode: 200, headers: headers, body: errorTwiml };
+    return { statusCode: 200, headers, body: errorTwiml };
   }
 };

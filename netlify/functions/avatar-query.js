@@ -1,6 +1,6 @@
 // netlify/functions/avatar-query.js
 // Phase 4 — RAG query for video avatar
-// Same as twin-query but optimised for short spoken responses
+// General purpose — answers from any uploaded document
 
 const Anthropic = require("@anthropic-ai/sdk");
 const { Pinecone } = require("@pinecone-database/pinecone");
@@ -73,9 +73,9 @@ CRITICAL RULES FOR VIDEO RESPONSE:
 2. Draw answers ONLY from the context provided.
 3. If not in context: "${PERSONA.fallback}"
 4. Keep answers to 2-3 sentences MAXIMUM — you are speaking on video.
-5. Speak naturally and conversationally — no bullet points or lists.
+5. Speak naturally and conversationally.
 6. Do NOT mention you are an AI or referencing documents.
-7. Sound warm and human — this is a face to face video conversation.
+7. Answer questions on ANY topic covered in the documents.
 
 CONTEXT:
 ${contextString}`;
