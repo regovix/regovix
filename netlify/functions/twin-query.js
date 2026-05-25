@@ -1,190 +1,123 @@
 // netlify/functions/twin-query.js
-// Phase 1 – RAG Query Handler
-// Accepts a natural-language question, retrieves relevant chunks, calls Claude as the persona
-//
-// POST /api/twin-query
-// Body: { query, userId, persona }
+// RAG Query Handler — General purpose, any document any topic
 
 const Anthropic = require("@anthropic-ai/sdk");
 const { Pinecone } = require("@pinecone-database/pinecone");
 const { OpenAI } = require("openai");
 
-// ─── Persona system prompt builder ───────────────────────────────────────────
-function buildSystemPrompt(persona, chunks) {
-  const {
-    name = "Your Assistant",
-    role = "Expert",
-    company = "our organisation",
-    style = "professional and helpful",
-    fallback = "I'd need to look into that further before I can give you a definitive answer.",
-  } = persona;
-
-  return `You are ${name}, a ${role} at ${company}.
-
-Your communication style is: ${style}.
-
-STRICT RULES — follow these precisely:
-1. Always answer in FIRST PERSON as ${name}. Never refer to yourself in the third person.
-2. Draw your answers ONLY from the context documents provided below.
-3. If the answer is not clearly supported by the context, respond with: "${fallback}"
-4. Never fabricate facts, statistics, or regulatory references not found in the context.
-5. Be CONCISE — imagine you are answering on a phone call. 2–4 sentences unless detail is critical.
-6. Do NOT mention that you are an AI, a digital twin, or that you are referencing documents.
-7. Do NOT use phrases like "Based on the provided context..." — just answer naturally.
-8. If the question is about an emergency or immediate danger, always advise contacting emergency services first.
-
-KNOWLEDGE BASE CONTEXT:
-${chunks}
-
-Answer the user's question based only on the above context.`;
-}
-
-// ─── Query embedding ──────────────────────────────────────────────────────────
 async function embedQuery(query) {
-  const oai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-  const res = await oai.embeddings.create({
+  var oai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  var res = await oai.embeddings.create({
     model: "text-embedding-3-small",
     input: query,
   });
   return res.data[0].embedding;
 }
 
-// ─── Pinecone retrieval ───────────────────────────────────────────────────────
-async function retrieveChunks(queryVec, userId, topK = 5) {
-  const pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
-  const index = pc.index(process.env.PINECONE_INDEX || "twin-knowledge");
-  const namespace = index.namespace(userId);
-
-  const results = await namespace.query({
+async function retrieveChunks(queryVec, userId, topK) {
+  var pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
+  var index = pc.index(process.env.PINECONE_INDEX || "twin-knowledge");
+  var namespace = index.namespace(userId);
+  var results = await namespace.query({
     vector: queryVec,
-    topK,
+    topK: topK,
     includeMetadata: true,
     includeValues: false,
   });
-
-  return results.matches.map(m => ({
-    text: m.metadata.text,
-    source: m.metadata.source,
-    score: m.score,
-    chunkIndex: m.metadata.chunkIndex,
-  }));
+  return results.matches.map(function(m) {
+    return { text: m.metadata.text, source: m.metadata.source, score: m.score };
+  });
 }
 
-// ─── Handler ──────────────────────────────────────────────────────────────────
-exports.handler = async (event) => {
+function buildSystemPrompt(persona, chunks) {
+  var name = persona.name || "Madhu";
+  var role = persona.role || "CEO";
+  var company = persona.company || "Regovix";
+  var style = persona.style || "professional, helpful, and knowledgeable";
+  var fallback = persona.fallback || "I would need to look into that further before I can give you a definitive answer.";
+
+  return "You are " + name + ", " + role + " at " + company + ".\n" +
+    "Your communication style is: " + style + ".\n\n" +
+    "STRICT RULES:\n" +
+    "1. Always answer in FIRST PERSON as " + name + ".\n" +
+    "2. Draw answers ONLY from the context documents provided below.\n" +
+    "3. If the answer is not clearly supported by the context, respond with: " + fallback + "\n" +
+    "4. Never fabricate facts not found in the context.\n" +
+    "5. Be CONCISE — imagine you are answering on a phone call.\n" +
+    "6. Do NOT mention that you are an AI or referencing documents.\n" +
+    "7. Answer questions on ANY topic covered in the uploaded documents.\n\n" +
+    "KNOWLEDGE BASE CONTEXT:\n" + chunks;
+}
+
+exports.handler = async function(event) {
+  var headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  };
+
   if (event.httpMethod === "OPTIONS") {
-    return {
-      statusCode: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
-      body: "",
-    };
+    return { statusCode: 200, headers, body: "" };
   }
 
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  const headers = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  };
-
   try {
-    const { query, userId, persona = {} } = JSON.parse(event.body || "{}");
+    var body = JSON.parse(event.body || "{}");
+    var query = body.query;
+    var userId = body.userId || "ets-madhu-twin";
+    var persona = body.persona || {
+      name: "Madhu",
+      role: "CEO",
+      company: "Regovix",
+      style: "professional, helpful, and knowledgeable",
+      fallback: "I'd need to look into that further before I can give you a definitive answer.",
+    };
 
-    if (!query || !userId) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: "Missing required fields: query, userId" }),
-      };
+    if (!query) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing query" }) };
     }
 
-    if (query.length > 2000) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ error: "Query too long (max 2000 characters)" }),
-      };
-    }
-
-    // Step 1: Embed the query
-    console.log(`[query] Embedding query for user: ${userId}`);
-    const queryVec = await embedQuery(query);
-
-    // Step 2: Retrieve top-5 chunks
-    console.log(`[query] Retrieving chunks from Pinecone`);
-    const matches = await retrieveChunks(queryVec, userId, 5);
+    var queryVec = await embedQuery(query);
+    var matches = await retrieveChunks(queryVec, userId, 5);
 
     if (matches.length === 0) {
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
-          answer: persona.fallback || "I don't have any relevant information indexed yet. Please upload some documents first.",
+          answer: persona.fallback || "I don't have relevant information indexed yet.",
           sources: [],
-          chunks: [],
-          retrievedCount: 0,
         }),
       };
     }
 
-    // Step 3: Build context string
-    const contextString = matches
-      .map((m, i) => `[Source ${i + 1}: ${m.source} | relevance: ${(m.score * 100).toFixed(0)}%]\n${m.text}`)
-      .join("\n\n---\n\n");
+    var contextString = matches.map(function(m, i) {
+      return "[Source " + (i+1) + ": " + m.source + "]\n" + m.text;
+    }).join("\n\n---\n\n");
 
-    // Step 4: Call Claude with persona + context
-    console.log(`[query] Calling Claude with ${matches.length} chunks`);
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
-    const msg = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
+    var client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    var msg = await client.messages.create({
+      model: "claude-haiku-4-5",
       max_tokens: 1000,
       system: buildSystemPrompt(persona, contextString),
       messages: [{ role: "user", content: query }],
     });
 
-    const answer = msg.content[0].text;
-
-    // Deduplicate sources
-    const sources = [...new Set(matches.map(m => m.source))];
-
-    // Build usage stats
-    const usage = {
-      inputTokens: msg.usage.input_tokens,
-      outputTokens: msg.usage.output_tokens,
-      retrievedChunks: matches.length,
-      topScore: matches[0]?.score?.toFixed(3),
-    };
-
-    console.log(`[query] Done. Answer: ${answer.substring(0, 80)}…`);
+    var answer = msg.content[0].text;
+    var sources = [];
+    matches.forEach(function(m) {
+      if (sources.indexOf(m.source) === -1) sources.push(m.source);
+    });
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({
-        answer,
-        sources,
-        usage,
-        // In dev/debug mode, include chunk details
-        chunks: matches.map(m => ({
-          source: m.source,
-          score: m.score,
-          preview: m.text.substring(0, 120) + "…",
-        })),
-      }),
+      body: JSON.stringify({ answer, sources }),
     };
   } catch (err) {
     console.error("[query] Error:", err);
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ error: err.message }),
-    };
+    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
   }
 };
