@@ -27,9 +27,10 @@ exports.handler = async function(event) {
           "Content-Type": "application/json",
           "X-API-KEY": LIVEAVATAR_KEY,
         },
-        body: JSON.stringify({
+       body: JSON.stringify({
   avatar_id: AVATAR_ID,
   context_id: CONTEXT_ID,
+  llm_configuration_id: "f5368b2b-a907-44c2-82fe-65f93e3e67d3",
   is_sandbox: false,
 }),
       });
