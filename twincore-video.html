@@ -19,9 +19,8 @@
   .page-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.7}
   .video-layout{display:grid;grid-template-columns:1fr 380px;gap:24px;margin-bottom:24px}
   .avatar-panel{background:#000;border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;min-height:480px}
-  #avatarContainer{width:100%;height:100%;min-height:480px;position:relative}
-  #avatarContainer video{width:100%;height:100%;object-fit:cover;min-height:480px;display:block}
-  .avatar-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(7,11,18,0.9));padding:20px 16px 16px;pointer-events:none}
+  #avatarVideo{width:100%;height:100%;object-fit:cover;min-height:480px;display:block;position:absolute;inset:0}
+  .avatar-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(7,11,18,0.9));padding:20px 16px 16px;pointer-events:none;z-index:10}
   .avatar-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700}
   .avatar-role{font-size:12px;color:var(--muted)}
   .avatar-status{position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:6px;background:rgba(7,11,18,0.85);border:1px solid var(--border);padding:4px 10px;border-radius:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);z-index:10}
@@ -72,9 +71,8 @@
   <div class="info-box">ℹ Upload documents in the <a href="/twincore.html" style="color:var(--cyan)">Knowledge Engine</a> first — the avatar answers from your indexed documents using Claude AI.</div>
   <div class="video-layout">
     <div class="avatar-panel">
-      <div id="avatarContainer">
-        <!-- SDK will inject video element here -->
-      </div>
+      <video id="avatarVideo" autoplay playsinline></video>
+      <audio id="avatarAudio" autoplay></audio>
       <div class="connecting-overlay" id="connectingOverlay">
         <div class="connecting-icon">👤</div>
         <div class="connecting-title">TwinCore Avatar</div>
@@ -122,8 +120,7 @@
 
   function setStatus(text, type) {
     ['statusDot','statusDot2'].forEach(function(id) {
-      var dot = document.getElementById(id);
-      dot.className = 'status-dot' + (type ? ' ' + type : '');
+      document.getElementById(id).className = 'status-dot' + (type ? ' ' + type : '');
     });
     document.getElementById('statusText').textContent = text;
     document.getElementById('statusText2').textContent = text;
@@ -153,6 +150,32 @@
     log.scrollTop = log.scrollHeight;
   }
 
+  // Intercept HTMLVideoElement.srcObject setter to catch when SDK sets video stream
+  var originalSrcObjectDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'srcObject');
+  Object.defineProperty(HTMLMediaElement.prototype, 'srcObject', {
+    set: function(stream) {
+      console.log('[TwinCore] srcObject set on', this.tagName, 'stream:', stream);
+      originalSrcObjectDescriptor.set.call(this, stream);
+      if (stream && this.tagName === 'VIDEO' && stream instanceof MediaStream) {
+        console.log('[TwinCore] Video stream detected! Attaching to our video element.');
+        var ourVideo = document.getElementById('avatarVideo');
+        if (this !== ourVideo) {
+          // SDK created its own video — steal the stream
+          ourVideo.srcObject = stream;
+          ourVideo.play().catch(console.error);
+        }
+        hideOverlay();
+        setStatus('Connected — Claude RAG', 'active');
+        isActive = true;
+        document.getElementById('stopBtn').disabled = false;
+        document.getElementById('startBtn').textContent = 'Start Video Session';
+      }
+    },
+    get: function() {
+      return originalSrcObjectDescriptor.get.call(this);
+    }
+  });
+
   window.startSession = async function() {
     var startBtn = document.getElementById('startBtn');
     startBtn.disabled = true;
@@ -168,100 +191,48 @@
       var tokenData = await tokenRes.json();
       if (!tokenRes.ok) throw new Error(tokenData.error || 'Failed to get token');
 
-      var sessionToken = tokenData.token;
-      console.log('[TwinCore] Got token, creating session...');
+      console.log('[TwinCore] Got token, creating LiveAvatarSession...');
+      setOverlay('', 'Starting Avatar...', 'Loading your digital twin with Claude RAG...', true);
 
-      setOverlay('', 'Starting Avatar...', 'Loading your digital twin...', true);
-
-      session = new LiveAvatarSession(sessionToken, { voiceChat: false });
-
-      // Listen to ALL events to find correct video event name
-      var originalOn = session.on.bind(session);
-      var originalEmit = session.emit ? session.emit.bind(session) : null;
-
-      // Try multiple possible event names for video
-      var videoEvents = ['stream', 'STREAM_READY', 'video', 'videoReady', 'mediaStream', 'track', 'connected'];
-      videoEvents.forEach(function(evtName) {
-        session.on(evtName, function(data) {
-          console.log('[TwinCore] Event fired:', evtName, data);
-          // Try to get stream from various possible data shapes
-          var stream = data;
-          if (data && data.detail) stream = data.detail;
-          if (data && data.stream) stream = data.stream;
-          if (stream && stream instanceof MediaStream) {
-            console.log('[TwinCore] Got MediaStream from event:', evtName);
-            attachStream(stream);
-          }
-        });
-      });
+      session = new LiveAvatarSession(tokenData.token, { voiceChat: true });
 
       session.on('talking', function(isTalking) {
-        setStatus(isTalking ? 'Speaking...' : 'Connected — Claude RAG', isTalking ? 'speaking' : 'active');
+        if (isActive) setStatus(isTalking ? 'Speaking...' : 'Connected — Claude RAG', isTalking ? 'speaking' : 'active');
       });
 
       session.on('transcript', function(data) {
         console.log('[TwinCore] Transcript:', data);
-        if (data && data.role === 'user') appendBubble('user', data.text || data.content || '');
-        if (data && data.role === 'assistant') appendBubble('assistant', data.text || data.content || '');
+        if (data) {
+          var role = data.role || 'assistant';
+          var text = data.text || data.content || data.transcript || '';
+          if (text) appendBubble(role, text);
+        }
       });
 
       session.on('error', function(err) {
-        console.error('[TwinCore] Error:', err);
+        console.error('[TwinCore] Session error:', err);
       });
 
       session.on('closed', function() {
+        console.log('[TwinCore] Session closed');
         setStatus('Disconnected', '');
         isActive = false;
       });
 
-      var result = await session.start();
-      console.log('[TwinCore] session.start() result:', result);
+      await session.start();
+      console.log('[TwinCore] session.start() completed');
 
-      // Check if session has a video element or stream property
-      if (session.videoElement) {
-        console.log('[TwinCore] Found session.videoElement');
-        var container = document.getElementById('avatarContainer');
-        container.appendChild(session.videoElement);
-        hideOverlay();
-        setStatus('Connected — Claude RAG', 'active');
-        isActive = true;
-        document.getElementById('stopBtn').disabled = false;
-        startBtn.textContent = 'Start Video Session';
-      } else if (session.mediaStream) {
-        console.log('[TwinCore] Found session.mediaStream');
-        attachStream(session.mediaStream);
-      } else {
-        // Poll for video element appearing in container
-        console.log('[TwinCore] Polling for video element...');
-        var attempts = 0;
-        var poll = setInterval(function() {
-          attempts++;
-          var videos = document.querySelectorAll('video');
-          console.log('[TwinCore] Found videos:', videos.length);
-          videos.forEach(function(v) {
-            if (v.srcObject && !v.id) {
-              console.log('[TwinCore] Found orphan video with stream, moving to container');
-              var container = document.getElementById('avatarContainer');
-              container.appendChild(v);
-              hideOverlay();
-              setStatus('Connected — Claude RAG', 'active');
-              isActive = true;
-              document.getElementById('stopBtn').disabled = false;
-              startBtn.textContent = 'Start Video Session';
-              clearInterval(poll);
-            }
-          });
-          if (attempts > 20) {
-            clearInterval(poll);
-            console.log('[TwinCore] Gave up polling, marking connected anyway');
-            hideOverlay();
-            setStatus('Connected', 'active');
-            isActive = true;
-            document.getElementById('stopBtn').disabled = false;
-            startBtn.textContent = 'Start Video Session';
-          }
-        }, 500);
-      }
+      // Backup: if stream interception didn't fire, mark connected anyway after delay
+      setTimeout(function() {
+        if (!isActive) {
+          console.log('[TwinCore] Backup: marking connected');
+          hideOverlay();
+          setStatus('Connected', 'active');
+          isActive = true;
+          document.getElementById('stopBtn').disabled = false;
+          startBtn.textContent = 'Start Video Session';
+        }
+      }, 5000);
 
     } catch (err) {
       console.error('[startSession] Error:', err);
@@ -272,29 +243,11 @@
     }
   };
 
-  function attachStream(stream) {
-    var container = document.getElementById('avatarContainer');
-    var existing = container.querySelector('video');
-    var video = existing || document.createElement('video');
-    video.srcObject = stream;
-    video.autoplay = true;
-    video.playsInline = true;
-    video.style.cssText = 'width:100%;height:100%;object-fit:cover;min-height:480px;display:block';
-    if (!existing) container.appendChild(video);
-    video.play().catch(console.error);
-    hideOverlay();
-    setStatus('Connected — Claude RAG', 'active');
-    isActive = true;
-    document.getElementById('stopBtn').disabled = false;
-    document.getElementById('startBtn').textContent = 'Start Video Session';
-  }
-
   window.stopSession = async function() {
     try { if (session) await session.stop(); } catch(e) { console.error(e); }
     session = null;
     isActive = false;
-    var container = document.getElementById('avatarContainer');
-    container.innerHTML = '';
+    document.getElementById('avatarVideo').srcObject = null;
     setOverlay('', 'TwinCore Avatar', 'Session ended. Click Start Session to reconnect.', false);
     setStatus('Offline', '');
     document.getElementById('startBtn').disabled = false;
