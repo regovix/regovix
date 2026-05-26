@@ -104,6 +104,11 @@
   to = "/twincore-video.html"
   status = 200
 
+[[redirects]]
+  from = "/api/chat-completions"
+  to = "/.netlify/functions/chat-completions"
+  status = 200
+
 # ── Security headers ──────────────────────────────────────────────
 [[headers]]
   for = "/*"
