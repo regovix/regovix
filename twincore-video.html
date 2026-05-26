@@ -14,20 +14,13 @@
   .logo-dot{width:7px;height:7px;background:var(--cyan);border-radius:50%;animation:pulse 2s infinite}
   .pill{display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--mint-dim);border:1px solid var(--mint-border);color:var(--mint);margin-left:auto}
   .pill-dot{width:5px;height:5px;background:var(--mint);border-radius:50%;animation:pulse 1.5s infinite}
-  .container{max-width:960px;margin:0 auto;padding:36px 24px}
+  .container{max-width:1100px;margin:0 auto;padding:36px 24px}
   .page-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--text);margin-bottom:6px}
   .page-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.7}
   .video-layout{display:grid;grid-template-columns:1fr 380px;gap:24px;margin-bottom:24px}
-  .avatar-panel{background:#000;border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;min-height:480px}
-  #avatarVideo{width:100%;height:100%;object-fit:cover;min-height:480px;display:block;position:absolute;inset:0}
-  .avatar-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(7,11,18,0.9));padding:20px 16px 16px;pointer-events:none;z-index:10}
-  .avatar-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700}
-  .avatar-role{font-size:12px;color:var(--muted)}
-  .avatar-status{position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:6px;background:rgba(7,11,18,0.85);border:1px solid var(--border);padding:4px 10px;border-radius:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);z-index:10}
-  .status-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0}
-  .status-dot.active{background:var(--mint);animation:pulse 1.5s infinite}
-  .status-dot.speaking{background:var(--cyan);animation:pulse 0.8s infinite}
-  .connecting-overlay{position:absolute;inset:0;background:rgba(7,11,18,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;z-index:5}
+  .avatar-panel{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;min-height:500px;display:flex;flex-direction:column}
+  .avatar-iframe{width:100%;flex:1;border:none;border-radius:12px;min-height:500px}
+  .connecting-overlay{position:absolute;inset:0;background:rgba(7,11,18,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;border-radius:12px}
   .connecting-icon{font-size:48px}
   .connecting-title{font-family:'Syne',sans-serif;font-size:18px;color:var(--text)}
   .connecting-sub{font-size:12px;color:var(--muted);max-width:220px;line-height:1.7}
@@ -42,17 +35,25 @@
   .btn-primary:disabled{opacity:0.4;cursor:not-allowed}
   .btn-danger{background:rgba(255,69,96,0.1);border-color:rgba(255,69,96,0.3);color:var(--red)}
   .btn-danger:disabled{opacity:0.4;cursor:not-allowed}
-  .status-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-  .status-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)}
-  .info-box{background:rgba(0,201,255,0.05);border:1px solid var(--cyan-border);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px}
-  .chat-log{display:flex;flex-direction:column;gap:10px;max-height:200px;overflow-y:auto}
+  .query-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;resize:vertical;min-height:72px;margin-bottom:10px}
+  .query-input:focus{outline:none;border-color:var(--cyan)}
+  .query-input::placeholder{color:var(--muted)}
+  .chat-log{display:flex;flex-direction:column;gap:10px;max-height:220px;overflow-y:auto}
   .bubble-wrap{display:flex;flex-direction:column}
   .bubble-wrap.user{align-items:flex-end}
   .bubble-wrap.assistant{align-items:flex-start}
   .bubble-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:4px}
-  .bubble{max-width:95%;padding:10px 14px;border-radius:8px;font-size:13px;line-height:1.6}
+  .bubble{max-width:88%;padding:10px 14px;border-radius:8px;font-size:13px;line-height:1.6}
   .bubble.user{background:var(--cyan-dim);border:1px solid var(--cyan-border)}
   .bubble.assistant{background:var(--card);border:1px solid var(--border)}
+  .quick-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+  .quick-btn{font-size:11px;padding:5px 10px;background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
+  .quick-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+  .status-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .status-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0}
+  .status-dot.active{background:var(--mint);animation:pulse 1.5s infinite}
+  .status-text{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)}
+  .info-box{background:rgba(0,201,255,0.05);border:1px solid var(--cyan-border);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:20px}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
@@ -67,33 +68,24 @@
 </div>
 <div class="container">
   <div class="page-title">Video Digital Twin</div>
-  <div class="page-sub">Start a live video session. The avatar listens and answers from your uploaded documents via Claude RAG.</div>
-  <div class="info-box">ℹ Upload documents in the <a href="/twincore.html" style="color:var(--cyan)">Knowledge Engine</a> first — the avatar answers from your indexed documents using Claude AI.</div>
+  <div class="page-sub">Start a live video session with your digital twin. The avatar responds with lip-synced video and voice.</div>
+  <div class="info-box">ℹ Upload documents in the <a href="/twincore.html" style="color:var(--cyan)">Knowledge Engine</a> first — use the RAG Query box on the right to get document-accurate answers alongside the video session.</div>
   <div class="video-layout">
     <div class="avatar-panel">
-      <video id="avatarVideo" autoplay playsinline></video>
-      <audio id="avatarAudio" autoplay></audio>
       <div class="connecting-overlay" id="connectingOverlay">
         <div class="connecting-icon">👤</div>
         <div class="connecting-title">TwinCore Avatar</div>
-        <div class="connecting-sub">Click "Start Session" to connect. Answers from your documents via Claude RAG.</div>
+        <div class="connecting-sub">Click "Start Session" to connect your digital twin</div>
       </div>
-      <div class="avatar-status">
-        <div class="status-dot" id="statusDot"></div>
-        <span id="statusText">Offline</span>
-      </div>
-      <div class="avatar-overlay">
-        <div class="avatar-name">Madhu</div>
-        <div class="avatar-role">CEO · Regovix · Claude RAG</div>
-      </div>
+      <iframe id="avatarIframe" class="avatar-iframe" style="display:none" allow="microphone;camera" allowfullscreen></iframe>
     </div>
     <div class="chat-panel">
       <div class="card">
         <div class="card-title">Session Controls</div>
-        <div class="card-sub">Start a live session — speak directly to the avatar.</div>
+        <div class="card-sub">Start a live video session with your digital twin.</div>
         <div class="status-row">
-          <div class="status-dot" id="statusDot2"></div>
-          <span class="status-label" id="statusText2">Offline</span>
+          <div class="status-dot" id="statusDot"></div>
+          <span class="status-text" id="statusText">Offline</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px">
           <button class="btn btn-primary" id="startBtn" onclick="startSession()">&#9654; Start Video Session</button>
@@ -101,29 +93,33 @@
         </div>
       </div>
       <div class="card">
+        <div class="card-title">RAG Query — From Your Documents</div>
+        <div class="card-sub">Ask a question answered from your uploaded documents via Claude AI.</div>
+        <div class="quick-btns">
+          <button class="quick-btn" onclick="setQuery('What are the spill prevention procedures?')">Spill prevention</button>
+          <button class="quick-btn" onclick="setQuery('What PPE is required for chemical handling?')">PPE requirements</button>
+          <button class="quick-btn" onclick="setQuery('What is Regovix and what do you offer?')">About Regovix</button>
+        </div>
+        <textarea class="query-input" id="queryInput" placeholder="Ask anything covered by your uploaded documents..."></textarea>
+        <button class="btn btn-primary" id="askBtn" onclick="askQuestion()">Ask Twin</button>
+      </div>
+      <div class="card">
         <div class="card-title">Conversation Log</div>
-        <div class="card-sub">Transcript of your session appears here.</div>
         <div class="chat-log" id="chatLog">
-          <div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Start a session and speak to begin.</div>
+          <div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Answers will appear here.</div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<script type="module">
-  import { LiveAvatarSession } from 'https://esm.sh/@heygen/liveavatar-web-sdk@latest';
-
+<script>
   var BASE_URL = window.location.origin;
-  var session = null;
   var isActive = false;
 
   function setStatus(text, type) {
-    ['statusDot','statusDot2'].forEach(function(id) {
-      document.getElementById(id).className = 'status-dot' + (type ? ' ' + type : '');
-    });
     document.getElementById('statusText').textContent = text;
-    document.getElementById('statusText2').textContent = text;
+    var dot = document.getElementById('statusDot');
+    dot.className = 'status-dot' + (type ? ' ' + type : '');
   }
 
   function setOverlay(icon, title, sub, showSpinner) {
@@ -138,6 +134,8 @@
     document.getElementById('connectingOverlay').style.display = 'none';
   }
 
+  function setQuery(text) { document.getElementById('queryInput').value = text; }
+
   function appendBubble(role, text) {
     var log = document.getElementById('chatLog');
     var placeholder = log.querySelector('div[style]');
@@ -145,115 +143,77 @@
     var wrap = document.createElement('div');
     wrap.className = 'bubble-wrap ' + role + ' fade-up';
     wrap.innerHTML = '<div class="bubble-label">' + (role === 'user' ? 'YOU' : 'TWIN') + '</div>' +
-      '<div class="bubble ' + role + '">' + text.replace(/\n/g,'<br>') + '</div>';
+      '<div class="bubble ' + role + '">' + text.replace(/\n/g, '<br>') + '</div>';
     log.appendChild(wrap);
     log.scrollTop = log.scrollHeight;
   }
 
-  // Intercept HTMLVideoElement.srcObject setter to catch when SDK sets video stream
-  var originalSrcObjectDescriptor = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'srcObject');
-  Object.defineProperty(HTMLMediaElement.prototype, 'srcObject', {
-    set: function(stream) {
-      console.log('[TwinCore] srcObject set on', this.tagName, 'stream:', stream);
-      originalSrcObjectDescriptor.set.call(this, stream);
-      if (stream && this.tagName === 'VIDEO' && stream instanceof MediaStream) {
-        console.log('[TwinCore] Video stream detected! Attaching to our video element.');
-        var ourVideo = document.getElementById('avatarVideo');
-        if (this !== ourVideo) {
-          // SDK created its own video — steal the stream
-          ourVideo.srcObject = stream;
-          ourVideo.play().catch(console.error);
-        }
-        hideOverlay();
-        setStatus('Connected — Claude RAG', 'active');
-        isActive = true;
-        document.getElementById('stopBtn').disabled = false;
-        document.getElementById('startBtn').textContent = 'Start Video Session';
-      }
-    },
-    get: function() {
-      return originalSrcObjectDescriptor.get.call(this);
-    }
-  });
-
-  window.startSession = async function() {
+  async function startSession() {
     var startBtn = document.getElementById('startBtn');
     startBtn.disabled = true;
-    setOverlay('', 'Connecting...', 'Getting session token with Claude RAG...', true);
+    setOverlay('', 'Connecting...', 'Getting embed URL from LiveAvatar...', true);
     setStatus('Connecting...', '');
-
     try {
-      var tokenRes = await fetch(BASE_URL + '/api/avatar-session', {
+      var res = await fetch(BASE_URL + '/api/avatar-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'get_token' }),
+        body: JSON.stringify({ action: 'get_embed' }),
       });
-      var tokenData = await tokenRes.json();
-      if (!tokenRes.ok) throw new Error(tokenData.error || 'Failed to get token');
-
-      console.log('[TwinCore] Got token, creating LiveAvatarSession...');
-      setOverlay('', 'Starting Avatar...', 'Loading your digital twin with Claude RAG...', true);
-
-      session = new LiveAvatarSession(tokenData.token, { voiceChat: true });
-
-      session.on('talking', function(isTalking) {
-        if (isActive) setStatus(isTalking ? 'Speaking...' : 'Connected — Claude RAG', isTalking ? 'speaking' : 'active');
-      });
-
-      session.on('transcript', function(data) {
-        console.log('[TwinCore] Transcript:', data);
-        if (data) {
-          var role = data.role || 'assistant';
-          var text = data.text || data.content || data.transcript || '';
-          if (text) appendBubble(role, text);
-        }
-      });
-
-      session.on('error', function(err) {
-        console.error('[TwinCore] Session error:', err);
-      });
-
-      session.on('closed', function() {
-        console.log('[TwinCore] Session closed');
-        setStatus('Disconnected', '');
-        isActive = false;
-      });
-
-      await session.start();
-      console.log('[TwinCore] session.start() completed');
-
-      // Backup: if stream interception didn't fire, mark connected anyway after delay
-      setTimeout(function() {
-        if (!isActive) {
-          console.log('[TwinCore] Backup: marking connected');
-          hideOverlay();
-          setStatus('Connected', 'active');
-          isActive = true;
-          document.getElementById('stopBtn').disabled = false;
-          startBtn.textContent = 'Start Video Session';
-        }
-      }, 5000);
-
+      var data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to get embed URL');
+      var iframe = document.getElementById('avatarIframe');
+      iframe.src = data.url;
+      iframe.style.display = 'block';
+      hideOverlay();
+      setStatus('Connected', 'active');
+      isActive = true;
+      document.getElementById('stopBtn').disabled = false;
+      startBtn.textContent = 'Start Video Session';
+      startBtn.disabled = false;
     } catch (err) {
-      console.error('[startSession] Error:', err);
       setOverlay('!', 'Connection Failed', err.message, false);
       setStatus('Error', '');
       startBtn.disabled = false;
       startBtn.textContent = 'Start Video Session';
     }
-  };
+  }
 
-  window.stopSession = async function() {
-    try { if (session) await session.stop(); } catch(e) { console.error(e); }
-    session = null;
+  async function askQuestion() {
+    var query = document.getElementById('queryInput').value.trim();
+    if (!query) return;
+    document.getElementById('queryInput').value = '';
+    document.getElementById('askBtn').disabled = true;
+    appendBubble('user', query);
+    try {
+      var res = await fetch(BASE_URL + '/api/avatar-query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: query }),
+      });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Query failed');
+      appendBubble('assistant', data.answer);
+    } catch (err) {
+      appendBubble('assistant', 'Sorry, I encountered an issue. Please try again.');
+    }
+    document.getElementById('askBtn').disabled = false;
+  }
+
+  function stopSession() {
+    var iframe = document.getElementById('avatarIframe');
+    iframe.src = '';
+    iframe.style.display = 'none';
     isActive = false;
-    document.getElementById('avatarVideo').srcObject = null;
     setOverlay('', 'TwinCore Avatar', 'Session ended. Click Start Session to reconnect.', false);
     setStatus('Offline', '');
     document.getElementById('startBtn').disabled = false;
     document.getElementById('startBtn').textContent = 'Start Video Session';
     document.getElementById('stopBtn').disabled = true;
-  };
+  }
+
+  document.getElementById('queryInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) askQuestion();
+  });
 </script>
 </body>
 </html>
