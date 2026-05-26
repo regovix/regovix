@@ -173,7 +173,7 @@
 
       setOverlay('', 'Starting Avatar...', 'Loading your digital twin...', true);
 
-      session = new LiveAvatarSession(sessionToken, { voiceChat: true });
+      session = new LiveAvatarSession(sessionToken, { voiceChat: false });
 
       // Listen to ALL events to find correct video event name
       var originalOn = session.on.bind(session);
