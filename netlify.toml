@@ -134,5 +134,10 @@
     Content-Type  = "video/mp4"
     Cache-Control = "public, max-age=86400"
     Accept-Ranges = "bytes"
+  
+    [[redirects]]
+  from = "/twincore-home"
+  to = "/twincore-home.html"
+  status = 200
 
 # NOTE: No catch-all /* redirect — this allows /.netlify/functions/* to work
