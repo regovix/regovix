@@ -178,7 +178,8 @@
       });
 
       // Handle video stream
-      session.on('stream', function(stream) {
+      session.on('STREAM_READY', function(event) {
+  var stream = event.detail || event;
         console.log('[TwinCore] Stream received');
         var video = document.getElementById('avatarVideo');
         video.srcObject = stream;
