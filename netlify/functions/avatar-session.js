@@ -30,10 +30,14 @@ exports.handler = async function(event) {
           "X-API-KEY": LIVEAVATAR_KEY,
         },
         body: JSON.stringify({
-          avatar_id: AVATAR_ID,
-          llm_configuration_id: LLM_CONFIG_ID,
-          mode: "FULL",
-        }),
+  avatar_id: AVATAR_ID,
+  llm_configuration_id: LLM_CONFIG_ID,
+  mode: "FULL",
+  avatar_persona: {
+    name: "Madhu",
+    system_prompt: "You are Madhu, CEO of Regovix. Answer professionally and helpfully.",
+  },
+}),
       });
 
       const data = await res.json();
