@@ -19,7 +19,7 @@
   .page-sub{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.7}
   .video-layout{display:grid;grid-template-columns:1fr 380px;gap:24px;margin-bottom:24px}
   .avatar-panel{background:#000;border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;min-height:480px}
-  .avatar-video{width:100%;height:100%;object-fit:cover;min-height:480px}
+  .avatar-video{width:100%;height:100%;object-fit:cover;min-height:480px;display:block}
   .avatar-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(7,11,18,0.9));padding:20px 16px 16px}
   .avatar-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700}
   .avatar-role{font-size:12px;color:var(--muted)}
@@ -53,10 +53,6 @@
   .bubble{max-width:95%;padding:10px 14px;border-radius:8px;font-size:13px;line-height:1.6}
   .bubble.user{background:var(--cyan-dim);border:1px solid var(--cyan-border)}
   .bubble.assistant{background:var(--card);border:1px solid var(--border)}
-  .mic-btn{width:60px;height:60px;border-radius:50%;background:var(--cyan);border:none;cursor:pointer;font-size:24px;display:flex;align-items:center;justify-content:center;margin:0 auto;transition:all 0.15s}
-  .mic-btn:hover{background:#22D8FF;transform:scale(1.05)}
-  .mic-btn.recording{background:var(--red);animation:pulse 1s infinite}
-  .mic-btn:disabled{opacity:0.4;cursor:not-allowed}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
@@ -71,16 +67,16 @@
 </div>
 <div class="container">
   <div class="page-title">Video Digital Twin</div>
-  <div class="page-sub">Start a live video session. The avatar listens to your voice and answers from your uploaded documents via Claude RAG.</div>
-  <div class="info-box">ℹ This session uses your Pinecone knowledge base — the avatar answers from your uploaded documents. Upload documents in the <a href="/twincore.html" style="color:var(--cyan)">Knowledge Engine</a> first.</div>
+  <div class="page-sub">Start a live video session. The avatar listens and answers from your uploaded documents via Claude RAG.</div>
+  <div class="info-box">ℹ Upload documents in the <a href="/twincore.html" style="color:var(--cyan)">Knowledge Engine</a> first — the avatar answers from your indexed documents using Claude AI.</div>
   <div class="video-layout">
-    <div class="avatar-panel">
+    <div class="avatar-panel" id="avatarPanel">
       <video id="avatarVideo" class="avatar-video" autoplay playsinline></video>
       <audio id="avatarAudio" autoplay></audio>
       <div class="connecting-overlay" id="connectingOverlay">
         <div class="connecting-icon">👤</div>
         <div class="connecting-title">TwinCore Avatar</div>
-        <div class="connecting-sub">Click "Start Session" to connect. The avatar will answer from your documents.</div>
+        <div class="connecting-sub">Click "Start Session" to connect. Answers from your documents via Claude RAG.</div>
       </div>
       <div class="avatar-status">
         <div class="status-dot" id="statusDot"></div>
@@ -88,13 +84,13 @@
       </div>
       <div class="avatar-overlay">
         <div class="avatar-name">Madhu</div>
-        <div class="avatar-role">CEO · Regovix · Powered by Claude RAG</div>
+        <div class="avatar-role">CEO · Regovix · Claude RAG</div>
       </div>
     </div>
     <div class="chat-panel">
       <div class="card">
         <div class="card-title">Session Controls</div>
-        <div class="card-sub">Start a live session — speak to the avatar directly.</div>
+        <div class="card-sub">Start a live session — speak directly to the avatar.</div>
         <div class="status-row">
           <div class="status-dot" id="statusDot2"></div>
           <span class="status-label" id="statusText2">Offline</span>
@@ -104,29 +100,23 @@
           <button class="btn btn-danger" id="stopBtn" onclick="stopSession()" disabled>&#9632; End Session</button>
         </div>
       </div>
-      <div class="card" style="text-align:center">
-        <div class="card-title">Voice Input</div>
-        <div class="card-sub">Press the microphone to speak to your twin.</div>
-        <button class="mic-btn" id="micBtn" disabled title="Hold to speak">🎤</button>
-        <div style="font-size:11px;color:var(--muted);margin-top:10px" id="micStatus">Start session first</div>
-      </div>
       <div class="card">
-        <div class="card-title">Conversation</div>
+        <div class="card-title">Conversation Log</div>
+        <div class="card-sub">Transcript of your session appears here.</div>
         <div class="chat-log" id="chatLog">
-          <div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Start a session to begin talking with your twin.</div>
+          <div style="text-align:center;padding:20px;color:var(--muted);font-size:13px">Start a session and speak to begin.</div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://unpkg.com/@heygen/liveavatar-web-sdk@latest/dist/liveavatar-web-sdk.umd.js"></script>
-<script>
+<script type="module">
+  import { LiveAvatarSession } from 'https://esm.sh/@heygen/liveavatar-web-sdk@latest';
+
   var BASE_URL = window.location.origin;
-  var avatar = null;
+  var session = null;
   var isActive = false;
-  var mediaRecorder = null;
-  var audioChunks = [];
 
   function setStatus(text, type) {
     ['statusDot','statusDot2'].forEach(function(id) {
@@ -161,14 +151,14 @@
     log.scrollTop = log.scrollHeight;
   }
 
-  async function startSession() {
+  window.startSession = async function() {
     var startBtn = document.getElementById('startBtn');
     startBtn.disabled = true;
-    setOverlay('', 'Connecting...', 'Getting session token with custom LLM...', true);
+    setOverlay('', 'Connecting...', 'Getting session token with Claude RAG...', true);
     setStatus('Connecting...', '');
 
     try {
-      // Get token from backend — includes llm_configuration_id
+      // Get session token from backend (includes llm_configuration_id)
       var tokenRes = await fetch(BASE_URL + '/api/avatar-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -177,58 +167,61 @@
       var tokenData = await tokenRes.json();
       if (!tokenRes.ok) throw new Error(tokenData.error || 'Failed to get token');
 
-      var token = tokenData.token;
-      console.log('[TwinCore] Got session token, initialising SDK...');
-
-      // Try LiveAvatar SDK
-      var SDKClass = window.LiveAvatar || window.LiveAvatarWebSDK ||
-        (window.liveavatar && window.liveavatar.LiveAvatar);
-
-      if (!SDKClass) {
-        // Fallback — use embed URL approach
-        console.log('[TwinCore] SDK not found, falling back to embed URL...');
-        await startWithEmbedFallback();
-        return;
-      }
+      var sessionToken = tokenData.token;
+      console.log('[TwinCore] Got session token, starting LiveAvatarSession...');
 
       setOverlay('', 'Starting Avatar...', 'Loading your digital twin with document knowledge...', true);
 
-      avatar = new SDKClass({ token: token });
+      // Use correct LiveAvatarSession class
+      session = new LiveAvatarSession(sessionToken, {
+        voiceChat: true,
+      });
 
-      avatar.on('STREAM_READY', function(event) {
+      // Handle video stream
+      session.on('stream', function(stream) {
+        console.log('[TwinCore] Stream received');
         var video = document.getElementById('avatarVideo');
-        if (event.detail) {
-          video.srcObject = event.detail;
-          video.play().catch(console.error);
-        }
+        video.srcObject = stream;
+        video.play().catch(console.error);
         hideOverlay();
-        setStatus('Connected — RAG Active', 'active');
+        setStatus('Connected — Claude RAG Active', 'active');
         isActive = true;
         document.getElementById('stopBtn').disabled = false;
-        document.getElementById('micBtn').disabled = false;
-        document.getElementById('micStatus').textContent = 'Click mic and speak';
         startBtn.textContent = 'Start Video Session';
       });
 
-      avatar.on('AVATAR_START_TALKING', function() { setStatus('Speaking...', 'speaking'); });
-      avatar.on('AVATAR_STOP_TALKING', function() { setStatus('Connected — RAG Active', 'active'); });
-      avatar.on('STREAM_DISCONNECTED', function() { setStatus('Disconnected', ''); isActive = false; });
-
-      await avatar.createStartAvatar({
-        avatarName: '64b526e4-741c-43b6-a918-4e40f3261c7a',
-        quality: 'medium',
+      session.on('talking', function(isTalking) {
+        setStatus(isTalking ? 'Speaking...' : 'Connected — Claude RAG Active', isTalking ? 'speaking' : 'active');
       });
+
+      session.on('transcript', function(data) {
+        if (data.role === 'user') appendBubble('user', data.text);
+        if (data.role === 'assistant') appendBubble('assistant', data.text);
+      });
+
+      session.on('error', function(err) {
+        console.error('[TwinCore] Session error:', err);
+        setStatus('Error', '');
+      });
+
+      session.on('closed', function() {
+        setStatus('Disconnected', '');
+        isActive = false;
+      });
+
+      await session.start();
+      console.log('[TwinCore] Session started successfully');
 
     } catch (err) {
       console.error('[startSession] Error:', err);
-      // Try embed fallback
-      await startWithEmbedFallback();
+      // Fall back to embed
+      console.log('[TwinCore] Falling back to embed...');
+      await startWithEmbed();
     }
-  }
+  };
 
-  async function startWithEmbedFallback() {
+  async function startWithEmbed() {
     var startBtn = document.getElementById('startBtn');
-    setOverlay('', 'Connecting...', 'Starting avatar session...', true);
     try {
       var res = await fetch(BASE_URL + '/api/avatar-session', {
         method: 'POST',
@@ -238,8 +231,7 @@
       var data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to get embed URL');
 
-      // Show iframe
-      var panel = document.getElementById('avatarVideo').parentElement;
+      var panel = document.getElementById('avatarPanel');
       var iframe = document.createElement('iframe');
       iframe.src = data.url;
       iframe.style.cssText = 'width:100%;height:100%;min-height:480px;border:none;border-radius:12px;position:absolute;inset:0';
@@ -249,9 +241,8 @@
       setStatus('Connected', 'active');
       isActive = true;
       document.getElementById('stopBtn').disabled = false;
-      startBtn.textContent = 'Start Video Session';
       startBtn.disabled = false;
-      document.getElementById('micStatus').textContent = 'Use microphone in video panel';
+      startBtn.textContent = 'Start Video Session';
     } catch(err) {
       setOverlay('!', 'Connection Failed', err.message, false);
       setStatus('Error', '');
@@ -260,59 +251,11 @@
     }
   }
 
-  // ── Voice input ───────────────────────────────────────────────
-  var micBtn = document.getElementById('micBtn');
-  micBtn.addEventListener('mousedown', startRecording);
-  micBtn.addEventListener('mouseup', stopRecording);
-  micBtn.addEventListener('touchstart', function(e) { e.preventDefault(); startRecording(); });
-  micBtn.addEventListener('touchend', function(e) { e.preventDefault(); stopRecording(); });
-
-  async function startRecording() {
-    if (!isActive) return;
-    try {
-      var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      audioChunks = [];
-      mediaRecorder = new MediaRecorder(stream);
-      mediaRecorder.ondataavailable = function(e) { audioChunks.push(e.data); };
-      mediaRecorder.start();
-      micBtn.classList.add('recording');
-      document.getElementById('micStatus').textContent = 'Listening...';
-    } catch(err) {
-      console.error('[mic] Error:', err);
-      document.getElementById('micStatus').textContent = 'Microphone error: ' + err.message;
-    }
-  }
-
-  async function stopRecording() {
-    if (!mediaRecorder || mediaRecorder.state === 'inactive') return;
-    micBtn.classList.remove('recording');
-    document.getElementById('micStatus').textContent = 'Processing...';
-
-    mediaRecorder.onstop = async function() {
-      var audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-      mediaRecorder.stream.getTracks().forEach(t => t.stop());
-
-      // Convert to base64 and send to STT
-      var reader = new FileReader();
-      reader.onload = async function() {
-        try {
-          // Use Web Speech API for STT (free, no extra service needed)
-          document.getElementById('micStatus').textContent = 'Click mic and speak';
-        } catch(err) {
-          console.error('[stt] Error:', err);
-        }
-      };
-      reader.readAsDataURL(audioBlob);
-    };
-    mediaRecorder.stop();
-  }
-
-  async function stopSession() {
-    try { if (avatar) await avatar.stopAvatar(); } catch(e) {}
-    // Remove any iframe
+  window.stopSession = async function() {
+    try { if (session) await session.stop(); } catch(e) {}
     var iframe = document.querySelector('iframe');
     if (iframe) iframe.remove();
-    avatar = null;
+    session = null;
     isActive = false;
     document.getElementById('avatarVideo').srcObject = null;
     setOverlay('', 'TwinCore Avatar', 'Session ended. Click Start Session to reconnect.', false);
@@ -320,9 +263,7 @@
     document.getElementById('startBtn').disabled = false;
     document.getElementById('startBtn').textContent = 'Start Video Session';
     document.getElementById('stopBtn').disabled = true;
-    document.getElementById('micBtn').disabled = true;
-    document.getElementById('micStatus').textContent = 'Start session first';
-  }
+  };
 </script>
 </body>
 </html>
