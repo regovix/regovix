@@ -31,11 +31,10 @@ exports.handler = async function(event) {
         },
         body: JSON.stringify({
   avatar_id: AVATAR_ID,
-  llm_configuration_id: LLM_CONFIG_ID,
   mode: "FULL",
   avatar_persona: {
     name: "Madhu",
-    system_prompt: "You are Madhu, CEO of Regovix. Answer professionally and helpfully.",
+    system_prompt: "You are Madhu, CEO of Regovix.",
   },
 }),
       });
