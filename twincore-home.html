@@ -7,7 +7,7 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{--bg:#070B12;--panel:#0D1321;--card:#111927;--border:#1A2540;--cyan:#00C9FF;--cyan-dim:rgba(0,201,255,0.1);--cyan-border:rgba(0,201,255,0.25);--mint:#00FFB2;--mint-dim:rgba(0,255,178,0.1);--mint-border:rgba(0,255,178,0.22);--amber:#FFB800;--amber-dim:rgba(255,184,0,0.1);--amber-border:rgba(255,184,0,0.25);--purple:#A855F7;--purple-dim:rgba(168,85,247,0.1);--purple-border:rgba(168,85,247,0.25);--text:#DDE6F5;--muted:#5A6A8A}
+  :root{--bg:#070B12;--panel:#0D1321;--card:#111927;--border:#1A2540;--cyan:#00C9FF;--cyan-dim:rgba(0,201,255,0.1);--cyan-border:rgba(0,201,255,0.25);--mint:#00FFB2;--mint-dim:rgba(0,255,178,0.1);--mint-border:rgba(0,255,178,0.22);--amber:#FFB800;--amber-dim:rgba(255,184,0,0.1);--amber-border:rgba(255,184,0,0.25);--purple:#A855F7;--purple-dim:rgba(168,85,247,0.1);--purple-border:rgba(168,85,247,0.25);--red:#FF4560;--text:#DDE6F5;--muted:#5A6A8A}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
   .topbar{background:var(--panel);border-bottom:1px solid var(--border);padding:0 40px;height:60px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
   .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--text);display:flex;align-items:center;gap:10px}
@@ -17,6 +17,35 @@
   .nav-link:hover{color:var(--cyan)}
   .pill{display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--mint-dim);border:1px solid var(--mint-border);color:var(--mint);margin-left:16px}
   .pill-dot{width:5px;height:5px;background:var(--mint);border-radius:50%;animation:pulse 1.5s infinite}
+
+  /* ── Gate overlay ── */
+  .gate{position:fixed;inset:0;background:rgba(7,11,18,0.97);z-index:500;display:flex;align-items:center;justify-content:center;padding:24px}
+  .gate-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;max-width:420px;width:100%;text-align:center}
+  .gate-icon{font-size:48px;margin-bottom:16px}
+  .gate-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;margin-bottom:8px}
+  .gate-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.7}
+  .gate-tabs{display:flex;gap:8px;margin-bottom:24px}
+  .gate-tab{flex:1;padding:10px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s}
+  .gate-tab.active{background:var(--cyan);border-color:var(--cyan);color:#070B12}
+  .gate-section{display:none}
+  .gate-section.active{display:block}
+  .gate-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-size:15px;font-family:'DM Sans',sans-serif;margin-bottom:12px;outline:none;text-align:center;letter-spacing:2px}
+  .gate-input:focus{border-color:var(--cyan)}
+  .gate-btn{width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all 0.15s;margin-bottom:8px}
+  .gate-btn-primary{background:var(--cyan);color:#070B12}
+  .gate-btn-primary:hover{background:#22D8FF}
+  .gate-btn-outline{background:none;border:1px solid var(--border);color:var(--muted)}
+  .gate-btn-outline:hover{border-color:var(--cyan);color:var(--cyan)}
+  .gate-error{color:var(--red);font-size:13px;margin-bottom:12px;display:none}
+  .gate-form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;text-align:left}
+  .gate-label{font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace}
+  .gate-form-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:14px;font-family:'DM Sans',sans-serif;outline:none}
+  .gate-form-input:focus{border-color:var(--cyan)}
+  .gate-success{color:var(--mint);font-size:13px;margin-bottom:12px;display:none}
+
+  /* ── Main content ── */
+  .main{display:none}
+  .main.visible{display:block}
   .hero{max-width:960px;margin:0 auto;padding:80px 24px 60px;text-align:center}
   .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;background:var(--cyan-dim);border:1px solid var(--cyan-border);color:var(--cyan);font-family:'IBM Plex Mono',monospace;font-size:11px;margin-bottom:28px;letter-spacing:1px}
   .hero-title{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;color:var(--text);line-height:1.1;margin-bottom:20px}
@@ -35,13 +64,12 @@
   .tag-video{background:var(--purple-dim);border:1px solid var(--purple-border);color:var(--purple)}
   .channel-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700}
   .channel-desc{font-size:13px;color:var(--muted);line-height:1.7}
-  .channel-action{margin-top:auto;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;transition:all 0.15s}
+  .channel-action{margin-top:auto;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-block}
   .action-web{background:var(--cyan);color:#070B12}
   .action-web:hover{background:#22D8FF}
   .action-phone{background:var(--amber);color:#070B12}
-  .action-phone:hover{background:#FFC933}
   .action-video{background:var(--purple);color:#fff}
-  .action-video:hover{background:#B978F8}
+  .access-note{font-size:11px;color:var(--muted);margin-top:8px;font-family:'IBM Plex Mono',monospace}
   .features{max-width:960px;margin:0 auto;padding:0 24px 80px}
   .features-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;text-align:center;margin-bottom:40px}
   .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -52,12 +80,62 @@
   .footer{border-top:1px solid var(--border);padding:24px 40px;display:flex;align-items:center;justify-content:space-between}
   .footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:14px;color:var(--muted)}
   .footer-text{font-size:12px;color:var(--muted)}
+  .logout-btn{font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;margin-left:16px}
+  .logout-btn:hover{color:var(--red)}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .fade-up{animation:fadeUp 0.4s ease both}
   @media(max-width:700px){.channels,.features-grid{grid-template-columns:1fr}.hero-title{font-size:36px}}
 </style>
 </head>
 <body>
 
+<!-- ── Gate ── -->
+<div class="gate" id="gate">
+  <div class="gate-box fade-up">
+    <div class="gate-icon">🔐</div>
+    <div class="gate-title">TwinCore Access</div>
+    <div class="gate-sub">TwinCore is a premium AI digital twin platform by Regovix. Enter your access code or request a demo.</div>
+
+    <div class="gate-tabs">
+      <button class="gate-tab active" onclick="switchTab('login')">Enter Code</button>
+      <button class="gate-tab" onclick="switchTab('request')">Request Access</button>
+    </div>
+
+    <!-- Login section -->
+    <div class="gate-section active" id="tab-login">
+      <input class="gate-input" id="passInput" type="password" placeholder="Enter access code" onkeydown="if(event.key==='Enter')checkPass()" autocomplete="off" />
+      <div class="gate-error" id="passError">Incorrect access code. Please try again or request access.</div>
+      <button class="gate-btn gate-btn-primary" onclick="checkPass()">Access TwinCore →</button>
+      <button class="gate-btn gate-btn-outline" onclick="switchTab('request')">Request Demo Access</button>
+    </div>
+
+    <!-- Request access section -->
+    <div class="gate-section" id="tab-request">
+      <div class="gate-form-group">
+        <label class="gate-label">Full Name</label>
+        <input class="gate-form-input" id="reqName" placeholder="Your name" />
+      </div>
+      <div class="gate-form-group">
+        <label class="gate-label">Company</label>
+        <input class="gate-form-input" id="reqCompany" placeholder="Company name" />
+      </div>
+      <div class="gate-form-group">
+        <label class="gate-label">Email</label>
+        <input class="gate-form-input" id="reqEmail" type="email" placeholder="your@email.com" />
+      </div>
+      <div class="gate-form-group">
+        <label class="gate-label">Use Case</label>
+        <input class="gate-form-input" id="reqUse" placeholder="e.g. HSEQ compliance, safety advisor" />
+      </div>
+      <div class="gate-success" id="reqSuccess">✓ Request sent! Madhu will be in touch within 1 business day.</div>
+      <button class="gate-btn gate-btn-primary" onclick="submitRequest()">Request Demo Access →</button>
+      <button class="gate-btn gate-btn-outline" onclick="switchTab('login')" style="margin-top:4px">I have an access code</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Topbar ── -->
 <div class="topbar">
   <div class="logo">
     <span class="logo-dot"></span>
@@ -65,90 +143,116 @@
     <span class="logo-sub">by Regovix</span>
   </div>
   <a href="https://regovix.com.au" class="nav-link">← Regovix</a>
+  <button class="logout-btn" onclick="logout()">Lock</button>
   <div class="pill"><span class="pill-dot"></span>Live Platform</div>
 </div>
 
-<div class="hero">
-  <div class="hero-badge">⚡ AI-Powered Digital Twin Platform</div>
-  <div class="hero-title">Your knowledge.<br><span>Three ways to access it.</span></div>
-  <div class="hero-sub">Upload your documents once. Let your AI digital twin answer questions via web, phone, or live video — powered by Claude AI and Pinecone RAG.</div>
-</div>
-
-<div class="channels">
-
-  <!-- Web Channel -->
-  <a href="/twincore.html" class="channel-card web">
-    <div class="channel-icon">🧠</div>
-    <div class="channel-tag tag-web">KNOWLEDGE ENGINE</div>
-    <div class="channel-title">Web Query</div>
-    <div class="channel-desc">Upload your documents and query your digital twin instantly. Get precise answers drawn from your indexed knowledge base.</div>
-    <button class="channel-action action-web">Open Knowledge Engine →</button>
-  </a>
-
-  <!-- Phone Channel -->
-  <div class="channel-card phone">
-    <div class="channel-icon">📞</div>
-    <div class="channel-tag tag-phone">PHONE CHANNEL</div>
-    <div class="channel-title">Call Your Twin</div>
-    <div class="channel-desc">Call your US number and speak naturally. Your digital twin answers from your documents using voice AI in real time.</div>
-    <div style="background:rgba(255,184,0,0.08);border:1px solid rgba(255,184,0,0.2);border-radius:8px;padding:12px 16px;width:100%;text-align:center">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:4px">US PHONE NUMBER</div>
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--amber);font-weight:600">Contact for access</div>
-    </div>
-    <div style="font-size:11px;color:var(--muted)">Voice · Real-time · RAG-powered</div>
+<!-- ── Main content ── -->
+<div class="main" id="mainContent">
+  <div class="hero">
+    <div class="hero-badge">⚡ AI-Powered Digital Twin Platform</div>
+    <div class="hero-title">Your knowledge.<br><span>Three ways to access it.</span></div>
+    <div class="hero-sub">Upload your documents once. Let your AI digital twin answer questions via web, phone, or live video — powered by Claude AI and Pinecone RAG.</div>
   </div>
 
-  <!-- Video Channel -->
-  <a href="/twincore-video.html" class="channel-card video">
-    <div class="channel-icon">🎥</div>
-    <div class="channel-tag tag-video">VIDEO AVATAR</div>
-    <div class="channel-title">Video Twin</div>
-    <div class="channel-desc">Start a live video session with your AI avatar. Speak naturally and watch your digital twin respond with lip-synced video.</div>
-    <button class="channel-action action-video">Start Video Session →</button>
-  </a>
+  <div class="channels">
+    <a href="/twincore.html" class="channel-card web">
+      <div class="channel-icon">🧠</div>
+      <div class="channel-tag tag-web">KNOWLEDGE ENGINE</div>
+      <div class="channel-title">Web Query</div>
+      <div class="channel-desc">Upload your documents and query your digital twin instantly. Get precise answers drawn from your indexed knowledge base.</div>
+      <span class="channel-action action-web">Open Knowledge Engine →</span>
+    </a>
 
-</div>
+    <div class="channel-card phone">
+      <div class="channel-icon">📞</div>
+      <div class="channel-tag tag-phone">PHONE CHANNEL</div>
+      <div class="channel-title">Call Your Twin</div>
+      <div class="channel-desc">Call your number and speak naturally. Your digital twin answers from your documents using voice AI in real time.</div>
+      <div style="background:rgba(255,184,0,0.08);border:1px solid rgba(255,184,0,0.2);border-radius:8px;padding:12px 16px;width:100%;text-align:center">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:4px">ACCESS NUMBER</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--amber);font-weight:600">Provided on request</div>
+      </div>
+      <div class="access-note">Contact maddypat@regovix.com.au for access</div>
+    </div>
 
-<div class="features">
-  <div class="features-title">Built for professionals</div>
-  <div class="features-grid">
-    <div class="feature">
-      <div class="feature-icon">📄</div>
-      <div class="feature-title">Unlimited Documents</div>
-      <div class="feature-desc">Upload DOCX, TXT, and Markdown files. Your knowledge base grows with your business.</div>
+    <a href="/twincore-video.html" class="channel-card video">
+      <div class="channel-icon">🎥</div>
+      <div class="channel-tag tag-video">VIDEO AVATAR</div>
+      <div class="channel-title">Video Twin</div>
+      <div class="channel-desc">Start a live video session with your AI avatar. Speak naturally and watch your digital twin respond with lip-synced video.</div>
+      <span class="channel-action action-video">Start Video Session →</span>
+    </a>
+  </div>
+
+  <div class="features">
+    <div class="features-title">Built for professionals</div>
+    <div class="features-grid">
+      <div class="feature"><div class="feature-icon">📄</div><div class="feature-title">Unlimited Documents</div><div class="feature-desc">Upload DOCX, TXT, and Markdown files. Your knowledge base grows with your business.</div></div>
+      <div class="feature"><div class="feature-icon">🔍</div><div class="feature-title">Semantic Search</div><div class="feature-desc">Pinecone vector search finds the most relevant content from thousands of pages instantly.</div></div>
+      <div class="feature"><div class="feature-icon">🤖</div><div class="feature-title">Claude AI Powered</div><div class="feature-desc">Anthropic's Claude generates precise, grounded answers — never hallucinating beyond your documents.</div></div>
+      <div class="feature"><div class="feature-icon">🔒</div><div class="feature-title">Secure & Private</div><div class="feature-desc">Your documents stay in your private Pinecone namespace. No data shared with third parties.</div></div>
+      <div class="feature"><div class="feature-icon">🌐</div><div class="feature-title">Three Channels</div><div class="feature-desc">Web, phone, and video — one knowledge base, three ways for clients to interact with your twin.</div></div>
+      <div class="feature"><div class="feature-icon">⚡</div><div class="feature-title">Always On</div><div class="feature-desc">Your digital twin works 24/7. Answer client questions while you sleep, travel, or focus on deep work.</div></div>
     </div>
-    <div class="feature">
-      <div class="feature-icon">🔍</div>
-      <div class="feature-title">Semantic Search</div>
-      <div class="feature-desc">Pinecone vector search finds the most relevant content from thousands of pages instantly.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🤖</div>
-      <div class="feature-title">Claude AI Powered</div>
-      <div class="feature-desc">Anthropic's Claude generates precise, grounded answers — never hallucinating beyond your documents.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🔒</div>
-      <div class="feature-title">Secure & Private</div>
-      <div class="feature-desc">Your documents stay in your private Pinecone namespace. No data shared with third parties.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">🌐</div>
-      <div class="feature-title">Three Channels</div>
-      <div class="feature-desc">Web, phone, and video — one knowledge base, three ways for clients to interact with your twin.</div>
-    </div>
-    <div class="feature">
-      <div class="feature-icon">⚡</div>
-      <div class="feature-title">Always On</div>
-      <div class="feature-desc">Your digital twin works 24/7. Answer client questions while you sleep, travel, or focus on deep work.</div>
-    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-logo">TwinCore · Regovix</div>
+    <div class="footer-text">Powered by Claude AI · Pinecone · LiveAvatar · Twilio</div>
   </div>
 </div>
 
-<div class="footer">
-  <div class="footer-logo">TwinCore · Regovix</div>
-  <div class="footer-text">Powered by Claude AI · Pinecone · LiveAvatar · Twilio</div>
-</div>
+<script>
+  var PASS = "twincore1978";
+  var SESSION_KEY = "twincore_access";
 
+  function checkPass() {
+    var input = document.getElementById("passInput").value.trim().toLowerCase().replace(/\s+/g,"");
+    var expected = PASS.replace(/\s+/g,"");
+    if (input === expected) {
+      sessionStorage.setItem(SESSION_KEY, "1");
+      document.getElementById("gate").style.display = "none";
+      document.getElementById("mainContent").classList.add("visible");
+    } else {
+      document.getElementById("passError").style.display = "block";
+      document.getElementById("passInput").value = "";
+      document.getElementById("passInput").focus();
+    }
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll(".gate-tab").forEach(function(t,i) {
+      t.classList.toggle("active", (i===0 && tab==="login") || (i===1 && tab==="request"));
+    });
+    document.getElementById("tab-login").classList.toggle("active", tab==="login");
+    document.getElementById("tab-request").classList.toggle("active", tab==="request");
+  }
+
+  function submitRequest() {
+    var name = document.getElementById("reqName").value.trim();
+    var company = document.getElementById("reqCompany").value.trim();
+    var email = document.getElementById("reqEmail").value.trim();
+    var use = document.getElementById("reqUse").value.trim();
+    if (!name || !email) { alert("Please enter your name and email."); return; }
+    var subject = encodeURIComponent("TwinCore Demo Request — " + company);
+    var body = encodeURIComponent("Name: " + name + "\nCompany: " + company + "\nEmail: " + email + "\nUse Case: " + use);
+    window.location.href = "mailto:maddypat@regovix.com.au?subject=" + subject + "&body=" + body;
+    document.getElementById("reqSuccess").style.display = "block";
+  }
+
+  function logout() {
+    sessionStorage.removeItem(SESSION_KEY);
+    document.getElementById("gate").style.display = "flex";
+    document.getElementById("mainContent").classList.remove("visible");
+    document.getElementById("passInput").value = "";
+  }
+
+  // Check if already authenticated
+  if (sessionStorage.getItem(SESSION_KEY) === "1") {
+    document.getElementById("gate").style.display = "none";
+    document.getElementById("mainContent").classList.add("visible");
+  }
+</script>
 </body>
 </html>
