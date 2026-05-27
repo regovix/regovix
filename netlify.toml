@@ -139,5 +139,19 @@
   from = "/twincore-home"
   to = "/twincore-home.html"
   status = 200
+  [[redirects]]
+  from = "/regwatchai"
+  to = "/regwatchai.html"
+  status = 200
+
+[[redirects]]
+  from = "/regwatchai-app"
+  to = "/regwatchai-app.html"
+  status = 200
+
+[[redirects]]
+  from = "/regwatchai-demo"
+  to = "/regwatchai-demo.html"
+  status = 200
 
 # NOTE: No catch-all /* redirect — this allows /.netlify/functions/* to work
