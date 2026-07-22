@@ -261,7 +261,7 @@ var KEY="RWA-DEMO-2026-TEST",CO="Regovix Free Demo",PL="standalone",US=0,LM=100;
 var RF="all",SF="all",AA=null,CH=[],AST={};
 var SCOL={CRITICAL:"#FF4444",HIGH:"#FF7A20",MEDIUM:"#FFD000",LOW:"#0BBFA0"};
 var APPS=["RiskMatrix","RiskReady","InductGuard","ToolboxGen","IncidentLoop","FleetCheck","ChemTrack","AuditMate","WellnessCheck","ComplianceVault","DGVault"];
-var AL=[
+// AL replaced
   {id:1,sev:"CRITICAL",rid:"adg",reg:"ADG Code",tt:"Table 5.5.2 — Class 5.1/Class 3 Segregation Tightened",su:"ADG Code 9th Edition Amendment 2 revised segregation between Class 5.1 oxidisers and Class 3 flammable liquids from Separated to Segregated, significantly increasing physical separation requirements.",apps:["DGVault","ChemTrack"],dt:"2026-05-01",rf:"ADG Code 9th Edition Amendment 2, Table 5.5.2",st:"open"},
   {id:2,sev:"HIGH",rid:"safework",reg:"SafeWork NSW",tt:"Confined Space Entry — Continuous Atmospheric Monitoring Now Required",su:"SafeWork NSW revised guidance mandating continuous atmospheric monitoring during occupation of all Class B confined spaces, replacing entry-only testing.",apps:["RiskReady","AuditMate"],dt:"2026-04-28",rf:"SafeWork NSW Guidance Note GN-CS-2026-03",st:"open"},
   {id:3,sev:"MEDIUM",rid:"swa",reg:"Safe Work Australia",tt:"Model WHS Regulations — Psychosocial Hazards Division 6A Finalised",su:"Safe Work Australia finalised amendments introducing Division 6A for psychosocial hazard management, requiring documented risk assessments for identified psychosocial hazards.",apps:["RiskMatrix","RiskReady","IncidentLoop"],dt:"2026-04-15",rf:"Model WHS Regulations Amendment 2026 — Division 6A",st:"in_progress"},
@@ -315,7 +315,7 @@ function doLaunch(){
   document.getElementById("LS").style.display="none";
   document.getElementById("APP").style.display="block";
   document.getElementById("CPL").textContent=CO;
-  updU();renderAll();
+  updU();loadLiveAlerts();
 }
 function updU(){document.getElementById("UPL").textContent=US+"/"+LM+" AI calls this month";}
 function doSignOut(){
@@ -468,7 +468,7 @@ async function doScan(){
   await sleep(600);
   document.getElementById("SM").style.display="none";ss.innerHTML="";bar.style.width="0%";
   btn.disabled=false;dot.classList.remove("sc");
-  document.getElementById("SCT").textContent="Last scan: just now";
+  await loadLiveAlerts();
 }
 
 function doExport(){
