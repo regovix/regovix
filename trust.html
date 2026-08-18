@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust & Security — Regovix</title>
+<meta name="description" content="How Regovix protects your data — hosting, encryption, access controls, AI data handling, subprocessors, backups, and data export. Australian HSEQ compliance software.">
+<link rel="icon" type="image/jpeg" href="regovix_icon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0D1B2A;--ink2:#1E3348;--ink3:#2D4A63;--teal:#0BBFA0;--teal2:#089980;--teal3:#E0FAF6;--teal4:#B2EDE5;--slate:#F4F7FA;--muted:#6B8399;--white:#FFFFFF;--border:#D8E4EE;}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);line-height:1.75}
+nav{background:var(--ink);padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{width:34px;height:34px;background:var(--teal);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.nav-logo-text{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-0.02em}
+.nav-logo-text span{color:var(--teal)}
+.nav-back{font-size:.85rem;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:#fff}
+.container{max-width:820px;margin:0 auto;padding:0 24px}
+.page-header{background:var(--ink);padding:64px 0 48px;text-align:center}
+.page-header h1{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:12px}
+.page-header p{color:rgba(255,255,255,.45);font-size:.9rem;max-width:560px;margin:0 auto}
+.last-updated{display:inline-block;background:rgba(11,191,160,.15);border:1px solid rgba(11,191,160,.25);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:500;color:var(--teal);margin-top:12px;letter-spacing:.04em}
+.content{padding:56px 0 80px}
+.section-block{margin-bottom:52px}
+.section-block h2{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:700;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--teal3)}
+.section-block h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--ink2);margin:20px 0 10px}
+.section-block p{font-size:.93rem;color:var(--ink3);margin-bottom:14px;line-height:1.8}
+.section-block ul{margin:10px 0 16px 20px}
+.section-block ul li{font-size:.93rem;color:var(--ink3);margin-bottom:8px;line-height:1.7}
+.section-block ul li::marker{color:var(--teal)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:32px 0}
+.summary-card{background:var(--slate);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.summary-card .icon{font-size:1.8rem;margin-bottom:8px}
+.summary-card .label{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.summary-card .value{font-size:.85rem;color:var(--muted)}
+.status-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.88rem}
+.status-table th{background:var(--ink);color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;padding:12px 16px;text-align:left}
+.status-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--ink3);vertical-align:top}
+.status-table tr:last-child td{border-bottom:none}
+.status-table tr:hover td{background:var(--teal3)}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:600;letter-spacing:.03em}
+.badge-green{background:#D1FAE5;color:#065F46}
+.badge-amber{background:#FEF3C7;color:#92400E}
+.badge-blue{background:#DBEAFE;color:#1E40AF}
+.highlight-box{background:var(--teal3);border:1px solid var(--teal4);border-left:4px solid var(--teal);border-radius:0 12px 12px 0;padding:18px 20px;margin:20px 0}
+.highlight-box p{color:var(--ink2);margin:0;font-size:.9rem;line-height:1.7}
+.highlight-box strong{color:var(--teal2)}
+.contact-box{background:var(--slate);border:1px solid var(--border);border-radius:12px;padding:28px;margin-top:32px;text-align:center}
+.contact-box h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:10px}
+.contact-box p{font-size:.9rem;color:var(--muted);margin-bottom:16px}
+.contact-box a.btn{display:inline-block;background:var(--teal);color:var(--ink);font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;padding:10px 24px;border-radius:8px;text-decoration:none;transition:background .2s}
+.contact-box a.btn:hover{background:var(--teal2)}
+.contact-box a{color:var(--teal);font-weight:500;text-decoration:none}
+footer{background:var(--ink);padding:28px 24px;text-align:center}
+footer p{font-size:.82rem;color:rgba(255,255,255,.25)}
+footer a{color:rgba(255,255,255,.4);text-decoration:none;margin:0 10px;transition:color .2s}
+footer a:hover{color:var(--teal)}
+@media(max-width:600px){.content{padding:40px 0 60px}.summary-grid{grid-template-columns:1fr 1fr}.status-table{font-size:.8rem}.status-table td,.status-table th{padding:8px 10px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg width="20" height="20" viewBox="0 0 30 30" fill="none">
+        <path d="M15 4L25 9.2V15C25 21 20 26 15 27.5C10 26 5 21 5 15V9.2L15 4Z" stroke="#0D1B2A" stroke-width="1.5" fill="none"/>
+        <path d="M9.5 15L13.5 19L20.5 11" stroke="#0D1B2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="nav-logo-text">Reg<span>ovix</span></div>
+  </a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <h1>Trust &amp; Security</h1>
+    <p>How Regovix protects your compliance data — hosting, encryption, access controls, AI data handling, and your rights as a customer.</p>
+    <div class="last-updated">Last updated: 18 August 2026</div>
+  </div>
+</div>
+
+<div class="content">
+<div class="container">
+
+  <div class="section-block">
+    <h2>At a glance</h2>
+    <div class="summary-grid">
+      <div class="summary-card"><div class="icon">🔒</div><div class="label">Encryption</div><div class="value">HTTPS everywhere. Data encrypted in transit at all times.</div></div>
+      <div class="summary-card"><div class="icon">🇦🇺</div><div class="label">Australian business</div><div class="value">ABN 19 735 810 326. Operated from Sydney, NSW.</div></div>
+      <div class="summary-card"><div class="icon">🚫</div><div class="label">No data selling</div><div class="value">Your data is never sold, rented, or shared with advertisers.</div></div>
+      <div class="summary-card"><div class="icon">📤</div><div class="label">Data export</div><div class="value">Export all records as PDF or CSV any time, including after cancellation.</div></div>
+      <div class="summary-card"><div class="icon">🤖</div><div class="label">AI training</div><div class="value">Anthropic does not train on API data by default under standard API terms.</div></div>
+      <div class="summary-card"><div class="icon">⚖️</div><div class="label">Privacy Act</div><div class="value">Compliant with Australian Privacy Act 1988 and 13 APPs.</div></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>1. Hosting &amp; infrastructure</h2>
+    <p>Regovix is a distributed platform. Different components use different infrastructure providers, each selected for reliability, security, and compliance.</p>
+    <table class="status-table">
+      <thead><tr><th>Component</th><th>Provider</th><th>Location</th><th>Standard</th></tr></thead>
+      <tbody>
+        <tr><td>Website &amp; serverless functions</td><td>Netlify, Inc.</td><td>United States</td><td><span class="badge badge-green">SOC 2 Type II</span></td></tr>
+        <tr><td>HSEQ apps (RiskMatrix, RiskReady, InductGuard, ToolboxGen, IncidentLoop, FleetCheck, ChemTrack, AuditMate, WellnessCheck, ComplianceVault, DGVault)</td><td>Base44 platform</td><td>United States</td><td><span class="badge badge-blue">Base44 policy applies</span></td></tr>
+        <tr><td>RegWatchAI alert database</td><td>Supabase (PostgreSQL)</td><td>Singapore (ap-southeast-1)</td><td><span class="badge badge-green">SOC 2 Type II</span></td></tr>
+        <tr><td>Payment processing</td><td>Stripe, Inc.</td><td>United States</td><td><span class="badge badge-green">PCI DSS Level 1</span></td></tr>
+        <tr><td>AI processing (RegWatchAI, CallAssist, chatbot)</td><td>Anthropic PBC</td><td>United States</td><td><span class="badge badge-green">SOC 2 Type II</span></td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box">
+      <p><strong>Australian data residency:</strong> If your organisation requires Australian data residency, please contact us at <a href="mailto:maddypat@regovix.com.au">maddypat@regovix.com.au</a>. Custom deployment options and Data Processing Agreements (DPAs) are available for enterprise and government clients with specific data sovereignty requirements.</p>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>2. Encryption &amp; access controls</h2>
+    <h3>Encryption in transit</h3>
+    <p>All data transmitted between your browser and Regovix is encrypted using TLS (HTTPS). We enforce HTTPS across all pages — there is no option to access Regovix over an unencrypted connection.</p>
+    <h3>Encryption at rest</h3>
+    <p>RegWatchAI alert data stored in Supabase is encrypted at rest using AES-256 encryption. Data stored within the Base44 platform is encrypted according to Base44's security standards — refer to Base44's security documentation for details.</p>
+    <h3>Access controls</h3>
+    <ul>
+      <li>Access to customer data is restricted to Madhu Pattarambil (Founder) on a strict need-to-know basis</li>
+      <li>Role-based access controls within each app — workers, supervisors, and administrators each see only what their role permits</li>
+      <li>No Regovix personnel can access your account data without your explicit consent or a valid legal obligation</li>
+      <li>Payment card data is never stored by Regovix — all payment processing is handled exclusively by Stripe</li>
+    </ul>
+    <h3>Authentication</h3>
+    <ul>
+      <li>All Regovix accounts are protected by password authentication — passwords are hashed and never stored in plain text</li>
+      <li>Session tokens expire automatically after inactivity</li>
+      <li>RegWatchAI uses licence key authentication — keys are validated server-side</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>3. AI data handling</h2>
+    <p>Regovix uses Claude AI (Anthropic) to power specific features. Understanding how AI data is handled is important for HSEQ compliance teams considering data governance.</p>
+    <h3>Which products use Anthropic AI?</h3>
+    <table class="status-table">
+      <thead><tr><th>Product</th><th>AI used for</th><th>Data sent to Anthropic</th></tr></thead>
+      <tbody>
+        <tr><td>RegWatchAI</td><td>Classifying regulatory alerts, generating compliance analysis</td><td>Regulatory source content, your query inputs</td></tr>
+        <tr><td>CallAssist</td><td>Live call guidance, transcription analysis</td><td>Call transcription text, operator queries</td></tr>
+        <tr><td>Website chatbot</td><td>Answering visitor questions about Regovix</td><td>Your chat messages only</td></tr>
+        <tr><td>11 core HSEQ apps</td><td>AI features within Base44 platform</td><td>Processed by Base44 — refer to Base44 Privacy Policy</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box">
+      <p><strong>Anthropic does not train its AI models on API data by default.</strong> Data submitted through RegWatchAI, CallAssist, or the Regovix chatbot is used solely to generate the response and is not retained by Anthropic for model training under their standard API terms. Avoid submitting sensitive personal information (individual worker names, medical details, personal incident details) into AI input fields where it is not required for the task.</p>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>4. Subprocessors</h2>
+    <p>Regovix uses the following third-party subprocessors to deliver the service. We have assessed each for security and compliance before use.</p>
+    <table class="status-table">
+      <thead><tr><th>Subprocessor</th><th>Purpose</th><th>Location</th><th>Data processed</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Netlify, Inc.</strong></td><td>Website hosting, serverless functions, form processing</td><td>USA</td><td>Web traffic, contact form submissions</td></tr>
+        <tr><td><strong>Base44</strong></td><td>Application platform for 11 HSEQ apps</td><td>USA</td><td>All data entered into core HSEQ apps</td></tr>
+        <tr><td><strong>Supabase</strong></td><td>RegWatchAI alert database</td><td>Singapore</td><td>Regulatory alert data, scan timestamps</td></tr>
+        <tr><td><strong>Anthropic PBC</strong></td><td>Claude AI — RegWatchAI, CallAssist, chatbot</td><td>USA</td><td>AI input text only — not retained after response</td></tr>
+        <tr><td><strong>Stripe, Inc.</strong></td><td>Payment processing and subscription management</td><td>USA</td><td>Payment card data, billing information</td></tr>
+        <tr><td><strong>GitHub, Inc.</strong></td><td>Source code repository and deployment pipeline</td><td>USA</td><td>Application code only — no customer data</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block">
+    <h2>5. Backups &amp; availability</h2>
+    <h3>RegWatchAI database (Supabase)</h3>
+    <ul>
+      <li>Automated daily backups with point-in-time recovery on Supabase infrastructure</li>
+      <li>Database hosted in Singapore (ap-southeast-1) with high availability</li>
+      <li>If the live scraper fails, the app degrades gracefully to cached alerts — no service interruption for users</li>
+    </ul>
+    <h3>HSEQ apps (Base44)</h3>
+    <ul>
+      <li>Backup and availability managed by Base44 platform — refer to Base44 service documentation for uptime SLAs</li>
+    </ul>
+    <h3>Website (Netlify)</h3>
+    <ul>
+      <li>Deployed via GitHub with instant rollback capability to any previous version</li>
+      <li>Netlify CDN provides global availability with automatic failover</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>6. Incident response</h2>
+    <h3>Data breach notification</h3>
+    <p>If a data breach occurs that is likely to result in serious harm, Regovix will:</p>
+    <ul>
+      <li>Notify affected customers by email within 72 hours of becoming aware of the breach</li>
+      <li>Notify the Office of the Australian Information Commissioner (OAIC) as required under the Notifiable Data Breaches (NDB) scheme</li>
+      <li>Provide a clear description of what occurred, what data was affected, and what steps are being taken</li>
+    </ul>
+    <h3>Reporting a security issue</h3>
+    <p>If you discover a security vulnerability, please report it responsibly to <a href="mailto:maddypat@regovix.com.au" style="color:var(--teal)">maddypat@regovix.com.au</a> with the subject line "Security Issue". We will acknowledge within 1 business day.</p>
+  </div>
+
+  <div class="section-block">
+    <h2>7. Data export &amp; portability</h2>
+    <p>Your compliance data belongs to you. Regovix is designed so you are never locked in.</p>
+    <ul>
+      <li><strong>PDF export</strong> — every risk assessment, SWMS, incident report, audit, and toolbox register can be exported as a professional PDF at any time</li>
+      <li><strong>CSV export</strong> — tabular data (chemical registers, DG stock, fleet records, wellness check-ins) can be exported as CSV</li>
+      <li><strong>After cancellation</strong> — your data remains accessible for 30 days, giving you time to export everything</li>
+      <li><strong>Account deletion</strong> — upon request, all personal data is securely purged within 90 days</li>
+      <li><strong>DPA available</strong> — Data Processing Agreements available on request for enterprise and government clients</li>
+    </ul>
+    <div class="highlight-box">
+      <p><strong>To request a data export or account deletion,</strong> email <a href="mailto:maddypat@regovix.com.au">maddypat@regovix.com.au</a>. Export requests processed within 5 business days. Deletion requests processed within 90 days.</p>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>8. Regulatory compliance status</h2>
+    <table class="status-table">
+      <thead><tr><th>Regulation / Standard</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Australian Privacy Act 1988</td><td><span class="badge badge-green">Compliant</span></td><td>13 Australian Privacy Principles applied. Full Privacy Policy at regovix.com.au/privacy</td></tr>
+        <tr><td>Notifiable Data Breaches (NDB) scheme</td><td><span class="badge badge-green">Compliant</span></td><td>Breach notification procedures in place</td></tr>
+        <tr><td>Australian Consumer Law</td><td><span class="badge badge-green">Compliant</span></td><td>Consumer guarantees apply. Refund policy at regovix.com.au/terms</td></tr>
+        <tr><td>GST — A New Tax System Act 1999</td><td><span class="badge badge-green">Compliant</span></td><td>GST registered. ABN 19 735 810 326. GST applied at checkout for Australian businesses.</td></tr>
+        <tr><td>ISO 27001 (Information Security)</td><td><span class="badge badge-amber">Not yet certified</span></td><td>Planned for Year 2 as enterprise customer base grows</td></tr>
+        <tr><td>SOC 2 Type II (Regovix entity)</td><td><span class="badge badge-amber">Not yet certified</span></td><td>Subprocessors Netlify, Anthropic, Supabase and Stripe hold their own SOC 2 certifications</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block">
+    <h2>9. Questions &amp; enterprise enquiries</h2>
+    <div class="contact-box">
+      <h3>Talk to Madhu directly</h3>
+      <p>For security questions, Data Processing Agreements, custom deployment options, Australian data residency requirements, or volume pricing for 50+ users — contact the founder directly.</p>
+      <p style="margin:16px 0"><a href="mailto:maddypat@regovix.com.au" class="btn">maddypat@regovix.com.au</a></p>
+      <p style="font-size:.82rem;color:var(--muted)">Responses within 1 business day &nbsp;·&nbsp; Sydney, NSW &nbsp;·&nbsp; ABN 19 735 810 326</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<footer>
+  <p>
+    <a href="/">Home</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <a href="/trust">Trust &amp; Security</a>
+    <a href="mailto:maddypat@regovix.com.au">Contact</a>
+  </p>
+  <p style="margin-top:10px">© 2026 Regovix | ABN 19 735 810 326 | Built in Australia for Australian businesses.</p>
+</footer>
+
+</body>
+</html>
