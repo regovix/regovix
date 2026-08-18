@@ -532,7 +532,7 @@ var chatOpen = false;
 var chatHistory = [];
 
 // System prompt is handled securely in the serverless function
-// var SYSTEM_PROMPT = "You are the Regovix website assistant. Regovix is an Australian HSEQ compliance SaaS platform built by Madhu Pattarambil, a practising HSEQ Advisor. Regovix has 11 live apps: RiskMatrix ($29/mo - visual risk matrix generator), RiskReady ($69/mo - risk assessment and SWMS builder), InductGuard ($49/mo - contractor induction management), ToolboxGen ($39/mo - AI toolbox talk generator), IncidentLoop ($49/mo - incident and near miss reporting), FleetCheck ($59/mo - vehicle pre-start inspections), ChemTrack ($59/mo - chemical register and SDS management), AuditMate ($69/mo - site inspections and NCR tracking), WellnessCheck ($79/mo - fatigue and fitness for duty), ComplianceVault ($59/mo - document control), DGVault ($89/mo - dangerous goods stock management). Bundles: Safety Essentials $199/mo, Risk & Compliance $249/mo, Chemical & DG $179/mo, Growth Bundle $299/mo (any 5 apps), Consultant Plan $449/mo (all 11 + white-label), Full Bundle $749/mo (all 11 apps). Free 21-day trial on every app - no credit card required - just fill in the contact form. Contact: maddypat@regovix.com.au. All apps are built for Australian WHS Act 2011, ADG Code, HVNL, and Australian regulatory requirements. Be friendly, helpful, concise, and Australian in tone. Always encourage users to request a free trial via the contact form. If asked about specific technical details you are unsure about, direct them to email maddypat@regovix.com.au.";
+// var SYSTEM_PROMPT = "You are the Regovix website assistant. Regovix is an Australian HSEQ compliance SaaS platform built by Madhu Pattarambil, a practising HSEQ Advisor. Regovix has 12 live apps: RiskMatrix ($29/mo - visual risk matrix generator), RiskReady ($69/mo - risk assessment and SWMS builder), InductGuard ($49/mo - contractor induction management), ToolboxGen ($39/mo - AI toolbox talk generator), IncidentLoop ($49/mo - incident and near miss reporting), FleetCheck ($59/mo - vehicle pre-start inspections), ChemTrack ($59/mo - chemical register and SDS management), AuditMate ($69/mo - site inspections and NCR tracking), WellnessCheck ($79/mo - fatigue and fitness for duty), ComplianceVault ($59/mo - document control), DGVault ($89/mo - dangerous goods stock management). Bundles: Safety Essentials $199/mo, Risk & Compliance $249/mo, Chemical & DG $179/mo, Growth Bundle $299/mo (any 5 apps), Consultant Plan $449/mo (all 12 + white-label), Full Bundle $749/mo (all 12 apps). Free 21-day trial on every app - no credit card required - just fill in the contact form. Contact: maddypat@regovix.com.au. All apps are built for Australian WHS Act 2011, ADG Code, HVNL, and Australian regulatory requirements. Be friendly, helpful, concise, and Australian in tone. Always encourage users to request a free trial via the contact form. If asked about specific technical details you are unsure about, direct them to email maddypat@regovix.com.au.";
 // */
 
 function toggleChat() {
@@ -640,7 +640,7 @@ function smartReply(q) {
   }
   // Pricing questions
   if (q.match(/price|cost|how much|pricing|fee|subscription|pay/)) {
-    return "HSEQ apps from $29/mo. CallAssist white-label from $1,500 setup + $299/mo (or $2,990/yr). Full Bundle (all 11 HSEQ apps) $749/mo. Every HSEQ app has a free 21-day trial. CallAssist has a live demo at regovix.com.au/callassist.html. Email maddypat@regovix.com.au for a quote!";
+    return "HSEQ apps from $29/mo. CallAssist white-label from $1,500 setup + $299/mo (or $2,990/yr). Full Bundle (all 12 HSEQ apps) $749/mo. Every HSEQ app has a free 21-day trial. CallAssist has a live demo at regovix.com.au/callassist.html. Email maddypat@regovix.com.au for a quote!";
   }
   // Trial/demo questions
   if (q.match(/trial|free|try|test|demo|start/)) {
@@ -668,7 +668,7 @@ function smartReply(q) {
   }
   // Bundle questions
   if (q.match(/bundle|package|all apps|discount|save/)) {
-    return "Bundles: Safety Essentials $199/mo · Risk & Compliance $249/mo · Chemical & DG $179/mo · Growth Bundle $299/mo (any 5) · Consultant Plan $449/mo (all 11 + white-label) · Full Bundle $749/mo (all 11 — save $312/mo). Annual plans save 2 months. CallAssist from $299/mo extra.";
+    return "Bundles: Safety Essentials $199/mo · Risk & Compliance $249/mo · Chemical & DG $179/mo · Growth Bundle $299/mo (any 5) · Consultant Plan $449/mo (all 12 + white-label) · Full Bundle $749/mo (all 11 — save $312/mo). Annual plans save 2 months. CallAssist from $299/mo extra.";
   }
   // Contact questions
   if (q.match(/contact|email|call|speak|talk|madhu/)) {
@@ -688,11 +688,11 @@ function smartReply(q) {
   }
   // RegWatchAI
   if (q.match(/regwatch|reg.watch|regulatory.watch|regulatory.monitor|regulatory.change|regulatory.alert|regulatory.intelligence|monitor.*regulation|regulation.*monitor/)) {
-    return "RegWatchAI is Regovix\'s 12th app — real-time Australian regulatory monitoring powered by Claude AI. It tracks SafeWork NSW, Safe Work Australia, ADG Code, EPA NSW, NHVR/HVNL, and AS/NZS Standards and alerts you the moment something changes. Plans: Add-On $49/mo (for existing Regovix customers), Standalone $99/mo, Consultant $149/mo (up to 15 client dashboards and white-label reports). Try the free demo at regowatchai.netlify.app — no login needed! For the full live AI version fill in the contact form to request a free 21-day trial.";
+    return "RegWatchAI is Regovix\'s 12th app — real-time Australian regulatory monitoring powered by Claude AI. It tracks SafeWork NSW, Safe Work Australia, ADG Code, EPA NSW, NHVR/HVNL, and AS/NZS Standards and alerts you the moment something changes. Plans: Add-On $49/mo (for existing Regovix customers), Standalone $99/mo, Consultant $149/mo (up to 15 client dashboards and white-label reports). Try the free demo at regovix.com.au/regwatchai-demo — no login needed! For the full live AI version fill in the contact form to request a free 21-day trial.";
   }
   // Greetings
   if (q.match(/^(hi|hello|hey|g.day|gday|howdy|good\s*(morning|afternoon|evening))[\s!?.]*$/)) {
-    return "G'day! I'm the Regovix assistant. I can help with our 11 HSEQ compliance apps, CallAssist white-label AI call assist, pricing, and free trials. What can I help you with today?";
+    return "G'day! I'm the Regovix assistant. I can help with our 12 HSEQ compliance apps, CallAssist white-label AI call assist, pricing, and free trials. What can I help you with today?";
   }
   // Default
   return "Great question! Email Madhu at maddypat@regovix.com.au or fill in the contact form above — Madhu responds within 1 business day with a personalised recommendation. Or try the CallAssist demo at regovix.com.au/callassist.html!";
@@ -981,13 +981,13 @@ function smartReply(q) {
     </div>
     <div class="app-card fade-in" style="border:1px solid rgba(0,201,255,.3);position:relative">
         <div class="app-card-top"><div class="app-icon" style="background:linear-gradient(135deg,#00C9FF,#00FFB2)">TC</div><span class="live-badge">Live</span><span style="font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:20px;background:#00C9FF;color:#070B12;text-transform:uppercase;letter-spacing:.04em;margin-left:4px">AI · Digital Twin</span></div>
-        <h3><a href="https://regovix-twincore-dev.netlify.app/twincore-home.html" style="color:inherit;text-decoration:none">TwinCore</a></h3>
+        <h3><a href="https://regovix.com.au/twincore-home" style="color:inherit;text-decoration:none">TwinCore</a></h3>
         <p>AI-powered personal digital twin platform. Upload your documents once — your twin answers questions via web query, phone call, or live video avatar. Powered by Claude AI and Pinecone RAG.</p>
         <div style="margin-top:12px;padding:10px 12px;background:rgba(0,201,255,.07);border:1px solid rgba(0,201,255,.15);border-radius:8px;font-size:.75rem;color:rgba(255,255,255,.55);line-height:1.6">
           <span style="color:#00C9FF;font-weight:600">Web · Phone · Video Avatar</span><br>
           Starter $299/mo · Professional $599/mo · Enterprise from $999/mo
         </div>
-        <a href="https://regovix-twincore-dev.netlify.app/twincore-home.html" class="btn btn-primary" style="margin-top:12px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex;background:#00C9FF;border-color:#00C9FF;color:#070B12">Try TwinCore Demo →</a>
+        <a href="https://regovix.com.au/twincore-home" class="btn btn-primary" style="margin-top:12px;font-size:.78rem;padding:8px 14px;width:100%;justify-content:center;display:inline-flex;background:#00C9FF;border-color:#00C9FF;color:#070B12">Try TwinCore Demo →</a>
         <a href="/twincore-pricing" style="margin-top:6px;font-size:.72rem;text-align:center;display:block;color:#00C9FF;text-decoration:underline;font-weight:500">View Pricing & Plans →</a>
       </div>
 
@@ -1462,7 +1462,7 @@ function smartReply(q) {
         <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">WellnessCheck</a>
         <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">ComplianceVault</a>
         <a href="/#contact" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'" href="/pricing.html">DGVault</a>
-        <a href="https://regowatchai.netlify.app/" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">RegWatchAI</a>
+        <a href="/regwatchai" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">RegWatchAI</a>
         <a href="/callassist.html" style="display:block;font-size:.85rem;color:#0BBFA0;margin-bottom:10px;text-decoration:none;font-weight:600" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">✦ CallAssist</a>
       </div>
 
@@ -1471,9 +1471,9 @@ function smartReply(q) {
         <h4 style="font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.25);margin-bottom:18px">Company</h4>
         <a href="/#about" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">About Regovix</a>
         <a href="/pricing.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Pricing</a>
-        <a href="/pricing.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">All 76 Plans</a>
+        <a href="/pricing.html" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">All Plans &amp; Pricing</a>
         <a href="#faq" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;text-decoration:none" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">FAQ</a>
-        <a href="https://regowatchai.netlify.app/" target="_blank" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">RegWatchAI</a>
+        <a href="/regwatchai" style="display:block;font-size:.85rem;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s" onmouseover="this.style.color='#0BBFA0'" onmouseout="this.style.color='rgba(255,255,255,.4)'">RegWatchAI</a>
         <a href="/callassist.html" style="display:block;font-size:.85rem;color:#0BBFA0;margin-bottom:10px;text-decoration:none;font-weight:600" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">✦ CallAssist Demo</a>
       </div>
 
