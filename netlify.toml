@@ -163,4 +163,9 @@
   to = "/clone-pricing.html"
   status = 200
 
+[[redirects]]
+  from = "/trust"
+  to = "/trust.html"
+  status = 200
+
 # NOTE: No catch-all /* redirect — this allows /.netlify/functions/* to work
