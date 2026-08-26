@@ -25,6 +25,7 @@
 <style>
 /* ── Reset & Tokens ─────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;max-width:100%}
 :root{
   --ink:#0D1B2A;
   --ink2:#1E3348;
@@ -91,10 +92,10 @@ nav.scrolled{background:rgba(13,27,42,.95);backdrop-filter:blur(12px);border-bot
 .hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
 
 /* ── Hero ─────────────────────────────────────────────────────── */
-.hero{background:var(--ink);min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:72px}
-.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(11,191,160,.12) 0%,transparent 70%);pointer-events:none}
+.hero{background:var(--ink);min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:72px;width:100%}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(11,191,160,.12) 0%,transparent 70%);pointer-events:none;overflow:hidden}
 .hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(27,111,255,.07) 0%,transparent 70%);pointer-events:none}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:80px 0}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:80px 0;width:100%}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(11,191,160,.12);border:1px solid rgba(11,191,160,.25);border-radius:20px;padding:6px 14px;margin-bottom:28px}
 .hero-eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
@@ -309,6 +310,20 @@ footer{background:#080F16;border-top:1px solid rgba(255,255,255,.05)}
   h2{font-size:1.6rem}
   .hero-btns{flex-direction:column}
   .cta-btns{flex-direction:column;align-items:center}
+}
+@media(max-width:420px){
+  .hero-grid{padding:48px 0;gap:24px}
+  .container{padding:0 16px}
+  .hero-sub{font-size:.95rem}
+  .hero-btns{gap:10px}
+  .btn{font-size:.85rem;padding:12px 18px}
+  .stat-row{grid-template-columns:1fr 1fr}
+  .section-label{font-size:.72rem}
+  h1{font-size:1.75rem}
+  h2{font-size:1.4rem}
+  .dashboard-mock{display:none}
+  .footer-main{gap:24px}
+  .nav-logo-text{font-size:1.1rem}
 }
 
 /* ── CONTACT FORM VISIBILITY FIX ──────────────────────────────
@@ -697,6 +712,14 @@ function smartReply(q) {
   // Default
   return "Great question! Email Madhu at maddypat@regovix.com.au or fill in the contact form above — Madhu responds within 1 business day with a personalised recommendation. Or try the CallAssist demo at regovix.com.au/callassist.html!";
 }
+</script>
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L6R8VNWWH8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-L6R8VNWWH8');
 </script>
 </head>
 <body>
